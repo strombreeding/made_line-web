@@ -1,0 +1,52 @@
+.formGroup {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  outline: none;
+  font-size: 18px;
+  font-weight: 400;
+
+  &:focus,
+  &:not(:placeholder-shown) {
+    border: 1px solid #232323;
+  }
+
+  &:focus {
+    border: 1.5px solid #900b09;
+  }
+}
+
+.label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  background-color: white;
+  padding: 0 5px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e1e1e;
+  pointer-events: none;
+
+  .input:focus + &,
+  .input:not(:placeholder-shown) + & {
+    top: 0px;
+    left: 10px;
+    font-size: 12px;
+  }
+
+  .input:focus + & {
+    color: #900b09;
+  }
+
+  .input:not(:focus):placeholder-shown + & {
+    color: #232323;
+  }
+}

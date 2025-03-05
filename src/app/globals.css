@@ -1,0 +1,55 @@
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit; /* 부모 요소의 폰트를 상속받음 */
+  font-size: inherit; /* 부모 요소와 동일한 글꼴 크기 */
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+button:hover {
+  opacity: 0.9;
+}
+
+input[type="checkbox"] {
+  appearance: none; /* 기본(네이티브) 모양을 제거 */
+  box-sizing: border-box;
+  background-clip: content-box;
+  width: 20px;
+  border-radius: 4px;
+  height: 20px;
+  border: 2px solid black;
+  cursor: pointer;
+  accent-color: black;
+}
+input[type="checkbox"]:checked {
+  background: url(/images//check.png) black no-repeat center;
+  border: none;
+}
+
+#commonBtn {
+  border-radius: 10px;
+  padding: 16px 8px;
+  background-color: #913b21;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 21px;
+}

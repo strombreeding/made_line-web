@@ -1,0 +1,20 @@
+.background {
+  display: flex;
+  flex-direction: row;
+  background-color: #913b21;
+  width: 100vw;
+  height: 100vh;
+}
+
+.loginWrapper {
+  display: flex;
+  /* width: 41vw; */
+  min-width: 591px;
+  max-width: 591px;
+  padding: 37px 32px 32px 32px;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+}
