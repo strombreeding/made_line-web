@@ -1,0 +1,30 @@
+.wrapper {
+  display: flex;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff;
+}
+
+.leftArea {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  min-width: 256px;
+  max-width: 256px;
+  padding: 24px 16px 24px 16px;
+  border-right: 1px solid #dde1e6;
+  background-color: white;
+}
+
+.rightArea {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: #f2f4f8;
+}

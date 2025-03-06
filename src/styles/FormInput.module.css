@@ -4,6 +4,55 @@
   width: 100%;
 }
 
+.dateInput {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  outline: none;
+  font-size: 15px;
+  font-weight: 400;
+  color: #9a9a9a;
+}
+
+.dateInput:focus {
+  border: 1.5px solid #900b09;
+}
+
+.dateInput[data-has-value="true"] {
+  border: 1px solid #232323;
+  color: #232323;
+}
+
+.dateLabel {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  background-color: white;
+  padding: 0 5px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #9a9a9a;
+  pointer-events: none;
+}
+
+.dateInput:focus + .dateLabel,
+.dateInput:not(:placeholder-shown) + .dateLabel {
+  top: 0px;
+  left: 10px;
+  font-size: 12px;
+}
+
+.dateInput:focus + .dateLabel {
+  color: #900b09;
+}
+
+.dateInput:not(:focus):placeholder-shown + .dateLabel,
+.dateInput[data-has-value="true"] + .dateLabel {
+  color: #232323;
+}
+
 .input {
   width: 100%;
   padding: 16px;
@@ -12,15 +61,16 @@
   outline: none;
   font-size: 18px;
   font-weight: 400;
+  color: #232323;
+}
 
-  &:focus,
-  &:not(:placeholder-shown) {
-    border: 1px solid #232323;
-  }
+.input:focus,
+.input:not(:placeholder-shown) {
+  border: 1px solid #232323;
+}
 
-  &:focus {
-    border: 1.5px solid #900b09;
-  }
+.input:focus {
+  border: 1.5px solid #900b09;
 }
 
 .label {
@@ -32,21 +82,22 @@
   padding: 0 5px;
   font-size: 14px;
   font-weight: 500;
-  color: #1e1e1e;
+  color: #9a9a9a;
   pointer-events: none;
+}
 
-  .input:focus + &,
-  .input:not(:placeholder-shown) + & {
-    top: 0px;
-    left: 10px;
-    font-size: 12px;
-  }
+.input:focus + .label,
+.input:not(:placeholder-shown) + .label {
+  top: 0px;
+  left: 10px;
+  font-size: 12px;
+  color: #232323;
+}
 
-  .input:focus + & {
-    color: #900b09;
-  }
+.input:focus + .label {
+  color: #900b09;
+}
 
-  .input:not(:focus):placeholder-shown + & {
-    color: #232323;
-  }
+.input:not(:focus):placeholder-shown + .label {
+  color: #9a9a9a;
 }

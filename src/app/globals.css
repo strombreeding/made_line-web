@@ -15,7 +15,8 @@ a {
 
 input,
 button,
-textarea {
+textarea,
+select {
   font-family: inherit; /* 부모 요소의 폰트를 상속받음 */
   font-size: inherit; /* 부모 요소와 동일한 글꼴 크기 */
 }
@@ -42,6 +43,27 @@ input[type="checkbox"] {
 input[type="checkbox"]:checked {
   background: url(/images//check.png) black no-repeat center;
   border: none;
+}
+
+select {
+  appearance: none;
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  outline: none;
+  font-size: 15px;
+  font-weight: 400;
+  color: #9a9a9a;
+}
+
+select[data-has-value="true"] {
+  border: 1px solid #232323;
+  color: #232323;
+}
+
+select:focus {
+  border: 1.5px solid #900b09;
 }
 
 #commonBtn {

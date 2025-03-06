@@ -6,45 +6,23 @@ import style from "../styles/Login.module.css";
 import EmptyArea from "./EmptyArea";
 import Link from "next/link";
 import { z } from "zod";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import useLoginHook from "../hooks/useLogin";
 
 export default function Login() {
   const searchParams = useSearchParams();
+  const route = useRouter();
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [keepLogin, setkeepLogin] = useState(false);
 
-  const emailValidation = () => {
-    try {
-      const EmailSchema = z.string().email("이메일 형식이 올바르지 않습니다.");
-      EmailSchema.parse(email);
-    } catch (err) {
-      if (JSON.stringify(err).includes("이메일 형식")) {
-        throw new Error("이메일 형식이 올바르지 않습니다.");
-      }
-      alert(err);
-    }
-  };
-
-  const pwValidation = () => {
-    // 문 + 특 + 숫 포함
-    const regex =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]).*$/;
-    const isValid = regex.test(pw);
-    if (!isValid) {
-      throw new Error("비밀번호에 문자, 숫자, 특수문자를 포함해주세요.");
-    }
-
-    // 8자 이상 확인
-    if (pw.length < 8) {
-      throw new Error("비밀번호는 8자 이상 입력해주세요.");
-    }
-  };
+  const { emailValidation, pwValidation } = useLoginHook();
 
   const reqUserLogin = async () => {
     try {
-      emailValidation();
-      pwValidation();
+      emailValidation(email);
+      pwValidation(pw);
+      route.replace("/main");
       return alert("로그인 성공!");
     } catch (err) {
       if (err instanceof Error) {
@@ -55,6 +33,7 @@ export default function Login() {
     }
   };
 
+  console.log(searchParams.get("join"));
   if (searchParams.get("join")) {
     return null;
   }
@@ -65,12 +44,22 @@ export default function Login() {
 
       <span className={style.subTitle}>이메일 계정을 입력해주세요</span>
 
-      <form style={{ display: "flex", flexDirection: "column" }}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+        style={{ display: "flex", flexDirection: "column" }}
+      >
         <FormInput label={"이메일"} value={email} setValue={setEmail} />
 
         <EmptyArea height={20} />
 
-        <FormInput label={"비밀번호"} value={pw} setValue={setPw} />
+        <FormInput
+          type="password"
+          label={"비밀번호"}
+          value={pw}
+          setValue={setPw}
+        />
 
         <EmptyArea height={20} />
 

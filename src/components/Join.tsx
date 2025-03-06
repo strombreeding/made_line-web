@@ -7,103 +7,56 @@ import EmptyArea from "./EmptyArea";
 import Link from "next/link";
 import { z } from "zod";
 import { useSearchParams } from "next/navigation";
+import useLoginHook from "../hooks/useLogin";
+import { useRouter } from "next/navigation";
 
 export default function Join() {
   const searchParams = useSearchParams();
-
+  const route = useRouter();
   const [name, setName] = useState("");
   const [dateString, setBirth] = useState("");
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
-  const [keepLogin, setkeepLogin] = useState(false);
+  const [location, setLocation] = useState("default");
+  const {
+    validateName,
+    validateDateFormat,
+    emailValidation,
+    pwValidation,
+    locationValidation,
+  } = useLoginHook();
 
-  const validateName = () => {
-    // 1. 공백, 한글, 영어, 숫자를 허용하는 정규식
-    const validCharacters = /^[가-힣a-zA-Z0-9\s]+$/;
-
-    // 2. 한글 자음만 있는 경우를 체크하는 정규식
-    const koreanConsonantsOnly = /^[ㄱ-ㅎ\s]+$/;
-
-    // 3. 문자열이 비어있지 않은지 확인
-    if (name.trim().length === 0) {
-      throw new Error("이름을 입력해주세요.");
-    }
-
-    // 4. 유효한 문자만 포함되어 있는지 확인
-    if (!validCharacters.test(name)) {
-      throw new Error("유효한 문자만 입력해주세요.");
-    }
-
-    // 5. 한글 자음만 있는 경우 거부
-    if (koreanConsonantsOnly.test(name)) {
-      throw new Error("한글 자음은 포함될 수 없습니다.");
-    }
-
-    // 6. 숫자만으로 이루어진 경우 거부
-    if (/^\d+$/.test(name.trim())) {
-      throw new Error("이름은 숫자로만 이루어질 수 없습니다.");
-    }
-
-    // 모든 조건을 통과하면 true 반환
-  };
-
-  const validateDateFormat = () => {
-    // YYYY-MM-DD 형식을 체크하는 정규식
-    const dateFormatRegex = /^\d{4}-\d{2}-\d{2}$/;
-
-    if (!dateFormatRegex.test(dateString)) {
-      throw new Error("날짜 양식이 맞지 않습니다.");
-    }
-
-    // 날짜가 유효한지 확인
-    const [year, month, day] = dateString.split("-").map(Number);
-    const date = new Date(year, month - 1, day);
-
-    if (date.getFullYear() !== year) {
-      throw new Error("유효하지 않은 연도 입니다.");
-    }
-    if (date.getMonth() !== month - 1) {
-      throw new Error("유효하지 않은 월 입니다.");
-    }
-    if (date.getDate() !== day) {
-      throw new Error("유효하지 않은 일자 입니다.");
-    }
-  };
-
-  const emailValidation = () => {
+  const validationCheck = () => {
     try {
-      const EmailSchema = z.string().email("이메일 형식이 올바르지 않습니다.");
-      EmailSchema.parse(email);
+      validateName(name);
+      validateDateFormat(dateString);
+      emailValidation(email);
+      pwValidation(pw);
+      locationValidation(location);
+      return;
     } catch (err) {
-      if (JSON.stringify(err).includes("이메일 형식")) {
-        throw new Error("이메일 형식이 올바르지 않습니다.");
+      if (err instanceof Error) {
+        throw new Error(err.message);
+      } else {
+        throw new Error("알 수 없는 오류가 발생했습니다.");
       }
-      alert(err);
-    }
-  };
-
-  const pwValidation = () => {
-    // 문 + 특 + 숫 포함
-    const regex =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]).*$/;
-    const isValid = regex.test(pw);
-    if (!isValid) {
-      throw new Error("비밀번호에 문자, 숫자, 특수문자를 포함해주세요.");
-    }
-
-    // 8자 이상 확인
-    if (pw.length < 8) {
-      throw new Error("비밀번호는 8자 이상 입력해주세요.");
     }
   };
 
   const reqUserLogin = async () => {
     try {
-      validateName();
-      validateDateFormat();
-      emailValidation();
-      pwValidation();
-      return alert("로그인 성공!");
+      validationCheck();
+
+      const res = await fetch("/api/join", {
+        method: "POST",
+        body: JSON.stringify({ name, birth: dateString, email, pw, location }),
+      });
+
+      alert(
+        "회원가입 요청이 완료되었습니다.\n최고관리자가 수락하면 로그인할 수 있습니다"
+      );
+      route.back();
+      return;
     } catch (err) {
       if (err instanceof Error) {
         alert(err.message);
@@ -113,7 +66,8 @@ export default function Join() {
     }
   };
 
-  if (!searchParams.get("join")) {
+  console.log(searchParams.get("join"));
+  if (!searchParams.get("join") || searchParams.get("join") === "false") {
     return null;
   }
 
@@ -123,7 +77,12 @@ export default function Join() {
 
       <span className={style.subTitle}>메이드라인에 오신 것을 환영합니다</span>
 
-      <form style={{ display: "flex", flexDirection: "column" }}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+        style={{ display: "flex", flexDirection: "column" }}
+      >
         <FormInput type="text" label={"이름"} value={name} setValue={setName} />
 
         <EmptyArea height={20} />
@@ -133,6 +92,7 @@ export default function Join() {
           label={"생년월일"}
           value={dateString}
           setValue={setBirth}
+          isDateInput
         />
 
         <EmptyArea height={20} />
@@ -149,6 +109,20 @@ export default function Join() {
         />
 
         <EmptyArea height={20} />
+
+        <select
+          data-has-value={location !== "default"}
+          onChange={(e) => {
+            setLocation(e.currentTarget.value);
+          }}
+        >
+          <option value="default">지점 선택</option>
+          <option value="남양주 다산점">남양주 다산점</option>
+          <option value="양주 옥정점">양주 옥정점</option>
+          <option value="의정부 가능점">의정부 가능점</option>
+          <option value="파주 운정점">파주 운정점</option>
+          <option value="전체 지점 총괄">전체 지점 총괄</option>
+        </select>
 
         <EmptyArea height={20} />
 
