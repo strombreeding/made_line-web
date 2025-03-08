@@ -18,6 +18,7 @@ export default function Home() {
           justifyContent: "center",
         }}
       >
+        <div></div>
         <Image
           src="/images/login-logo.png"
           alt="Login Logo"

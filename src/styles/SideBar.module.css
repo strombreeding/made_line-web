@@ -4,3 +4,30 @@
   flex-direction: column;
   align-items: center;
 }
+
+.loginUserInfo {
+  display: flex;
+  flex-direction: row;
+  padding: 8px 10px;
+  width: 100%;
+  align-items: center;
+}
+
+.loginUserInfoImgWrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2f4f8;
+  margin-right: 10px;
+}
+
+.sideBarMenuList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
