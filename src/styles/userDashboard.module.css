@@ -1,0 +1,120 @@
+.mainWrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 20px;
+  padding: 30px 25px;
+}
+
+.graphWrapper {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  height: auto;
+  padding: 20px;
+  box-shadow: 0px 0px 4px 0px #00000040;
+  border-radius: 10px;
+}
+
+.stickChart {
+  margin-bottom: 19px;
+  max-height: 211px;
+  min-width: 58px;
+  border-radius: 5px;
+  background-color: #958ffc;
+  box-shadow: 3px 3px 3px 0px #00000040;
+  height: 211px;
+}
+
+.itemTitle {
+  font-size: 16px;
+  font-weight: 400;
+  color: #697077;
+  padding-bottom: 16px;
+}
+
+.stickChartDropdown {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: auto;
+  max-width: 190px;
+  padding: 16px 11px;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  border: 1px solid var(--Border-Default-Default, #d9d9d9);
+  gap: 5px;
+  margin-bottom: 54px;
+}
+
+.stickChartTitle {
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #697077;
+}
+
+.stickChartDropdownText {
+  font-size: 24px;
+  font-weight: 700;
+  color: #21272a;
+  line-height: 110%;
+}
+
+.stickChartWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.stickChartRowWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stickChartAbsoluteItem {
+  position: absolute;
+  top: -20px;
+  border-radius: 100px;
+  background-color: #eceaf8;
+  padding: 12px 9px 12px 9px;
+  box-shadow: 0px 0px 2px 0px #00000040;
+}
+.stickChartAbsoluteItem > span {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 100%;
+  color: #000000;
+}
+
+.stickChartBottomText {
+  font-size: 10px;
+  font-weight: 700;
+  color: #767676;
+  line-height: 100%;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  width: 715px;
+  max-width: 715px;
+}
+
+.leaveRateWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  background-color: white;
+  height: auto;
+  padding: 20px;
+  box-shadow: 0px 0px 4px 0px #00000040;
+  border-radius: 10px;
+}

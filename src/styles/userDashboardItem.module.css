@@ -1,0 +1,54 @@
+.itemWrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 16px;
+  box-shadow: 0px 0px 4px 0px #00000040;
+  border-radius: 10px;
+}
+
+.itemHeader {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0px;
+}
+
+.itemTitle {
+  font-size: 16px;
+  font-weight: 400;
+  color: #697077;
+}
+
+.itemContentWrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.itemNumberText {
+  font-size: 40px;
+  font-weight: 700;
+  color: #21272a;
+  line-height: 110%;
+}
+
+.findBtn {
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 1px 1px 3px 0px #00000040;
+  font-weight: 400;
+  color: #697077;
+  padding: 2px 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-radius: 12px;
+}
+
+.findBtnText {
+  font-size: 14px;
+  font-weight: 400;
+  color: #1e1e1e;
+}
