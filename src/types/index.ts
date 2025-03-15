@@ -1,6 +1,9 @@
+import { IUserListFilterProps } from "./users";
+
 export type SidebarItemType = "users" | "reservation" | "pnl" | "bell";
 
 export interface IUserProps {
+  id?: number;
   name: string;
   contact: {
     phone: string;
@@ -53,15 +56,7 @@ export interface IReqUserListProps {
   specialOrder: 0;
   pagePerCnt: 10;
   requestPage: number;
-  filters: {
-    name: "DESC" | "ASC";
-    locations: "DESC" | "ASC";
-    expirationDate: "DESC" | "ASC";
-    lastReRegisteredAt: "DESC" | "ASC";
-    membershipType: string[]; // ["등록회원", "종료회원", "체험회원", ...]
-    memberships: string[]; // ["포톤테라피", "바이브핏", ...]
-    membershipLevel: string[]; // ["신규", "재등록", "VIP", ...]
-  };
+  filters: IUserListFilterProps;
 }
 
 export interface IUserListProps {

@@ -1,5 +1,7 @@
 import Image from "next/image";
 import styles from "@/styles/userDashboardItem.module.css";
+import { specialOrders, useUserStore } from "../../../store/userStore";
+import { useGlobalStore } from "../../../store/globalStore";
 export default function Items({
   number,
   title,
@@ -7,6 +9,9 @@ export default function Items({
   number: number;
   title: string;
 }) {
+  const setSpecialOrder = useUserStore((state) => state.setSpecialOredr);
+  const setSelectedTab = useGlobalStore((state) => state.setSelectedTab);
+
   return (
     <div className={styles.itemWrapper}>
       <div className={styles.itemHeader}>
@@ -19,7 +24,10 @@ export default function Items({
           <div
             className={styles.findBtn}
             onClick={() => {
-              alert("그만말해");
+              const findIdx = specialOrders.findIndex((item) => item === title);
+              console.log(specialOrders, title, specialOrders.indexOf(title));
+              setSpecialOrder(findIdx);
+              setSelectedTab("전체회원");
             }}
           >
             <Image

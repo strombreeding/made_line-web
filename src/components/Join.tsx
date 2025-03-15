@@ -5,7 +5,6 @@ import FormInput from "./FormInput";
 import style from "../styles/Login.module.css";
 import EmptyArea from "./EmptyArea";
 import Link from "next/link";
-import { z } from "zod";
 import { useSearchParams } from "next/navigation";
 import useLoginHook from "../hooks/useLogin";
 import { useRouter } from "next/navigation";
