@@ -4,7 +4,7 @@ import Image from "next/image";
 import style from "../styles/Table.module.css";
 import { useGlobalStore } from "../store/globalStore";
 import { useUserStore } from "../store/userStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface ITableProps {
   name: string;
@@ -19,6 +19,10 @@ interface ITableProps {
 export default function Table({ data }: { data: ITableProps[] }) {
   const location = useGlobalStore((state) => state.selectLocation);
   const { filters, specialOrder } = useUserStore((state) => state);
+  const [obj, setObj] = useState({
+    totalPage: new Array(10).fill(0).map((_, i) => i + 1),
+    currentPage: 1,
+  });
 
   const renderMemberships = (memberships: string[]) => {
     return memberships.length > 0 ? memberships.join(", ") : "-";
@@ -50,8 +54,8 @@ export default function Table({ data }: { data: ITableProps[] }) {
   };
 
   useEffect(() => {
-    alert(`필터가 변경됩니다.`);
-  }, [location, filters]);
+    console.log("필터가 변경됩니다.");
+  }, [location, filters, obj.currentPage]);
 
   return (
     <div>
@@ -371,6 +375,97 @@ export default function Table({ data }: { data: ITableProps[] }) {
             </div>
           );
         })}
+      </div>
+      <div
+        style={{
+          paddingTop: 24,
+          alignSelf: "center",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: 4,
+            marginRight: 8,
+          }}
+          onClick={() => {
+            setObj((prev) => ({
+              ...prev,
+              currentPage: 1,
+            }));
+          }}
+        >
+          <Image
+            src={"/images/chevron-left.svg"}
+            alt=""
+            width={24}
+            height={24}
+          />
+          <span style={{ fontSize: 16, fontWeight: 500, color: "#697077" }}>
+            처음
+          </span>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          {obj.totalPage.map((index) => {
+            return (
+              <div
+                key={index}
+                style={{
+                  padding: "12px 16px",
+                  borderRadius: 30,
+                  backgroundColor:
+                    index === obj.currentPage ? "#E3E3E3" : "transparent",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  setObj((prev) => ({ ...prev, currentPage: index }));
+                }}
+              >
+                <span
+                  style={{ fontSize: 16, fontWeight: 500, lineHeight: "100%" }}
+                >
+                  {index}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+        <div
+          onClick={() => {
+            setObj((prev) => ({
+              ...prev,
+              currentPage: prev.totalPage.length,
+            }));
+          }}
+          style={{
+            cursor: "pointer",
+            display: "flex",
+            flexDirection: "row",
+            gap: 4,
+            marginLeft: 8,
+          }}
+        >
+          <span style={{ fontSize: 16, fontWeight: 500, color: "#697077" }}>
+            끝
+          </span>
+          <Image
+            src={"/images/chevron-right.svg"}
+            alt=""
+            width={24}
+            height={24}
+          />
+        </div>
       </div>
     </div>
 
