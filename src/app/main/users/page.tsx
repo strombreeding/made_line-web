@@ -8,15 +8,17 @@ import styles from "@/styles/userDashboard.module.css";
 import UserTable from "../../../components/UserTable";
 import StickChart from "./StickChart";
 import { IUserDashboardData } from "../../../types/users";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import UserFilter from "./Filter";
 import LeaveRate from "./LeaveRate";
+import UserInfo from "./UserInfo";
 
 export default function Users() {
   const { selectedTab } = useGlobalStore((state) => state);
   const [userDashboard, setUserDashboard] = useState<IUserDashboardData>(
     {} as IUserDashboardData
   );
+
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -79,6 +81,7 @@ export default function Users() {
         </div>
       )}
       {selectedTab === "전체회원" && <UserTable />}
+      {selectedTab === "회원상세정보" && <UserInfo />}
     </div>
   );
 }

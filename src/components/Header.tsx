@@ -3,7 +3,7 @@
 import Image from "next/image";
 import EmptyArea from "./EmptyArea";
 import { useGlobalStore } from "@/store/globalStore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "../styles/Header.module.css";
 import { mockUsers } from "../data/users/user.mock";
 import { useUserStore } from "../store/userStore";
@@ -31,6 +31,10 @@ export default function Header() {
       setFindUserList(res);
     }
   };
+
+  useEffect(() => {
+    setSearch("");
+  }, [selectedTab, title]);
 
   return (
     <div className={style.wrapper}>

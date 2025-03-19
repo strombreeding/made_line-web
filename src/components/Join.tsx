@@ -85,16 +85,6 @@ function JoinContent() {
 
         <EmptyArea height={20} />
 
-        <FormInput
-          type="date"
-          label={"생년월일"}
-          value={dateString}
-          setValue={setBirth}
-          isDateInput
-        />
-
-        <EmptyArea height={20} />
-
         <FormInput label={"이메일"} value={email} setValue={setEmail} />
 
         <EmptyArea height={20} />
@@ -121,6 +111,16 @@ function JoinContent() {
           <option value="파주 운정점">파주 운정점</option>
           <option value="전체 지점 총괄">전체 지점 총괄</option>
         </select>
+
+        <EmptyArea height={20} />
+
+        <FormInput
+          type="date"
+          label={"입사일"}
+          value={dateString}
+          setValue={setBirth}
+          isDateInput
+        />
 
         <EmptyArea height={20} />
 
