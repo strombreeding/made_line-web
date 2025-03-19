@@ -62,28 +62,11 @@ export default function StickChart({
         </span>
         <Image src="/images/chevron-down.svg" alt="" width={24} height={24} />
         {open && (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              position: "absolute",
-              top: 60,
-              left: 0,
-              borderRadius: 10,
-              border: "1px solid var(--Border-Default-Default, #D9D9D9)",
-              backgroundColor: "white",
-              zIndex: 2,
-            }}
-          >
+          <div className={styles.stickChartDropdownOpen}>
             {data.map((item, i) => {
               return (
                 <div
-                  style={{
-                    cursor: "pointer",
-                    padding: "11px 16px",
-                    borderBottom:
-                      "1px solid var(--Border-Default-Default, #D9D9D9)",
-                  }}
+                  className={styles.stickChartDropdownOpenItem}
                   onClick={() => {
                     setSelectIndex(i);
                     setOpen(false);

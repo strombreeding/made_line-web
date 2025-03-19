@@ -1,13 +1,11 @@
-import CombinedGraph from "./client";
-import DonutChart from "./donut";
+import TimeTable from "../../../components/TimeTable";
 
 export default async function Page() {
   // Next API로
 
   return (
     <div>
-      <CombinedGraph />;
-      <DonutChart />
+      <TimeTable />
     </div>
   );
 }

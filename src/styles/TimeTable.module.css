@@ -1,0 +1,86 @@
+/* components/TimeTable.module.css */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tableContainer {
+  margin: 20px;
+  user-select: none; /* 드래그 중 텍스트 선택 방지 */
+  overflow-y: auto;
+  max-height: 600px;
+}
+
+.timetable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.timetable th,
+.timetable td {
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 6px;
+}
+
+.timeCell {
+  font-weight: bold;
+  background-color: #f8f8f8;
+  min-width: 70px;
+}
+
+.cell {
+  width: 80px;
+  height: 20px; /* 30분 단위로 줄였기 때문에 높이 감소 */
+  cursor: pointer;
+}
+
+.halfHour {
+  background-color: #f9f9f9;
+  height: 15px; /* 30분 셀은 약간 더 작게 */
+}
+
+.selected {
+  background-color: #2196f3;
+  color: white;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.controls button {
+  padding: 8px 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.controls button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.scheduleList {
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+.scheduled {
+  background-color: #4caf50;
+  color: white;
+}
+
+.closed {
+  background-color: #f0f0f0;
+  color: #aaa;
+  cursor: not-allowed;
+  pointer-events: none;
+}
