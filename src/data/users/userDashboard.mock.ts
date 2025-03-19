@@ -12,7 +12,7 @@ export const userDashboardData: IUserDashboardData = {
     { name: "VIP 회원", value: 10, color: "#FF74A4" },
   ],
   firstItems: [
-    { number: 5000, title: "감량율 평균 미달" },
+    { number: 5000, title: "감량율 평균미달" },
     { number: 5000, title: "2주 미방문" },
     { number: 5000, title: "장기 미방문" },
   ],
