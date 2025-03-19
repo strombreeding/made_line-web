@@ -181,6 +181,7 @@
   min-width: 55px;
   border-radius: 10px;
   padding: 9px 15px;
+  cursor: pointer;
 }
 
 .filterCalendarCard {

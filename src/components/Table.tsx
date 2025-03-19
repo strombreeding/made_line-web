@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import style from "../styles/Table.module.css";
+import styles from "../styles/Table.module.css";
 import { useGlobalStore } from "../store/globalStore";
 import { useUserStore } from "../store/userStore";
 import { useEffect, useState } from "react";
@@ -71,124 +71,37 @@ export default function Table({ data }: { data: ITableProps[] }) {
         필터
       </div>
 
-      <div
-        style={{
-          border: "1px solid #DDE1E6",
-          borderRadius: 20,
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
+      <div className={styles.tableWrapper}>
         {/* 헤더 */}
-        <div
-          style={{
-            padding: "16px 10px",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            height: 48,
-            borderBottom: "1px solid #DDE1E6",
-          }}
-        >
+        <div className={styles.tableHeader}>
           <div style={{ display: "flex", padding: "0px 12px" }}>
             <input type="checkbox" />
           </div>
-          <div
-            style={{
-              gap: 8,
-              alignItems: "center",
-              flexDirection: "row",
-              display: "flex",
-              minWidth: 140,
-              maxWidth: 140,
-              padding: "0px 12px",
-            }}
-          >
+          <div className={styles.tableHeaderColumn140}>
             <span>회원명</span>
             <Image src="/images/arrow-down.svg" alt="" width={16} height={16} />
           </div>
-          <div
-            style={{
-              gap: 8,
-              alignItems: "center",
-              flexDirection: "row",
-              display: "flex",
-              minWidth: 140,
-              maxWidth: 140,
-              padding: "0px 12px",
-            }}
-          >
+          <div className={styles.tableHeaderColumn140}>
             <span>지점</span>
             <Image src="/images/arrow-down.svg" alt="" width={16} height={16} />
           </div>
-          <div
-            style={{
-              gap: 8,
-              alignItems: "center",
-              flexDirection: "row",
-              display: "flex",
-              minWidth: 160,
-              maxWidth: 160,
-              padding: "0px 12px",
-            }}
-          >
+          <div className={styles.tableHeaderColumn160}>
             <span>잔여회원권</span>
             <Image src="/images/arrow-down.svg" alt="" width={16} height={16} />
           </div>
-          <div
-            style={{
-              gap: 8,
-              alignItems: "center",
-              flexDirection: "row",
-              display: "flex",
-              minWidth: 160,
-              maxWidth: 160,
-              padding: "0px 12px",
-            }}
-          >
+          <div className={styles.tableHeaderColumn160}>
             <span>회원권 만료</span>
             <Image src="/images/arrow-down.svg" alt="" width={16} height={16} />
           </div>
-          <div
-            style={{
-              gap: 8,
-              alignItems: "center",
-              flexDirection: "row",
-              display: "flex",
-              minWidth: 160,
-              maxWidth: 160,
-              padding: "0px 12px",
-            }}
-          >
+          <div className={styles.tableHeaderColumn160}>
             <span>최근 출석일</span>
             <Image src="/images/arrow-down.svg" alt="" width={16} height={16} />
           </div>
-          <div
-            style={{
-              gap: 8,
-              alignItems: "center",
-              flexDirection: "row",
-              display: "flex",
-              minWidth: 160,
-              maxWidth: 160,
-              padding: "0px 12px",
-            }}
-          >
+          <div className={styles.tableHeaderColumn160}>
             <span>회원종류</span>
             <Image src="/images/arrow-down.svg" alt="" width={16} height={16} />
           </div>
-          <div
-            style={{
-              gap: 8,
-              alignItems: "center",
-              flexDirection: "row",
-              display: "flex",
-              minWidth: 160,
-              maxWidth: 160,
-              padding: "0px 12px",
-            }}
-          >
+          <div className={styles.tableHeaderColumn160}>
             <span>회원등급</span>
             <Image src="/images/arrow-down.svg" alt="" width={16} height={16} />
           </div>
@@ -197,14 +110,9 @@ export default function Table({ data }: { data: ITableProps[] }) {
         {data.map((item, i) => {
           return (
             <div
+              className={styles.tableBodyWrapper}
               key={i}
               style={{
-                backgroundColor: "white",
-                padding: "16px 10px",
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                borderBottom: "1px solid #DDE1E6",
                 borderBottomLeftRadius: data.length - 1 === i ? 20 : 0,
                 borderBottomRightRadius: data.length - 1 === i ? 20 : 0,
               }}
@@ -212,19 +120,8 @@ export default function Table({ data }: { data: ITableProps[] }) {
               <div style={{ display: "flex", padding: "0px 12px" }}>
                 <input type="checkbox" />
               </div>
-              <div
-                style={{
-                  gap: 8,
-                  alignItems: "center",
-                  flexDirection: "row",
-                  display: "flex",
-                  minWidth: 140,
-                  maxWidth: 140,
-                  padding: "0px 12px",
-                  justifyContent: "flex-start",
-                }}
-              >
-                <div className={style.loginUserInfoImgWrap}>
+              <div className={styles.tableBodyColumn140}>
+                <div className={styles.loginUserInfoImgWrap}>
                   <Image
                     src={"/images/skeleton-user.svg"}
                     alt=""
@@ -232,140 +129,40 @@ export default function Table({ data }: { data: ITableProps[] }) {
                     height={32}
                   />
                 </div>
-                <span
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 700,
-                    color: "#000000",
-                    lineHeight: "140%",
-                  }}
-                >
-                  {item.name}
-                </span>
+                <span className={styles.tableBodyColumnText1}>{item.name}</span>
               </div>
-              <div
-                style={{
-                  gap: 8,
-                  alignItems: "center",
-                  flexDirection: "row",
-                  display: "flex",
-                  minWidth: 140,
-                  maxWidth: 140,
-                  padding: "0px 12px",
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 400,
-                    color: "#121619",
-                    lineHeight: "140%",
-                  }}
-                >
+              <div className={styles.tableBodyColumn140}>
+                <span className={styles.tableBodyColumnText2}>
                   {item.location}
                 </span>
               </div>
-              <div
-                style={{
-                  gap: 8,
-                  alignItems: "center",
-                  flexDirection: "row",
-                  display: "flex",
-                  minWidth: 160,
-                  maxWidth: 160,
-                  padding: "0px 12px",
-                }}
-              >
+              <div className={styles.tableBodyColumn160}>
                 <span>{renderMemberships(item.memberships)}</span>
               </div>
-              <div
-                style={{
-                  gap: 8,
-                  alignItems: "center",
-                  flexDirection: "row",
-                  display: "flex",
-                  minWidth: 160,
-                  maxWidth: 160,
-                  padding: "0px 12px",
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 400,
-                    color: "#121619",
-                    lineHeight: "140%",
-                  }}
-                >
+              <div className={styles.tableBodyColumn160}>
+                <span className={styles.tableBodyColumnText2}>
                   {formatDate(item.expiredMembership)}
                 </span>
               </div>
-              <div
-                style={{
-                  gap: 8,
-                  alignItems: "center",
-                  flexDirection: "row",
-                  display: "flex",
-                  minWidth: 160,
-                  maxWidth: 160,
-                  padding: "0px 12px",
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 400,
-                    color: "#121619",
-                    lineHeight: "140%",
-                  }}
-                >
+              <div className={styles.tableBodyColumn160}>
+                <span className={styles.tableBodyColumnText2}>
                   {formatDate(item.latestAttended)}
                 </span>
               </div>
-              <div
-                style={{
-                  gap: 8,
-                  alignItems: "center",
-                  flexDirection: "row",
-                  display: "flex",
-                  minWidth: 160,
-                  maxWidth: 160,
-                  padding: "0px 12px",
-                }}
-              >
+              <div className={styles.tableBodyColumn160}>
                 <span
+                  className={styles.tableBodyColumnBadge1}
                   style={{
-                    fontSize: 14,
-                    fontWeight: 400,
-                    color: "#303030",
-                    lineHeight: "140%",
-                    padding: "1px 10px",
-                    borderRadius: 10,
-                    backgroundColor: getStatusColor(item.type),
+                    backgroundColor: getStatusColor(item.level),
                   }}
                 >
                   {item.type}
                 </span>
               </div>
-              <div
-                style={{
-                  gap: 8,
-                  alignItems: "center",
-                  flexDirection: "row",
-                  display: "flex",
-                  minWidth: 160,
-                  maxWidth: 160,
-                  padding: "0px 12px",
-                }}
-              >
+              <div className={styles.tableBodyColumn160}>
                 <span
+                  className={styles.tableBodyColumnBadge1}
                   style={{
-                    fontSize: 14,
-                    fontWeight: 400,
-                    color: "##303030",
-                    lineHeight: "140%",
-                    padding: "1px 10px",
-                    borderRadius: 10,
                     backgroundColor: getStatusColor(item.level),
                   }}
                 >
@@ -392,6 +189,7 @@ export default function Table({ data }: { data: ITableProps[] }) {
             flexDirection: "row",
             gap: 4,
             marginRight: 8,
+            cursor: "pointer",
           }}
           onClick={() => {
             setObj((prev) => ({

@@ -84,7 +84,14 @@ export default function UserFilter({
                     : "",
               }}
             >
-              <span style={{ fontSize: 16, fontWeight: 400, color: "#697077" }}>
+              <span
+                style={{
+                  fontSize: 16,
+                  fontWeight: 400,
+                  color: "#697077",
+                  minWidth: 27,
+                }}
+              >
                 {item}
               </span>
             </div>

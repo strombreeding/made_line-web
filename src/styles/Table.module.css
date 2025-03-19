@@ -8,3 +8,94 @@
   align-items: center;
   background-color: #f2f4f8;
 }
+
+.tableWrapper {
+  border: 1px solid #dde1e6;
+  border-radius: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tableHeader {
+  padding: 16px 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 48px;
+  border-bottom: 1px solid #dde1e6;
+}
+
+.tableHeaderColumn140 {
+  gap: 8;
+  align-items: center;
+  flex-direction: row;
+  display: flex;
+  min-width: 140px;
+  max-width: 140px;
+  padding: 0px 12px;
+}
+
+.tableHeaderColumn160 {
+  gap: 8;
+  align-items: center;
+  flex-direction: row;
+  display: flex;
+  min-width: 160px;
+  max-width: 160px;
+  padding: 0px 12px;
+}
+
+.tableBodyWrapper {
+  background-color: white;
+  padding: 16px 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid #dde1e6;
+}
+
+.tableBodyColumnText1 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #121619;
+  line-height: 140%;
+}
+
+.tableBodyColumnText2 {
+  font-size: 14px;
+  font-weight: 400;
+  color: #121619;
+  line-height: 140%;
+}
+
+.tableBodyColumnBadge1 {
+  font-size: 14px;
+  font-weight: 400;
+  color: #303030;
+  line-height: 140%;
+  padding: 1px 10px;
+  border-radius: 10;
+}
+
+.tableBodyColumn140 {
+  gap: 8;
+  align-items: center;
+  flex-direction: row;
+  display: flex;
+  min-width: 140px;
+  max-width: 140px;
+  padding: 0px 12px;
+  justify-content: flex-start;
+}
+
+.tableBodyColumn160 {
+  gap: 8;
+  align-items: center;
+  flex-direction: row;
+  display: flex;
+  min-width: 160px;
+  max-width: 160px;
+  padding: 0px 12px;
+  justify-content: flex-start;
+}
