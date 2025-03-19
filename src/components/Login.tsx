@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import FormInput from './FormInput';
-import style from '../styles/Login.module.css';
-import EmptyArea from './EmptyArea';
-import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
-import useLoginHook from '../hooks/useLogin';
+import { Suspense, useState } from "react";
+import FormInput from "./FormInput";
+import style from "../styles/Login.module.css";
+import EmptyArea from "./EmptyArea";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import useLoginHook from "../hooks/useLogin";
 
-export default function Login() {
+function LoginContent() {
   const searchParams = useSearchParams();
   const route = useRouter();
-  const [email, setEmail] = useState('');
-  const [pw, setPw] = useState('');
+  const [email, setEmail] = useState("");
+  const [pw, setPw] = useState("");
   const [keepLogin, setkeepLogin] = useState(false);
 
   const { emailValidation, pwValidation } = useLoginHook();
@@ -21,8 +21,8 @@ export default function Login() {
     try {
       emailValidation(email);
       pwValidation(pw);
-      route.replace('/main/users');
-      return alert('로그인 성공!');
+      route.replace("/main/users");
+      return alert("로그인 성공!");
     } catch (err) {
       if (err instanceof Error) {
         alert(err.message);
@@ -32,8 +32,8 @@ export default function Login() {
     }
   };
 
-  console.log(searchParams.get('join'));
-  if (searchParams.get('join')) {
+  console.log(searchParams.get("join"));
+  if (searchParams.get("join")) {
     return null;
   }
 
@@ -47,21 +47,26 @@ export default function Login() {
         onSubmit={(e) => {
           e.preventDefault();
         }}
-        style={{ display: 'flex', flexDirection: 'column' }}
+        style={{ display: "flex", flexDirection: "column" }}
       >
-        <FormInput label={'이메일'} value={email} setValue={setEmail} />
+        <FormInput label={"이메일"} value={email} setValue={setEmail} />
 
         <EmptyArea height={20} />
 
-        <FormInput type="password" label={'비밀번호'} value={pw} setValue={setPw} />
+        <FormInput
+          type="password"
+          label={"비밀번호"}
+          value={pw}
+          setValue={setPw}
+        />
 
         <EmptyArea height={20} />
 
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
           }}
         >
           <input
@@ -71,7 +76,9 @@ export default function Login() {
             }}
           />
           <EmptyArea width={10} />
-          <span style={{ fontWeight: 500, fontSize: 16, lineHeight: '24px' }}>로그인 기억하기</span>
+          <span style={{ fontWeight: 500, fontSize: 16, lineHeight: "24px" }}>
+            로그인 기억하기
+          </span>
         </div>
 
         <EmptyArea height={20} />
@@ -85,16 +92,16 @@ export default function Login() {
 
       <div
         style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'center',
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
         }}
       >
         <span
           style={{
             fontWeight: 400,
             fontSize: 18,
-            lineHeight: '27px',
+            lineHeight: "27px",
             marginRight: 5,
           }}
         >
@@ -102,16 +109,24 @@ export default function Login() {
         </span>
         <Link
           style={{
-            color: '#95030A',
+            color: "#95030A",
             fontWeight: 600,
             fontSize: 18,
-            lineHeight: '27px',
+            lineHeight: "27px",
           }}
-          href={'/?join=true'}
+          href={"/?join=true"}
         >
           회원가입하기
         </Link>
       </div>
     </div>
+  );
+}
+
+export default function Login() {
+  return (
+    <Suspense fallback={<div></div>}>
+      <LoginContent />
+    </Suspense>
   );
 }

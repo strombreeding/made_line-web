@@ -5,24 +5,18 @@ import styles from "../styles/Table.module.css";
 import { useGlobalStore } from "../store/globalStore";
 import { useUserStore } from "../store/userStore";
 import { useEffect, useState } from "react";
+import { IUserListProps } from "../types";
+import { mockUsers } from "../data/users/user.mock";
 
-interface ITableProps {
-  name: string;
-  location: string;
-  memberships: string[];
-  expiredMembership: string; // YYYY-MM-DD
-  latestAttended: string; // YYYY-MM-DD
-  type: string; // 등록회원 | 체험회원 | 종료회원
-  level: string; // 신규 | VIP | 재등록
-}
+export default function UserTable() {
+  const { findUserList, setFindUserList, setPageInfo, pageInfo } = useUserStore(
+    (state) => state
+  );
+  const [selectedUsers, setSelectedUsers] = useState([] as number[]);
+  const [selectToggle, setSelectToggle] = useState(false);
 
-export default function Table({ data }: { data: ITableProps[] }) {
   const location = useGlobalStore((state) => state.selectLocation);
   const { filters, specialOrder } = useUserStore((state) => state);
-  const [obj, setObj] = useState({
-    totalPage: new Array(10).fill(0).map((_, i) => i + 1),
-    currentPage: 1,
-  });
 
   const renderMemberships = (memberships: string[]) => {
     return memberships.length > 0 ? memberships.join(", ") : "-";
@@ -52,10 +46,41 @@ export default function Table({ data }: { data: ITableProps[] }) {
     }
     return `${diffTime}일 전`;
   };
+  // 새로고침 막기 변수
+  const preventClose = (e: BeforeUnloadEvent) => {
+    e.preventDefault();
+    e.returnValue = ""; // chrome에서는 설정이 필요해서 넣은 코드
+  };
 
+  // 브라우저에 렌더링 시 한 번만 실행하는 코드
   useEffect(() => {
-    console.log("필터가 변경됩니다.");
-  }, [location, filters, obj.currentPage]);
+    (() => {
+      window.addEventListener("beforeunload", preventClose);
+    })();
+
+    return () => {
+      window.removeEventListener("beforeunload", preventClose);
+    };
+  }, []);
+
+  const preventGoBack = () => {
+    history.pushState(null, "", window.location.href);
+    alert("종료하기를 눌러주세요 :D");
+  };
+
+  // 브라우저에 렌더링 시 한 번만 실행하는 코드
+  useEffect(() => {
+    (() => {
+      history.pushState(null, "", window.location.href);
+      window.addEventListener("popstate", preventGoBack);
+    })();
+
+    return () => {
+      window.removeEventListener("popstate", preventGoBack);
+    };
+  }, []);
+
+  console.log(pageInfo, "페이지인포");
 
   return (
     <div>
@@ -75,7 +100,25 @@ export default function Table({ data }: { data: ITableProps[] }) {
         {/* 헤더 */}
         <div className={styles.tableHeader}>
           <div style={{ display: "flex", padding: "0px 12px" }}>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              checked={selectToggle}
+              onChange={() => {
+                if (selectToggle) {
+                  const copy = [...selectedUsers];
+                  const removedNowUserIds = copy.filter((id) => {
+                    const exitsId = findUserList.find((user) => user.id === id);
+                    return !exitsId;
+                  });
+                  setSelectedUsers(removedNowUserIds);
+                } else {
+                  const setList = new Set(findUserList.map((user) => user.id));
+                  const newList = Array.from(setList);
+                  setSelectedUsers(newList);
+                }
+                setSelectToggle(!selectToggle);
+              }}
+            />
           </div>
           <div className={styles.tableHeaderColumn140}>
             <span>회원명</span>
@@ -106,19 +149,75 @@ export default function Table({ data }: { data: ITableProps[] }) {
             <Image src="/images/arrow-down.svg" alt="" width={16} height={16} />
           </div>
         </div>
+        {findUserList.length === 0 && (
+          <div
+            className={styles.tableBodyWrapper}
+            style={{
+              borderBottomLeftRadius: 20,
+              borderBottomRightRadius: 20,
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                padding: 40,
+                width: "100%",
+              }}
+            >
+              <span
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  fontSize: 14,
+                  fontWeight: 400,
+                  color: "#121619",
+                }}
+              >
+                다른 이름으로 검색해보시겠어요?
+              </span>
+              <span
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  fontSize: 14,
+                  fontWeight: 400,
+                  color: "#121619",
+                }}
+              >
+                일치하는 회원 정보가 없습니다.
+              </span>
+            </div>
+          </div>
+        )}
         {/* 데이터 */}
-        {data.map((item, i) => {
+        {findUserList.map((item, i) => {
           return (
             <div
               className={styles.tableBodyWrapper}
               key={i}
               style={{
-                borderBottomLeftRadius: data.length - 1 === i ? 20 : 0,
-                borderBottomRightRadius: data.length - 1 === i ? 20 : 0,
+                borderBottomLeftRadius: findUserList.length - 1 === i ? 20 : 0,
+                borderBottomRightRadius: findUserList.length - 1 === i ? 20 : 0,
               }}
             >
               <div style={{ display: "flex", padding: "0px 12px" }}>
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  checked={selectedUsers.includes(item.id)}
+                  onChange={() => {
+                    const copyIds = [...selectedUsers];
+                    const exist = copyIds.includes(item.id);
+                    if (exist) {
+                      const idx = copyIds.findIndex((id) => id === item.id);
+                      copyIds.splice(idx, 1);
+                    } else {
+                      copyIds.push(item.id);
+                    }
+                    setSelectedUsers(copyIds);
+                  }}
+                />
               </div>
               <div className={styles.tableBodyColumn140}>
                 <div className={styles.loginUserInfoImgWrap}>
@@ -173,9 +272,11 @@ export default function Table({ data }: { data: ITableProps[] }) {
           );
         })}
       </div>
+      {/* 페이지네이션 */}
       <div
         style={{
           paddingTop: 24,
+          paddingBottom: 24,
           alignSelf: "center",
           display: "flex",
           flexDirection: "row",
@@ -192,10 +293,12 @@ export default function Table({ data }: { data: ITableProps[] }) {
             cursor: "pointer",
           }}
           onClick={() => {
-            setObj((prev) => ({
-              ...prev,
+            const newRes: IUserListProps[] = mockUsers;
+            setFindUserList(newRes);
+            setPageInfo({
+              ...pageInfo,
               currentPage: 1,
-            }));
+            });
           }}
         >
           <Image
@@ -215,7 +318,7 @@ export default function Table({ data }: { data: ITableProps[] }) {
             alignItems: "center",
           }}
         >
-          {obj.totalPage.map((index) => {
+          {pageInfo.totalPage.map((index) => {
             return (
               <div
                 key={index}
@@ -223,11 +326,15 @@ export default function Table({ data }: { data: ITableProps[] }) {
                   padding: "12px 16px",
                   borderRadius: 30,
                   backgroundColor:
-                    index === obj.currentPage ? "#E3E3E3" : "transparent",
+                    index === pageInfo.currentPage ? "#E3E3E3" : "transparent",
                   cursor: "pointer",
                 }}
                 onClick={() => {
-                  setObj((prev) => ({ ...prev, currentPage: index }));
+                  // 현재 페이지 + 필터기반 페이지 요청 후 set하기
+
+                  const newRes: IUserListProps[] = mockUsers;
+                  setPageInfo({ ...pageInfo, currentPage: index });
+                  setFindUserList(newRes);
                 }}
               >
                 <span
@@ -241,10 +348,12 @@ export default function Table({ data }: { data: ITableProps[] }) {
         </div>
         <div
           onClick={() => {
-            setObj((prev) => ({
-              ...prev,
-              currentPage: prev.totalPage.length,
-            }));
+            const newRes: IUserListProps[] = mockUsers;
+            setFindUserList(newRes);
+            setPageInfo({
+              ...pageInfo,
+              currentPage: pageInfo.totalPage.length,
+            });
           }}
           style={{
             cursor: "pointer",
@@ -265,33 +374,73 @@ export default function Table({ data }: { data: ITableProps[] }) {
           />
         </div>
       </div>
-    </div>
 
-    // <table border="1" style={{ width: "100%", textAlign: "center" }}>
-    //   <thead>
-    //     <tr>
-    //       <th>회원명</th>
-    //       <th>지점</th>
-    //       <th>잔여회원권</th>
-    //       <th>회원권 만료</th>
-    //       <th>최근 출석일</th>
-    //       <th>회원종류</th>
-    //       <th>회원등급</th>
-    //     </tr>
-    //   </thead>
-    //   <tbody>
-    //     {data.map((item, index) => (
-    //       <tr key={index}>
-    //         <td>{item.name}</td>
-    //         <td>{item.location}</td>
-    //         <td>{renderMemberships(item.memberships)}</td>
-    //         <td>{formatDate(item.expiredMembership)}</td>
-    //         <td>{formatDate(item.latestAttended)}</td>
-    //         <td style={{ color: getStatusColor(item.type) }}>{item.type}</td>
-    //         <td>{item.level}</td>
-    //       </tr>
-    //     ))}
-    //   </tbody>
-    // </table>
+      {/* 버튼들 */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: 16,
+          justifyContent: "flex-end",
+        }}
+      >
+        <div
+          style={{
+            borderRadius: 10,
+            padding: "16px 12px",
+            backgroundColor: "#900B09",
+            alignItems: "center",
+            display: "flex",
+            flexDirection: "row",
+            gap: 8,
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            alert("신규등록");
+          }}
+        >
+          <Image src="/images/insert.svg" alt="" width={20} height={20} />
+          <span
+            style={{
+              fontSize: 16,
+              fontWeight: 700,
+              color: "white",
+              minWidth: 90,
+              textAlign: "center",
+            }}
+          >
+            신규 등록
+          </span>
+        </div>
+        <div
+          style={{
+            borderRadius: 10,
+            padding: "16px 12px",
+            backgroundColor: "#900B09",
+            alignItems: "center",
+            display: "flex",
+            flexDirection: "row",
+            gap: 8,
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            alert("알림톡 발송");
+          }}
+        >
+          <Image src="/images/send.svg" alt="" width={20} height={20} />
+          <span
+            style={{
+              fontSize: 16,
+              fontWeight: 700,
+              color: "white",
+              minWidth: 90,
+              textAlign: "center",
+            }}
+          >
+            알림톡 발송
+          </span>
+        </div>
+      </div>
+    </div>
   );
 }

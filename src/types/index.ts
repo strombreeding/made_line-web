@@ -69,3 +69,8 @@ export interface IUserListProps {
   type: string;
   level: string;
 }
+
+export interface IPageInfoProps {
+  totalPage: number[];
+  currentPage: number;
+}

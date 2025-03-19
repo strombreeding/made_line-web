@@ -5,6 +5,8 @@ import EmptyArea from "./EmptyArea";
 import { useGlobalStore } from "@/store/globalStore";
 import { useState } from "react";
 import style from "../styles/Header.module.css";
+import { mockUsers } from "../data/users/user.mock";
+import { useUserStore } from "../store/userStore";
 
 export default function Header() {
   const {
@@ -16,12 +18,18 @@ export default function Header() {
     selectedTab,
     setSelectedTab,
   } = useGlobalStore((state) => state);
+  const { setFindUserList } = useUserStore((state) => state);
+
   const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
   const searchAction = () => {
-    alert(search);
-    console.log(search);
+    if (title === "회원관리") {
+      // 전체회원정보 API를 search값으로 검색한 값을 set해준다.
+      // page도 받아와야할듯 하다.
+      const res = mockUsers.filter((user) => user.name === search);
+      setFindUserList(res);
+    }
   };
 
   return (
@@ -160,7 +168,7 @@ export default function Header() {
             action=""
             onSubmit={(e) => {
               e.preventDefault();
-              alert(search);
+              searchAction();
             }}
           >
             <input

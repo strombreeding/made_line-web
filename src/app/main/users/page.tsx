@@ -5,9 +5,8 @@ import DonutChart from "../test/donut";
 import EmptyArea from "../../../components/EmptyArea";
 import Items from "./Items";
 import styles from "@/styles/userDashboard.module.css";
-import Table from "../../../components/Table";
+import UserTable from "../../../components/UserTable";
 import StickChart from "./StickChart";
-import { mockUsers } from "../../../data/users/user.mock";
 import { IUserDashboardData } from "../../../types/users";
 import { Fragment, useEffect, useState } from "react";
 import UserFilter from "./Filter";
@@ -79,7 +78,7 @@ export default function Users() {
           )}
         </div>
       )}
-      {selectedTab === "전체회원" && <Table data={mockUsers} />}
+      {selectedTab === "전체회원" && <UserTable />}
     </div>
   );
 }

@@ -1,15 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import FormInput from "./FormInput";
 import style from "../styles/Login.module.css";
 import EmptyArea from "./EmptyArea";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import useLoginHook from "../hooks/useLogin";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
-export default function Join() {
+function JoinContent() {
   const searchParams = useSearchParams();
   const route = useRouter();
   const [name, setName] = useState("");
@@ -46,10 +45,10 @@ export default function Join() {
     try {
       validationCheck();
 
-      const res = await fetch("/api/join", {
-        method: "POST",
-        body: JSON.stringify({ name, birth: dateString, email, pw, location }),
-      });
+      // const res = await fetch("/api/join", {
+      //   method: "POST",
+      //   body: JSON.stringify({ name, birth: dateString, email, pw, location }),
+      // });
 
       alert(
         "회원가입 요청이 완료되었습니다.\n최고관리자가 수락하면 로그인할 수 있습니다"
@@ -162,5 +161,13 @@ export default function Join() {
         </Link>
       </div>
     </div>
+  );
+}
+
+export default function Join() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <JoinContent />
+    </Suspense>
   );
 }
