@@ -2,6 +2,11 @@ import { ChangeEvent, useState } from "react";
 import InfoItem from "../../../components/users/InfoItem";
 import { useUserStore } from "../../../store/userStore";
 import Image from "next/image";
+import Membership from "../../../components/users/Membership";
+import HealthRecord from "../../../components/users/HealthRecord";
+import Counsel from "../../../components/users/Counsel";
+import Payment from "../../../components/users/Payment";
+import ActiveLog from "../../../components/users/ActiveLog";
 
 const tabList = [
   "프로필",
@@ -296,6 +301,12 @@ export default function UserInfo() {
           })}
         </div>
       </div>
+      {/* 탭별 컴포넌트 */}
+      {selectedTab === "회원권" && <Membership />}
+      {selectedTab === "운동기록" && <HealthRecord />}
+      {selectedTab === "상담" && <Counsel />}
+      {selectedTab === "결제" && <Payment />}
+      {selectedTab === "앱 활동" && <ActiveLog />}
 
       <div
         style={{

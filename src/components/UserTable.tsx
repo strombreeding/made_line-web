@@ -84,7 +84,7 @@ export default function UserTable() {
 
   return (
     <div>
-      <div
+      {/* <div
         onClick={() => {
           alert(`
         ${location}
@@ -94,7 +94,7 @@ export default function UserTable() {
         }}
       >
         필터
-      </div>
+      </div> */}
 
       <div className={styles.tableWrapper}>
         {/* 헤더 */}
