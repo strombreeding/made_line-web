@@ -12,6 +12,8 @@ export default function UserTable() {
   const { findUserList, setFindUserList, setPageInfo, pageInfo } = useUserStore(
     (state) => state
   );
+  const { selectLocation } = useGlobalStore((state) => state);
+
   const [selectedUsers, setSelectedUsers] = useState([] as number[]);
   const [selectToggle, setSelectToggle] = useState(false);
 
@@ -62,6 +64,10 @@ export default function UserTable() {
       window.removeEventListener("beforeunload", preventClose);
     };
   }, []);
+
+  useEffect(() => {
+    alert(selectLocation);
+  }, [selectLocation]);
 
   const preventGoBack = () => {
     history.pushState(null, "", window.location.href);

@@ -1,7 +1,10 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import InfoItem from "../../../components/users/InfoItem";
-import { useUserStore } from "../../../store/userStore";
 import Image from "next/image";
+import EmptyArea from "../../../components/EmptyArea";
+import ProfileTab from "../../../components/users/ProfileTab";
+import { IResUserProps } from "../../../types/users";
+import { users } from "../../../../mockUsers";
 
 const tabList = [
   "프로필",
@@ -18,9 +21,14 @@ const tabList = [
 ];
 
 export default function UserInfo() {
-  const { loggedUserInfo } = useUserStore((state) => state);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedTab, setSelectedTab] = useState<string>("");
+  const [profileEditable, setProfileEditable] = useState(false);
+
+  const [profileProps, setProfileProps] = useState<IResUserProps>(
+    {} as IResUserProps
+  );
+  const [ready, setReady] = useState(false);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -28,6 +36,21 @@ export default function UserInfo() {
       setSelectedFile(file);
     }
   };
+
+  const req = async () => {
+    setReady(true);
+    setProfileProps(users[0]);
+  };
+
+  useEffect(() => {
+    req();
+    return () => {
+      console.log("언마운트");
+    };
+  }, []);
+
+  if (!ready) return null;
+
   return (
     <div
       style={{
@@ -50,13 +73,12 @@ export default function UserInfo() {
         }}
       >
         <span style={{ fontSize: 42, fontWeight: 700, color: "#21272A" }}>
-          {loggedUserInfo.name}
+          {profileProps.name}
         </span>
         <span style={{ fontSize: 20, fontWeight: 700, color: "#757575" }}>
           회원님
         </span>
       </div>
-
       {/* 사진 / 기타등등 */}
       <div style={{ display: "flex", flexDirection: "row", gap: 16 }}>
         <div
@@ -87,6 +109,7 @@ export default function UserInfo() {
             accept="image/*"
             onChange={handleFileChange}
             style={{
+              display: profileEditable ? "flex" : "none",
               width: "100%",
               height: "100%",
               opacity: 0,
@@ -96,13 +119,14 @@ export default function UserInfo() {
           />
           <div
             style={{
-              display: selectedFile ? "none" : "flex",
+              display: selectedFile || !profileEditable ? "none" : "flex",
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
               position: "relative",
               width: "100%",
               height: "100%",
+              backgroundColor: "red",
             }}
           >
             <Image
@@ -151,8 +175,8 @@ export default function UserInfo() {
                 </span>
               </div>
               <span style={{ fontSize: 16, fontWeight: 500, color: "#1E1E1E" }}>
-                {loggedUserInfo.membership.level}|
-                {loggedUserInfo.membership.type}|{loggedUserInfo.location}
+                {profileProps.membership.level}|{profileProps.membership.type}|
+                {profileProps.location}
               </span>
             </div>
           </div>
@@ -168,7 +192,7 @@ export default function UserInfo() {
               }}
             >
               <span style={{ fontSize: 16, fontWeight: 500, color: "#1E1E1E" }}>
-                {loggedUserInfo.stats.particulars}
+                {profileProps.stats.particulars}
               </span>
             </div>
           </div>
@@ -184,13 +208,12 @@ export default function UserInfo() {
               }}
             >
               <span style={{ fontSize: 16, fontWeight: 500, color: "#1E1E1E" }}>
-                {loggedUserInfo.contact.phone}
+                {profileProps.contact.phone}
               </span>
             </div>
           </div>
         </div>
       </div>
-
       {/* 아이템들 */}
       <div
         style={{
@@ -201,18 +224,17 @@ export default function UserInfo() {
           justifyContent: "space-between",
         }}
       >
-        <InfoItem title="회원구분" content={loggedUserInfo.membership.type} />
-        <InfoItem title="회원등급" content={loggedUserInfo.membership.level} />
-        <InfoItem title="잔여회원권" content={["포톤테라피 7회", "하이"]} />
+        <InfoItem title="회원구분" content={profileProps.membership.type} />
+        <InfoItem title="회원등급" content={profileProps.membership.level} />
+        <InfoItem title="잔여회원권" content={"포톤테라피 7회"} />
         <InfoItem
           title="잔여 회원권 기간"
           content={`${calculateMembershipProgress(
-            loggedUserInfo.membership.lastReRegisteredAt,
-            loggedUserInfo.membership.expirationDate
+            profileProps.membership.lastReRegisteredAt,
+            profileProps.membership.expirationDate
           )}`}
         />
       </div>
-
       {/* 두번째 아이템들 */}
       <div
         style={{
@@ -247,10 +269,9 @@ export default function UserInfo() {
         <InfoItem title="최근 3개월 상담" content={"3회"} />
         <InfoItem
           title="현재 체중 / 목표 체중"
-          content={`${loggedUserInfo.stats.currentWeight}kg / ${loggedUserInfo.stats.goalWeight}kg`}
+          content={`${profileProps.stats.currentWeight}kg / ${profileProps.stats.goalWeight}kg`}
         />
       </div>
-
       {/* 탭 */}
       <div
         style={{
@@ -272,7 +293,10 @@ export default function UserInfo() {
             return (
               <div
                 key={i}
-                onClick={() => setSelectedTab(tab)}
+                onClick={() => {
+                  setSelectedTab(tab);
+                  setProfileEditable(false);
+                }}
                 style={{
                   marginBottom: -1,
                   padding: "16px 0px 17px 0px",
@@ -296,41 +320,20 @@ export default function UserInfo() {
           })}
         </div>
       </div>
-
-      <div
-        style={{
-          display: "flex",
-          width: "100%",
-          flexDirection: "column",
-          alignItems: "flex-end",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: "#900B09",
-            display: "flex",
-            flexDirection: "row",
-            borderRadius: 10,
-            alignItems: "center",
-            gap: 6.5,
-            padding: 12,
-            cursor: "pointer",
-          }}
-          onClick={() => {
-            alert("회원수정");
-          }}
-        >
-          <Image src={"/images/edit.svg"} alt="" width={21} height={21} />
-          <span style={{ fontWeight: 700, fontSize: 16, color: "white" }}>
-            수정
-          </span>
-        </div>
-      </div>
+      <EmptyArea height={24} />
+      {/* 프로필 */}
+      <ProfileTab
+        profileProps={profileProps}
+        selectedTab={selectedTab}
+        editable={profileEditable}
+        setEditable={setProfileEditable}
+        profileImageFile={selectedFile}
+      />
     </div>
   );
 }
 
-function calculateMembershipProgress(
+export function calculateMembershipProgress(
   registeredAt: string,
   expirationDate: string
 ) {
