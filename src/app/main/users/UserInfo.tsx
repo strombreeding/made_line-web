@@ -5,6 +5,11 @@ import EmptyArea from "../../../components/EmptyArea";
 import ProfileTab from "../../../components/users/ProfileTab";
 import { IResUserProps } from "../../../types/users";
 import { users } from "../../../../mockUsers";
+import Membership from "../../../components/users/Membership";
+import HealthRecord from "../../../components/users/HealthRecord";
+import Counsel from "../../../components/users/Counsel";
+import Payment from "../../../components/users/Payment";
+import ActiveLog from "../../../components/users/ActiveLog";
 
 const tabList = [
   "프로필",
@@ -329,6 +334,42 @@ export default function UserInfo() {
         setEditable={setProfileEditable}
         profileImageFile={selectedFile}
       />
+      {/* 탭별 컴포넌트 */}
+      {selectedTab === "회원권" && <Membership />}
+      {selectedTab === "운동기록" && <HealthRecord />}
+      {selectedTab === "상담" && <Counsel />}
+      {selectedTab === "결제" && <Payment />}
+      {selectedTab === "앱 활동" && <ActiveLog />}
+
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          flexDirection: "column",
+          alignItems: "flex-end",
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: "#900B09",
+            display: "flex",
+            flexDirection: "row",
+            borderRadius: 10,
+            alignItems: "center",
+            gap: 6.5,
+            padding: 12,
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            alert("회원수정");
+          }}
+        >
+          <Image src={"/images/edit.svg"} alt="" width={21} height={21} />
+          <span style={{ fontWeight: 700, fontSize: 16, color: "white" }}>
+            수정
+          </span>
+        </div>
+      </div>
     </div>
   );
 }
