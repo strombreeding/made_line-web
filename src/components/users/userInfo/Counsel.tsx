@@ -1,8 +1,8 @@
 import Image from "next/image";
+import { counselMockData } from "../../../data/users/counsel.mock";
 import { useState } from "react";
-import { activeLogMockData } from "../../data/users/activeLog.mock";
 
-export default function ActiveLog() {
+export default function Counsel() {
   const [selectedIds, setSelectedIds] = useState([] as Array<string | number>);
   const [pageInfo, setPageInfo] = useState({
     currentPage: 1,
@@ -16,6 +16,7 @@ export default function ActiveLog() {
         style={{
           display: "flex",
           flexDirection: "column",
+          paddingLeft: 10,
           gap: 10,
         }}
       >
@@ -28,16 +29,36 @@ export default function ActiveLog() {
             borderBottom: "1px solid #A2A1A81A",
           }}
         >
+          <div
+            style={{
+              minWidth: 40,
+              maxWidth: 40,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <input
+              type="checkbox"
+              onChange={(e) => {
+                if (e.currentTarget.checked) {
+                  setSelectedIds(counselMockData.map((item) => item.id));
+                } else {
+                  setSelectedIds([]);
+                }
+              }}
+            />
+          </div>
           <span
             style={{
               fontSize: 16,
               fontWeight: 300,
               color: "#A2A1A8",
-              minWidth: 191,
-              maxWidth: 191,
+              minWidth: 132,
+              maxWidth: 132,
             }}
           >
-            일시
+            날짜
           </span>
 
           <span
@@ -45,17 +66,30 @@ export default function ActiveLog() {
               fontSize: 16,
               fontWeight: 300,
               color: "#A2A1A8",
-              minWidth: 142,
-              maxWidth: 142,
+              minWidth: 100,
+              maxWidth: 100,
             }}
           >
-            유형
+            담당자
           </span>
           <span
             style={{
               fontSize: 16,
               fontWeight: 300,
               color: "#A2A1A8",
+              minWidth: 100,
+              maxWidth: 100,
+            }}
+          >
+            상담유형
+          </span>
+          <span
+            style={{
+              fontSize: 16,
+              fontWeight: 300,
+              color: "#A2A1A8",
+              minWidth: 100,
+              maxWidth: 100,
             }}
           >
             내용
@@ -63,7 +97,7 @@ export default function ActiveLog() {
         </div>
 
         {/* 로우 */}
-        {activeLogMockData.map((item) => (
+        {counselMockData.map((item) => (
           <div
             key={item.id}
             style={{
@@ -74,13 +108,34 @@ export default function ActiveLog() {
               alignItems: "center",
             }}
           >
+            <div
+              style={{
+                minWidth: 40,
+                maxWidth: 40,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={selectedIds.includes(item.id)}
+                onChange={(e) => {
+                  if (selectedIds.includes(item.id)) {
+                    setSelectedIds(selectedIds.filter((id) => id !== item.id));
+                  } else {
+                    setSelectedIds([...selectedIds, item.id]);
+                  }
+                }}
+              />
+            </div>
             <span
               style={{
                 fontSize: 16,
                 fontWeight: 300,
                 color: "#16151C",
-                minWidth: 191,
-                maxWidth: 191,
+                minWidth: 132,
+                maxWidth: 132,
               }}
             >
               {item.date}
@@ -91,13 +146,47 @@ export default function ActiveLog() {
                 fontSize: 16,
                 fontWeight: 300,
                 color: "#16151C",
-                minWidth: 141,
-                maxWidth: 141,
+                minWidth: 100,
+                maxWidth: 100,
               }}
             >
-              {item.type}
+              {item.trainer}
             </span>
 
+            <div
+              style={{
+                minWidth: 100,
+                maxWidth: 100,
+              }}
+            >
+              <span
+                style={{
+                  minWidth: 85,
+                  maxWidth: 85,
+                  padding: "3px 9px",
+                  borderRadius: 4,
+                  backgroundColor:
+                    item.status === "종료상담"
+                      ? "#FFE0EB"
+                      : item.status === "중간상담"
+                      ? "#4BE3A24D"
+                      : "#FFF9C2",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 16,
+                  fontWeight: 300,
+                  color:
+                    item.status === "종료상담"
+                      ? "#EC221F"
+                      : item.status === "중간상담"
+                      ? "#28AC74"
+                      : "#FF9000",
+                }}
+              >
+                {item.status}
+              </span>
+            </div>
             <span
               style={{
                 fontSize: 16,

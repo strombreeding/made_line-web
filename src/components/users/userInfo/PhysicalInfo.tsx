@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { IResUserProps } from "../../types/users";
+import { IResUserProps } from "../../../types/users";
 import ProfileItem from "./ProfileItem";
 import Image from "next/image";
 

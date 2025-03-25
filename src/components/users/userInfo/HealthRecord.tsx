@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { counselMockData } from "../../data/users/counsel.mock";
+import { healthMockData } from "../../../data/users/healthRecord.mock";
 import { useState } from "react";
 
-export default function Counsel() {
+export default function HealthRecord() {
   const [selectedIds, setSelectedIds] = useState([] as Array<string | number>);
   const [pageInfo, setPageInfo] = useState({
     currentPage: 1,
@@ -42,7 +42,7 @@ export default function Counsel() {
               type="checkbox"
               onChange={(e) => {
                 if (e.currentTarget.checked) {
-                  setSelectedIds(counselMockData.map((item) => item.id));
+                  setSelectedIds(healthMockData.map((item) => item.id));
                 } else {
                   setSelectedIds([]);
                 }
@@ -60,7 +60,17 @@ export default function Counsel() {
           >
             날짜
           </span>
-
+          <span
+            style={{
+              fontSize: 16,
+              fontWeight: 300,
+              color: "#A2A1A8",
+              minWidth: 130,
+              maxWidth: 130,
+            }}
+          >
+            프로그램
+          </span>
           <span
             style={{
               fontSize: 16,
@@ -77,11 +87,11 @@ export default function Counsel() {
               fontSize: 16,
               fontWeight: 300,
               color: "#A2A1A8",
-              minWidth: 100,
-              maxWidth: 100,
+              minWidth: 110,
+              maxWidth: 110,
             }}
           >
-            상담유형
+            태그
           </span>
           <span
             style={{
@@ -97,7 +107,7 @@ export default function Counsel() {
         </div>
 
         {/* 로우 */}
-        {counselMockData.map((item) => (
+        {healthMockData.map((item) => (
           <div
             key={item.id}
             style={{
@@ -140,7 +150,21 @@ export default function Counsel() {
             >
               {item.date}
             </span>
-
+            <span
+              style={{
+                fontSize: 16,
+                fontWeight: 300,
+                color: "#16151C",
+                minWidth: 130,
+                maxWidth: 130,
+              }}
+            >
+              {item.program === "PORTON_THERAPY"
+                ? "포톤테라피"
+                : item.program === "VIBE_THERAPY"
+                ? "바이브테라피"
+                : "바이브핏"}
+            </span>
             <span
               style={{
                 fontSize: 16,
@@ -155,8 +179,8 @@ export default function Counsel() {
 
             <div
               style={{
-                minWidth: 100,
-                maxWidth: 100,
+                minWidth: 110,
+                maxWidth: 110,
               }}
             >
               <span
@@ -166,25 +190,16 @@ export default function Counsel() {
                   padding: "3px 9px",
                   borderRadius: 4,
                   backgroundColor:
-                    item.status === "종료상담"
-                      ? "#FFE0EB"
-                      : item.status === "중간상담"
-                      ? "#4BE3A24D"
-                      : "#FFF9C2",
+                    item.status === "management" ? "#C7FFC2" : "#FFF9C2",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   fontSize: 16,
                   fontWeight: 300,
-                  color:
-                    item.status === "종료상담"
-                      ? "#EC221F"
-                      : item.status === "중간상담"
-                      ? "#28AC74"
-                      : "#FF9000",
+                  color: item.status === "management" ? "#1DB459" : "#FF9000",
                 }}
               >
-                {item.status}
+                {item.status === "management" ? "운동관리" : "운동처방"}
               </span>
             </div>
             <span

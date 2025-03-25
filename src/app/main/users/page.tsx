@@ -3,15 +3,15 @@
 import { useGlobalStore } from "@/store/globalStore";
 import DonutChart from "../test/donut";
 import EmptyArea from "../../../components/EmptyArea";
-import Items from "./Items";
+import Items from "../../../components/users/dashboard/Items";
 import styles from "@/styles/userDashboard.module.css";
-import UserTable from "../../../components/users/UserTable";
-import StickChart from "./StickChart";
+import UserTable from "../../../components/users/userList/UserTable";
+import StickChart from "../../../components/users/dashboard/StickChart";
 import { IUserDashboardData } from "../../../types/users";
 import { useEffect, useState } from "react";
-import UserFilter from "./Filter";
-import LeaveRate from "./LeaveRate";
-import UserInfo from "./UserInfo";
+import UserFilter from "../../../components/users/dashboard/UserFilter";
+import LeaveRate from "../../../components/users/dashboard/LeaveRate";
+import UserInfo from "../../../components/users/userInfo/UserInfo";
 
 export default function Users() {
   const { selectedTab } = useGlobalStore((state) => state);

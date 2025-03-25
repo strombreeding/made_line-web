@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import styles from "../../styles/Table.module.css";
-import { useGlobalStore } from "../../store/globalStore";
-import { useUserStore } from "../../store/userStore";
+import { useGlobalStore } from "../../../store/globalStore";
+import { useUserStore } from "../../../store/userStore";
 import { useEffect, useState } from "react";
-import { IResUserProps } from "../../types/users";
+import { IResUserProps } from "../../../types/users";
 
 export default function UserTable() {
   const {

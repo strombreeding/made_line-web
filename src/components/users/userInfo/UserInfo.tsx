@@ -1,16 +1,16 @@
 "use client";
 
 import { ChangeEvent, use, useEffect, useState } from "react";
-import InfoItem from "../../../components/users/InfoItem";
+import InfoItem from "./InfoItem";
 import Image from "next/image";
-import ProfileTab from "../../../components/users/ProfileTab";
+import ProfileTab from "./ProfileTab";
 import { IResUserProps } from "../../../types/users";
-import Membership from "../../../components/users/Membership";
-import HealthRecord from "../../../components/users/HealthRecord";
-import Counsel from "../../../components/users/Counsel";
-import Payment from "../../../components/users/Payment";
-import ActiveLog from "../../../components/users/ActiveLog";
-import PhysicalInfo from "../../../components/users/PhysicalInfo";
+import Membership from "./Membership";
+import HealthRecord from "./HealthRecord";
+import Counsel from "./Counsel";
+import Payment from "./Payment";
+import ActiveLog from "./ActiveLog";
+import PhysicalInfo from "./PhysicalInfo";
 import { useUserStore } from "../../../store/userStore";
 
 import path from "path";

@@ -11,7 +11,11 @@ import styles from "../../../styles/userDashboard.module.css";
 import { IUserDashboardData } from "../../../types/users";
 import { userDashboardData } from "../../../data/users/userDashboard.mock";
 import { useGlobalStore } from "../../../store/globalStore";
-import { formatDate, getPreviousDate, getPreviousMonth } from "./utils";
+import {
+  formatDate,
+  getPreviousDate,
+  getPreviousMonth,
+} from "../../../app/main/users/utils";
 
 export default function UserFilter({
   setDashboard,

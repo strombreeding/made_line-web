@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
-import { paymentMockData } from "../../data/users/payment.mock";
+import { paymentMockData } from "../../../data/users/payment.mock";
 
 const Card = ({ title, value }: { title: string; value: number }) => {
   return (

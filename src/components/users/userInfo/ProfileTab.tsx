@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { IResUserProps } from "../../types/users";
+import { IResUserProps } from "../../../types/users";
 import ProfileItem from "./ProfileItem";
 import Image from "next/image";
-import { useGlobalStore } from "../../store/globalStore";
+import { useGlobalStore } from "../../../store/globalStore";
 
 const options = [
   "남양주 다산점",

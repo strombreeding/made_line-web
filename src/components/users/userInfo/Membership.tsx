@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { membershipMockData } from "../../data/users/userDetailMembership.mock";
+import { membershipMockData } from "../../../data/users/userDetailMembership.mock";
 import { useState } from "react";
 
 const Card = ({

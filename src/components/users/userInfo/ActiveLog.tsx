@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { healthMockData } from "../../data/users/healthRecord.mock";
 import { useState } from "react";
+import { activeLogMockData } from "../../../data/users/activeLog.mock";
 
-export default function HealthRecord() {
+export default function ActiveLog() {
   const [selectedIds, setSelectedIds] = useState([] as Array<string | number>);
   const [pageInfo, setPageInfo] = useState({
     currentPage: 1,
@@ -16,7 +16,6 @@ export default function HealthRecord() {
         style={{
           display: "flex",
           flexDirection: "column",
-          paddingLeft: 10,
           gap: 10,
         }}
       >
@@ -29,77 +28,34 @@ export default function HealthRecord() {
             borderBottom: "1px solid #A2A1A81A",
           }}
         >
-          <div
-            style={{
-              minWidth: 40,
-              maxWidth: 40,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <input
-              type="checkbox"
-              onChange={(e) => {
-                if (e.currentTarget.checked) {
-                  setSelectedIds(healthMockData.map((item) => item.id));
-                } else {
-                  setSelectedIds([]);
-                }
-              }}
-            />
-          </div>
           <span
             style={{
               fontSize: 16,
               fontWeight: 300,
               color: "#A2A1A8",
-              minWidth: 132,
-              maxWidth: 132,
+              minWidth: 191,
+              maxWidth: 191,
             }}
           >
-            날짜
+            일시
+          </span>
+
+          <span
+            style={{
+              fontSize: 16,
+              fontWeight: 300,
+              color: "#A2A1A8",
+              minWidth: 142,
+              maxWidth: 142,
+            }}
+          >
+            유형
           </span>
           <span
             style={{
               fontSize: 16,
               fontWeight: 300,
               color: "#A2A1A8",
-              minWidth: 130,
-              maxWidth: 130,
-            }}
-          >
-            프로그램
-          </span>
-          <span
-            style={{
-              fontSize: 16,
-              fontWeight: 300,
-              color: "#A2A1A8",
-              minWidth: 100,
-              maxWidth: 100,
-            }}
-          >
-            담당자
-          </span>
-          <span
-            style={{
-              fontSize: 16,
-              fontWeight: 300,
-              color: "#A2A1A8",
-              minWidth: 110,
-              maxWidth: 110,
-            }}
-          >
-            태그
-          </span>
-          <span
-            style={{
-              fontSize: 16,
-              fontWeight: 300,
-              color: "#A2A1A8",
-              minWidth: 100,
-              maxWidth: 100,
             }}
           >
             내용
@@ -107,7 +63,7 @@ export default function HealthRecord() {
         </div>
 
         {/* 로우 */}
-        {healthMockData.map((item) => (
+        {activeLogMockData.map((item) => (
           <div
             key={item.id}
             style={{
@@ -118,90 +74,30 @@ export default function HealthRecord() {
               alignItems: "center",
             }}
           >
-            <div
-              style={{
-                minWidth: 40,
-                maxWidth: 40,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <input
-                type="checkbox"
-                checked={selectedIds.includes(item.id)}
-                onChange={(e) => {
-                  if (selectedIds.includes(item.id)) {
-                    setSelectedIds(selectedIds.filter((id) => id !== item.id));
-                  } else {
-                    setSelectedIds([...selectedIds, item.id]);
-                  }
-                }}
-              />
-            </div>
             <span
               style={{
                 fontSize: 16,
                 fontWeight: 300,
                 color: "#16151C",
-                minWidth: 132,
-                maxWidth: 132,
+                minWidth: 191,
+                maxWidth: 191,
               }}
             >
               {item.date}
             </span>
+
             <span
               style={{
                 fontSize: 16,
                 fontWeight: 300,
                 color: "#16151C",
-                minWidth: 130,
-                maxWidth: 130,
+                minWidth: 141,
+                maxWidth: 141,
               }}
             >
-              {item.program === "PORTON_THERAPY"
-                ? "포톤테라피"
-                : item.program === "VIBE_THERAPY"
-                ? "바이브테라피"
-                : "바이브핏"}
-            </span>
-            <span
-              style={{
-                fontSize: 16,
-                fontWeight: 300,
-                color: "#16151C",
-                minWidth: 100,
-                maxWidth: 100,
-              }}
-            >
-              {item.trainer}
+              {item.type}
             </span>
 
-            <div
-              style={{
-                minWidth: 110,
-                maxWidth: 110,
-              }}
-            >
-              <span
-                style={{
-                  minWidth: 85,
-                  maxWidth: 85,
-                  padding: "3px 9px",
-                  borderRadius: 4,
-                  backgroundColor:
-                    item.status === "management" ? "#C7FFC2" : "#FFF9C2",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: 16,
-                  fontWeight: 300,
-                  color: item.status === "management" ? "#1DB459" : "#FF9000",
-                }}
-              >
-                {item.status === "management" ? "운동관리" : "운동처방"}
-              </span>
-            </div>
             <span
               style={{
                 fontSize: 16,
