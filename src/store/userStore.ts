@@ -82,7 +82,7 @@ export const useUserStore = create<UserStore>((set) => ({
   specialOrder: -1,
   findUserList: [],
   pageInfo: {
-    totalPage: new Array(10).fill(0).map((_, i) => i + 1), // 나중에 지우자.
+    totalPage: new Array(1).fill(0).map((_, i) => i + 1), // 나중에 지우자.
     currentPage: 1,
   },
   setLoggedUserInfo: (info) => set((prev) => ({ ...prev, ...info })),

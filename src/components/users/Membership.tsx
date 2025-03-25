@@ -35,7 +35,7 @@ export default function Membership() {
   const [selectedIds, setSelectedIds] = useState([] as Array<string | number>);
   const [pageInfo, setPageInfo] = useState({
     currentPage: 1,
-    totalPage: new Array(10).fill(0).map((_, i) => i + 1), // 나중에 지우자.
+    totalPage: new Array(1).fill(0).map((_, i) => i + 1), // 나중에 지우자.
   });
 
   return (

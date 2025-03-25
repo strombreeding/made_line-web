@@ -5,8 +5,8 @@ import EmptyArea from "./EmptyArea";
 import { useGlobalStore } from "@/store/globalStore";
 import { useEffect, useState } from "react";
 import style from "../styles/Header.module.css";
-import { mockUsers } from "../data/users/user.mock";
 import { useUserStore } from "../store/userStore";
+import { IResUserProps } from "../types/users";
 
 export default function Header() {
   const {
@@ -23,12 +23,16 @@ export default function Header() {
   const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
-  const searchAction = () => {
+  const searchAction = async () => {
     if (title === "회원관리") {
       // 전체회원정보 API를 search값으로 검색한 값을 set해준다.
       // page도 받아와야할듯 하다.
-      const res = mockUsers.filter((user) => user.name === search);
-      setFindUserList(res);
+      const res = await fetch("/api/users/profile");
+      const data = await res.json();
+      const userData = data.filter(
+        (user: IResUserProps) => user.name === search
+      );
+      setFindUserList(userData);
     }
   };
 
