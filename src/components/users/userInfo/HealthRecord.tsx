@@ -130,7 +130,7 @@ export default function HealthRecord() {
               <input
                 type="checkbox"
                 checked={selectedIds.includes(item.id)}
-                onChange={(e) => {
+                onChange={() => {
                   if (selectedIds.includes(item.id)) {
                     setSelectedIds(selectedIds.filter((id) => id !== item.id));
                   } else {

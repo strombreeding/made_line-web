@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { IUserListProps } from "../../../../types";
 
 export async function GET() {
   const filePath = path.join(process.cwd(), "user.json"); // 루트 디렉토리의 user.json 경로
@@ -15,7 +16,9 @@ export async function PUT(req: NextRequest) {
   const filePath = path.join(process.cwd(), "user.json"); // 루트 디렉토리의 user.json 경로
   const jsonData = fs.readFileSync(filePath, "utf8"); // JSON 파일 읽기
   const userData = JSON.parse(jsonData);
-  const userIndex = userData.findIndex((user: any) => user.id === id);
+  const userIndex = userData.findIndex(
+    (user: IUserListProps) => user.id === id
+  );
 
   if (userIndex !== -1) {
     userData[userIndex].stats.particulars = particulars;

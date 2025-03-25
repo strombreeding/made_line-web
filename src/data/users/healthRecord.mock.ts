@@ -1,14 +1,3 @@
-interface IHealthRecord {
-  id: number;
-  userId: string;
-  date: string;
-  program: string;
-  trainer: string;
-  notes: string;
-  createdAt: string;
-  status: "management" | "prescription";
-}
-
 export const healthMockData = [
   {
     id: 6,

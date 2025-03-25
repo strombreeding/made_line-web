@@ -15,13 +15,13 @@ export default function ProfileTab({
   profileProps,
   editable,
   setEditable,
-  profileImageFile,
+  // profileImageFile,
   setProfileEditDone,
 }: {
   profileProps: IResUserProps;
   editable: boolean;
   setEditable: Dispatch<SetStateAction<boolean>>;
-  profileImageFile: File | null;
+  // profileImageFile: File | null;
   setProfileEditDone: Dispatch<SetStateAction<boolean>>;
 }) {
   const { setSelectedTab } = useGlobalStore((state) => state);
@@ -44,6 +44,7 @@ export default function ProfileTab({
         location: editLocation,
         contact: { phone: editContactPhone, email: editContactEmail },
         job: editJob,
+        // profileImageFile,
       }),
     });
     setProfileEditDone(true);

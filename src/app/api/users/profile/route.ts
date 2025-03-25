@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { IUserListProps } from "../../../../types";
 
 export async function GET() {
   const filePath = path.join(process.cwd(), "user.json"); // 루트 디렉토리의 user.json 경로
@@ -11,11 +12,20 @@ export async function GET() {
 }
 
 export async function PUT(req: NextRequest) {
-  const { id, name, location, contact, job } = await req.json();
+  const {
+    id,
+    name,
+    location,
+    contact,
+    job,
+    // profileImageFile
+  } = await req.json();
   const filePath = path.join(process.cwd(), "user.json"); // 루트 디렉토리의 user.json 경로
   const jsonData = fs.readFileSync(filePath, "utf8"); // JSON 파일 읽기
   const userData = JSON.parse(jsonData);
-  const userIndex = userData.findIndex((user: any) => user.id === id);
+  const userIndex = userData.findIndex(
+    (user: IUserListProps) => user.id === id
+  );
 
   if (userIndex !== -1) {
     userData[userIndex].name = name;
@@ -23,6 +33,7 @@ export async function PUT(req: NextRequest) {
     userData[userIndex].contact.phone = contact.phone;
     userData[userIndex].contact.email = contact.email;
     userData[userIndex].job = job;
+    // userData[userIndex].profileImageFile = profileImageFile;
   }
   const jsonSave = JSON.stringify(userData);
   fs.writeFileSync(filePath, jsonSave);
@@ -35,7 +46,9 @@ export async function DELETE(req: NextRequest) {
   const filePath = path.join(process.cwd(), "user.json"); // 루트 디렉토리의 user.json 경로
   const jsonData = fs.readFileSync(filePath, "utf8"); // JSON 파일 읽기
   const userData = JSON.parse(jsonData);
-  const userIndex = userData.findIndex((user: any) => user.id === id);
+  const userIndex = userData.findIndex(
+    (user: IUserListProps) => user.id === id
+  );
 
   userData.splice(userIndex, 1);
 

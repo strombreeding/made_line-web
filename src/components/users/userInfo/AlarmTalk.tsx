@@ -1,9 +1,7 @@
 import Image from "next/image";
-import { counselMockData } from "../../../data/users/counsel.mock";
 import { useState } from "react";
-
-export default function Counsel() {
-  const [selectedIds, setSelectedIds] = useState([] as Array<string | number>);
+import { alarmTalkMockData } from "../../../data/users/alarmtalk";
+export default function AlarmTalk() {
   const [pageInfo, setPageInfo] = useState({
     currentPage: 1,
     totalPage: new Array(1).fill(0).map((_, i) => i + 1), // 나중에 지우자.
@@ -16,7 +14,6 @@ export default function Counsel() {
         style={{
           display: "flex",
           flexDirection: "column",
-          paddingLeft: 10,
           gap: 10,
         }}
       >
@@ -29,33 +26,13 @@ export default function Counsel() {
             borderBottom: "1px solid #A2A1A81A",
           }}
         >
-          <div
-            style={{
-              minWidth: 40,
-              maxWidth: 40,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <input
-              type="checkbox"
-              onChange={(e) => {
-                if (e.currentTarget.checked) {
-                  setSelectedIds(counselMockData.map((item) => item.id));
-                } else {
-                  setSelectedIds([]);
-                }
-              }}
-            />
-          </div>
           <span
             style={{
               fontSize: 16,
               fontWeight: 300,
               color: "#A2A1A8",
-              minWidth: 132,
-              maxWidth: 132,
+              minWidth: 191,
+              maxWidth: 191,
             }}
           >
             날짜
@@ -66,30 +43,17 @@ export default function Counsel() {
               fontSize: 16,
               fontWeight: 300,
               color: "#A2A1A8",
-              minWidth: 100,
-              maxWidth: 100,
+              minWidth: 673,
+              maxWidth: 673,
             }}
           >
-            담당자
+            결제수단
           </span>
           <span
             style={{
               fontSize: 16,
               fontWeight: 300,
               color: "#A2A1A8",
-              minWidth: 100,
-              maxWidth: 100,
-            }}
-          >
-            상담유형
-          </span>
-          <span
-            style={{
-              fontSize: 16,
-              fontWeight: 300,
-              color: "#A2A1A8",
-              minWidth: 100,
-              maxWidth: 100,
             }}
           >
             내용
@@ -97,7 +61,7 @@ export default function Counsel() {
         </div>
 
         {/* 로우 */}
-        {counselMockData.map((item) => (
+        {alarmTalkMockData.map((item) => (
           <div
             key={item.id}
             style={{
@@ -108,34 +72,13 @@ export default function Counsel() {
               alignItems: "center",
             }}
           >
-            <div
-              style={{
-                minWidth: 40,
-                maxWidth: 40,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <input
-                type="checkbox"
-                checked={selectedIds.includes(item.id)}
-                onChange={() => {
-                  if (selectedIds.includes(item.id)) {
-                    setSelectedIds(selectedIds.filter((id) => id !== item.id));
-                  } else {
-                    setSelectedIds([...selectedIds, item.id]);
-                  }
-                }}
-              />
-            </div>
             <span
               style={{
                 fontSize: 16,
                 fontWeight: 300,
                 color: "#16151C",
-                minWidth: 132,
-                maxWidth: 132,
+                minWidth: 191,
+                maxWidth: 191,
               }}
             >
               {item.date}
@@ -146,56 +89,34 @@ export default function Counsel() {
                 fontSize: 16,
                 fontWeight: 300,
                 color: "#16151C",
-                minWidth: 100,
-                maxWidth: 100,
-              }}
-            >
-              {item.trainer}
-            </span>
-
-            <div
-              style={{
-                minWidth: 100,
-                maxWidth: 100,
-              }}
-            >
-              <span
-                style={{
-                  minWidth: 85,
-                  maxWidth: 85,
-                  padding: "3px 9px",
-                  borderRadius: 4,
-                  backgroundColor:
-                    item.status === "종료상담"
-                      ? "#FFE0EB"
-                      : item.status === "중간상담"
-                      ? "#4BE3A24D"
-                      : "#FFF9C2",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: 16,
-                  fontWeight: 300,
-                  color:
-                    item.status === "종료상담"
-                      ? "#EC221F"
-                      : item.status === "중간상담"
-                      ? "#28AC74"
-                      : "#FF9000",
-                }}
-              >
-                {item.status}
-              </span>
-            </div>
-            <span
-              style={{
-                fontSize: 16,
-                fontWeight: 300,
-                color: "#16151C",
+                minWidth: 673,
+                maxWidth: 673,
               }}
             >
               {item.notes}
             </span>
+
+            <div
+              style={{
+                backgroundColor: item.type === "성공" ? "#4BE3A24D" : "#FFE0E0",
+                padding: "3px 0px",
+                borderRadius: 4,
+                minWidth: 75,
+                maxWidth: 75,
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: 16,
+                  fontWeight: 300,
+                  color: item.type === "성공" ? "#28AC74" : "#EC221F",
+                }}
+              >
+                {item.type}
+              </span>
+            </div>
           </div>
         ))}
       </div>

@@ -3,7 +3,6 @@ import { useState } from "react";
 import { activeLogMockData } from "../../../data/users/activeLog.mock";
 
 export default function ActiveLog() {
-  const [selectedIds, setSelectedIds] = useState([] as Array<string | number>);
   const [pageInfo, setPageInfo] = useState({
     currentPage: 1,
     totalPage: new Array(1).fill(0).map((_, i) => i + 1), // 나중에 지우자.

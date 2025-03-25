@@ -30,17 +30,17 @@ export const useUserStore = create<UserStore>((set) => ({
   selectedUserId: "-1",
   setSelectedUserId: (id: number | string) => set({ selectedUserId: id }),
   loggedUserInfo: {
-    name: "김메라",
+    name: "",
     contact: {
-      phone: "010-1234-5678",
-      email: "test@test.com",
+      phone: "",
+      email: "",
     },
-    birthdate: "1990-01-01",
-    gender: "남자",
-    location: "서울특별시 강남구",
+    birthdate: "",
+    gender: "",
+    location: "",
     account: {
       id: "1",
-      role: "최고관리자",
+      role: "",
     },
     membership: {
       type: "등록회원",

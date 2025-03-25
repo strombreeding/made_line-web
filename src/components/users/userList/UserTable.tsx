@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import styles from "../../styles/Table.module.css";
+import styles from "../../../styles/Table.module.css";
 import { useGlobalStore } from "../../../store/globalStore";
 import { useUserStore } from "../../../store/userStore";
 import { useEffect, useState } from "react";
-import { IResUserProps } from "../../../types/users";
+import { IUserListProps } from "../../../types";
 
 export default function UserTable() {
   const {
@@ -20,8 +20,9 @@ export default function UserTable() {
   const [selectedUsers, setSelectedUsers] = useState([] as string[]);
   const [selectToggle, setSelectToggle] = useState(false);
 
-  const location = useGlobalStore((state) => state.selectLocation);
-  const { filters, specialOrder } = useUserStore((state) => state);
+  // 필터 추가시 req 할때 함께 보낼것
+  // const location = useGlobalStore((state) => state.selectLocation);
+  // const { filters, specialOrder } = useUserStore((state) => state);
 
   const renderMemberships = (memberships: string[]) => {
     return memberships.length > 0 ? memberships.join(", ") : "-";
@@ -50,6 +51,7 @@ export default function UserTable() {
     }
     return `${diffTime * -1}일 전`;
   };
+
   const formatDateLatest = (date: string) => {
     const now = new Date();
     const targetDate = new Date(date);
@@ -61,10 +63,28 @@ export default function UserTable() {
     }
     return `${diffTime}일 전`;
   };
+
   // 새로고침 막기 변수
   const preventClose = (e: BeforeUnloadEvent) => {
     e.preventDefault();
     e.returnValue = ""; // chrome에서는 설정이 필요해서 넣은 코드
+  };
+
+  const req = async (locationFilter = false) => {
+    const res = await fetch("/api/users/profile");
+    const data = await res.json();
+    if (locationFilter) {
+      if (selectLocation === "전체지점") {
+        setFindUserList(data);
+      } else {
+        const newList = data.filter(
+          (user: IUserListProps) => user.location === selectLocation
+        );
+        setFindUserList(newList);
+      }
+    } else {
+      setFindUserList(data);
+    }
   };
 
   // 브라우저에 렌더링 시 한 번만 실행하는 코드
@@ -98,21 +118,6 @@ export default function UserTable() {
       window.removeEventListener("popstate", preventGoBack);
     };
   }, []);
-
-  const req = async (locationFilter = false) => {
-    const res = await fetch("/api/users/profile");
-    const data = await res.json();
-    if (locationFilter) {
-      if (selectLocation === "전체지점") {
-        setFindUserList(data);
-      } else {
-        const newList = data.filter((user) => user.location === selectLocation);
-        setFindUserList(newList);
-      }
-    } else {
-      setFindUserList(data);
-    }
-  };
 
   useEffect(() => {
     req();
@@ -219,10 +224,6 @@ export default function UserTable() {
         {findUserList.map((item, i) => {
           return (
             <div
-              onClick={() => {
-                setSelectedUserId(item.id);
-                setSelectedTab("회원상세정보");
-              }}
               className={styles.tableBodyWrapper}
               key={i}
               style={{
@@ -247,54 +248,68 @@ export default function UserTable() {
                   }}
                 />
               </div>
-              <div className={styles.tableBodyColumn140}>
-                <div className={styles.loginUserInfoImgWrap}>
-                  <Image
-                    src={"/images/skeleton-user.svg"}
-                    alt=""
-                    width={32}
-                    height={32}
-                  />
+              <div
+                onClick={() => {
+                  setSelectedUserId(item.id);
+                  setSelectedTab("회원상세정보");
+                }}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  backgroundColor: "red",
+                }}
+              >
+                <div className={styles.tableBodyColumn140}>
+                  <div className={styles.loginUserInfoImgWrap}>
+                    <Image
+                      src={"/images/skeleton-user.svg"}
+                      alt=""
+                      width={32}
+                      height={32}
+                    />
+                  </div>
+                  <span className={styles.tableBodyColumnText1}>
+                    {item.name}
+                  </span>
                 </div>
-                <span className={styles.tableBodyColumnText1}>{item.name}</span>
-              </div>
-              <div className={styles.tableBodyColumn140}>
-                <span className={styles.tableBodyColumnText2}>
-                  {item.location}
-                </span>
-              </div>
-              <div className={styles.tableBodyColumn160}>
-                <span>{renderMemberships(item.membership.memberships)}</span>
-              </div>
-              <div className={styles.tableBodyColumn160}>
-                <span className={styles.tableBodyColumnText2}>
-                  {formatDate(item.membership.expirationDate)}
-                </span>
-              </div>
-              <div className={styles.tableBodyColumn160}>
-                <span className={styles.tableBodyColumnText2}>
-                  {formatDateLatest(item.attendance.lastAttended)}
-                </span>
-              </div>
-              <div className={styles.tableBodyColumn160}>
-                <span
-                  className={styles.tableBodyColumnBadge1}
-                  style={{
-                    backgroundColor: getStatusColor(item.membership.type),
-                  }}
-                >
-                  {item.membership.type}
-                </span>
-              </div>
-              <div className={styles.tableBodyColumn160}>
-                <span
-                  className={styles.tableBodyColumnBadge1}
-                  style={{
-                    backgroundColor: getStatusColor(item.membership.level),
-                  }}
-                >
-                  {item.membership.level}
-                </span>
+                <div className={styles.tableBodyColumn140}>
+                  <span className={styles.tableBodyColumnText2}>
+                    {item.location}
+                  </span>
+                </div>
+                <div className={styles.tableBodyColumn160}>
+                  <span>{renderMemberships(item.membership.memberships)}</span>
+                </div>
+                <div className={styles.tableBodyColumn160}>
+                  <span className={styles.tableBodyColumnText2}>
+                    {formatDate(item.membership.expirationDate)}
+                  </span>
+                </div>
+                <div className={styles.tableBodyColumn160}>
+                  <span className={styles.tableBodyColumnText2}>
+                    {formatDateLatest(item.attendance.lastAttended)}
+                  </span>
+                </div>
+                <div className={styles.tableBodyColumn160}>
+                  <span
+                    className={styles.tableBodyColumnBadge1}
+                    style={{
+                      backgroundColor: getStatusColor(item.membership.type),
+                    }}
+                  >
+                    {item.membership.type}
+                  </span>
+                </div>
+                <div className={styles.tableBodyColumn160}>
+                  <span
+                    className={styles.tableBodyColumnBadge1}
+                    style={{
+                      backgroundColor: getStatusColor(item.membership.level),
+                    }}
+                  >
+                    {item.membership.level}
+                  </span>
+                </div>
               </div>
             </div>
           );
@@ -374,9 +389,8 @@ export default function UserTable() {
           })}
         </div>
         <div
-          onClick={() => {
-            const newRes: IResUserProps[] = users;
-            setFindUserList(newRes);
+          onClick={async () => {
+            await req();
             setPageInfo({
               ...pageInfo,
               currentPage: pageInfo.totalPage.length,

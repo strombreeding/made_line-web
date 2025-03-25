@@ -224,59 +224,59 @@ function parseDateAndCalculateAge(inputDate: string) {
   };
 }
 
-function formatExpiryDate(startDate: string, expiryDate: string) {
-  // 날짜 형식 정규화 (구분자 처리)
-  const normalizeDate = (dateStr: string) => {
-    if (typeof dateStr !== "string") return null;
+// function formatExpiryDate(startDate: string, expiryDate: string) {
+//   // 날짜 형식 정규화 (구분자 처리)
+//   const normalizeDate = (dateStr: string) => {
+//     if (typeof dateStr !== "string") return null;
 
-    // 구분자에 따라 날짜 분리
-    let parts;
-    if (dateStr.includes("-")) {
-      parts = dateStr.split("-");
-    } else if (dateStr.includes(".")) {
-      parts = dateStr.split(".");
-    } else {
-      return null;
-    }
+//     // 구분자에 따라 날짜 분리
+//     let parts;
+//     if (dateStr.includes("-")) {
+//       parts = dateStr.split("-");
+//     } else if (dateStr.includes(".")) {
+//       parts = dateStr.split(".");
+//     } else {
+//       return null;
+//     }
 
-    // 유효한 날짜 형식인지 확인
-    if (parts.length !== 3) return null;
+//     // 유효한 날짜 형식인지 확인
+//     if (parts.length !== 3) return null;
 
-    const [year, month, day] = parts;
-    return new Date(Number(year), Number(month) - 1, Number(day));
-  };
+//     const [year, month, day] = parts;
+//     return new Date(Number(year), Number(month) - 1, Number(day));
+//   };
 
-  // 날짜 객체 생성
-  const start = normalizeDate(startDate);
-  const expiry = normalizeDate(expiryDate);
+//   // 날짜 객체 생성
+//   const start = normalizeDate(startDate);
+//   const expiry = normalizeDate(expiryDate);
 
-  // 유효한 날짜가 아닌 경우 에러 처리
-  if (!start || !expiry) {
-    throw new Error(
-      "유효하지 않은 날짜 형식입니다. YYYY-MM-DD 또는 YYYY.MM.DD 형식을 사용하세요."
-    );
-  }
+//   // 유효한 날짜가 아닌 경우 에러 처리
+//   if (!start || !expiry) {
+//     throw new Error(
+//       "유효하지 않은 날짜 형식입니다. YYYY-MM-DD 또는 YYYY.MM.DD 형식을 사용하세요."
+//     );
+//   }
 
-  // 현재 날짜 기준으로 만료까지 남은 일수 계산
-  const today = new Date();
-  const diffTime = expiry.getTime() - today.getTime();
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+//   // 현재 날짜 기준으로 만료까지 남은 일수 계산
+//   const today = new Date();
+//   const diffTime = expiry.getTime() - today.getTime();
+//   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-  // 만료일 포맷팅 (YYYY.MM.DD)
-  const year = expiry.getFullYear();
-  const month = String(expiry.getMonth() + 1).padStart(2, "0");
-  const day = String(expiry.getDate()).padStart(2, "0");
-  const formattedDate = `${year}.${month}.${day}`;
+//   // 만료일 포맷팅 (YYYY.MM.DD)
+//   const year = expiry.getFullYear();
+//   const month = String(expiry.getMonth() + 1).padStart(2, "0");
+//   const day = String(expiry.getDate()).padStart(2, "0");
+//   const formattedDate = `${year}.${month}.${day}`;
 
-  // 남은 일수에 따른 메시지 생성
-  let message;
-  if (diffDays < 0) {
-    message = `(만료 +${diffDays * -1}일 경과)`;
-  } else if (diffDays === 0) {
-    message = `(오늘 만료)`;
-  } else {
-    message = `(만료 ${diffDays}일 전)`;
-  }
+//   // 남은 일수에 따른 메시지 생성
+//   let message;
+//   if (diffDays < 0) {
+//     message = `(만료 +${diffDays * -1}일 경과)`;
+//   } else if (diffDays === 0) {
+//     message = `(오늘 만료)`;
+//   } else {
+//     message = `(만료 ${diffDays}일 전)`;
+//   }
 
-  return `${formattedDate} ${message}`;
-}
+//   return `${formattedDate} ${message}`;
+// }

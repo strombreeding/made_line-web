@@ -1,12 +1,13 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import FormInput from "./FormInput";
 import style from "../styles/Login.module.css";
 import EmptyArea from "./EmptyArea";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import useLoginHook from "../hooks/useLogin";
+import { useUserStore } from "../store/userStore";
 
 function LoginContent() {
   const searchParams = useSearchParams();
@@ -15,6 +16,8 @@ function LoginContent() {
   const [pw, setPw] = useState("");
   const [keepLogin, setkeepLogin] = useState(false);
 
+  const { setLoggedUserInfo } = useUserStore((state) => state);
+
   const { emailValidation, pwValidation } = useLoginHook();
 
   const reqUserLogin = async () => {
@@ -22,6 +25,12 @@ function LoginContent() {
       emailValidation(email);
       pwValidation(pw);
       route.replace("/main/users");
+      const res = await fetch("/api/users/profile");
+      const data = await res.json();
+      setLoggedUserInfo(data[0]);
+
+      window.localStorage.setItem("logged", "true");
+      window.localStorage.setItem("loginInfo", JSON.stringify(data[0]));
       return alert("로그인 성공!");
     } catch (err) {
       if (err instanceof Error) {
@@ -31,6 +40,17 @@ function LoginContent() {
       }
     }
   };
+
+  useEffect(() => {
+    if (
+      window.localStorage.getItem("logged") === "true" &&
+      window.localStorage.getItem("loginInfo") != null
+    ) {
+      const loginInfo = JSON.parse(window.localStorage.getItem("loginInfo")!);
+      setLoggedUserInfo(loginInfo);
+      route.replace("/main/users");
+    }
+  }, []);
 
   console.log(searchParams.get("join"));
   if (searchParams.get("join")) {

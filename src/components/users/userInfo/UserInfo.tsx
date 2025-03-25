@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, use, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import InfoItem from "./InfoItem";
 import Image from "next/image";
 import ProfileTab from "./ProfileTab";
@@ -13,8 +13,8 @@ import ActiveLog from "./ActiveLog";
 import PhysicalInfo from "./PhysicalInfo";
 import { useUserStore } from "../../../store/userStore";
 
-import path from "path";
-import fs from "fs";
+import AIcoach from "./AIcoach";
+import AlarmTalk from "./AlarmTalk";
 
 const tabList = [
   "프로필",
@@ -348,7 +348,7 @@ export default function UserInfo() {
           profileProps={profileProps}
           editable={profileEditable}
           setEditable={setProfileEditable}
-          profileImageFile={selectedFile}
+          // profileImageFile={selectedFile}
           setProfileEditDone={setProfileEditDone}
         />
       )}
@@ -364,6 +364,8 @@ export default function UserInfo() {
       {selectedTab === "상담" && <Counsel />}
       {selectedTab === "결제" && <Payment />}
       {selectedTab === "앱 활동" && <ActiveLog />}
+      {selectedTab === "AI 코치" && <AIcoach />}
+      {selectedTab === "알림톡" && <AlarmTalk />}
     </div>
   );
 }

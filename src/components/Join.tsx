@@ -1,12 +1,13 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import FormInput from "./FormInput";
 import style from "../styles/Login.module.css";
 import EmptyArea from "./EmptyArea";
 import Link from "next/link";
 import useLoginHook from "../hooks/useLogin";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useUserStore } from "../store/userStore";
 
 function JoinContent() {
   const searchParams = useSearchParams();
@@ -23,6 +24,7 @@ function JoinContent() {
     pwValidation,
     locationValidation,
   } = useLoginHook();
+  const { setLoggedUserInfo } = useUserStore((state) => state);
 
   const validationCheck = () => {
     try {
@@ -63,6 +65,17 @@ function JoinContent() {
       }
     }
   };
+
+  useEffect(() => {
+    if (
+      window.localStorage.getItem("logged") === "true" &&
+      window.localStorage.getItem("loginInfo") != null
+    ) {
+      const loginInfo = JSON.parse(window.localStorage.getItem("loginInfo")!);
+      setLoggedUserInfo(loginInfo);
+      route.replace("/main/users");
+    }
+  }, []);
 
   console.log(searchParams.get("join"));
   if (!searchParams.get("join") || searchParams.get("join") === "false") {
