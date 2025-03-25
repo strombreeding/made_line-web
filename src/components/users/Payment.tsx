@@ -266,8 +266,8 @@ export default function Payment() {
             >
               <span
                 style={{
-                  minWidth: 80,
-                  maxWidth: 80,
+                  minWidth: 90,
+                  maxWidth: 90,
                   fontSize: 16,
                   fontWeight: 300,
                   color: item.status === "정상 결제" ? "#28AC74" : "#EC221F",

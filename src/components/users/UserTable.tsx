@@ -1,20 +1,23 @@
 "use client";
 
 import Image from "next/image";
-import styles from "../styles/Table.module.css";
-import { useGlobalStore } from "../store/globalStore";
-import { useUserStore } from "../store/userStore";
+import styles from "../../styles/Table.module.css";
+import { useGlobalStore } from "../../store/globalStore";
+import { useUserStore } from "../../store/userStore";
 import { useEffect, useState } from "react";
-import { IUserListProps } from "../types";
-import { mockUsers } from "../data/users/user.mock";
+import { IResUserProps } from "../../types/users";
 
 export default function UserTable() {
-  const { findUserList, setFindUserList, setPageInfo, pageInfo } = useUserStore(
-    (state) => state
-  );
-  const { selectLocation } = useGlobalStore((state) => state);
+  const {
+    findUserList,
+    setFindUserList,
+    setPageInfo,
+    pageInfo,
+    setSelectedUserId,
+  } = useUserStore((state) => state);
+  const { selectLocation, setSelectedTab } = useGlobalStore((state) => state);
 
-  const [selectedUsers, setSelectedUsers] = useState([] as number[]);
+  const [selectedUsers, setSelectedUsers] = useState([] as string[]);
   const [selectToggle, setSelectToggle] = useState(false);
 
   const location = useGlobalStore((state) => state.selectLocation);
@@ -23,7 +26,6 @@ export default function UserTable() {
   const renderMemberships = (memberships: string[]) => {
     return memberships.length > 0 ? memberships.join(", ") : "-";
   };
-
   const getStatusColor = (type: string) => {
     switch (type) {
       case "등록회원":
@@ -38,6 +40,17 @@ export default function UserTable() {
   };
 
   const formatDate = (date: string) => {
+    const now = new Date();
+    const targetDate = new Date(date);
+    const diffTime = Math.floor(
+      (now.getTime() - targetDate.getTime()) / (1000 * 60 * 60 * 24)
+    );
+    if (diffTime * -1 > 30) {
+      return "+30일 경과";
+    }
+    return `${diffTime * -1}일 전`;
+  };
+  const formatDateLatest = (date: string) => {
     const now = new Date();
     const targetDate = new Date(date);
     const diffTime = Math.floor(
@@ -66,7 +79,7 @@ export default function UserTable() {
   }, []);
 
   useEffect(() => {
-    alert(selectLocation);
+    req(true);
   }, [selectLocation]);
 
   const preventGoBack = () => {
@@ -86,22 +99,27 @@ export default function UserTable() {
     };
   }, []);
 
-  console.log(pageInfo, "페이지인포");
+  const req = async (locationFilter = false) => {
+    const res = await fetch("/api/users/profile");
+    const data = await res.json();
+    if (locationFilter) {
+      if (selectLocation === "전체지점") {
+        setFindUserList(data);
+      } else {
+        const newList = data.filter((user) => user.location === selectLocation);
+        setFindUserList(newList);
+      }
+    } else {
+      setFindUserList(data);
+    }
+  };
+
+  useEffect(() => {
+    req();
+  }, []);
 
   return (
     <div>
-      {/* <div
-        onClick={() => {
-          alert(`
-        ${location}
-        ${specialOrder}
-        ${JSON.stringify(filters, null, 2)}
-      `);
-        }}
-      >
-        필터
-      </div> */}
-
       <div className={styles.tableWrapper}>
         {/* 헤더 */}
         <div className={styles.tableHeader}>
@@ -201,6 +219,10 @@ export default function UserTable() {
         {findUserList.map((item, i) => {
           return (
             <div
+              onClick={() => {
+                setSelectedUserId(item.id);
+                setSelectedTab("회원상세정보");
+              }}
               className={styles.tableBodyWrapper}
               key={i}
               style={{
@@ -242,36 +264,36 @@ export default function UserTable() {
                 </span>
               </div>
               <div className={styles.tableBodyColumn160}>
-                <span>{renderMemberships(item.memberships)}</span>
+                <span>{renderMemberships(item.membership.memberships)}</span>
               </div>
               <div className={styles.tableBodyColumn160}>
                 <span className={styles.tableBodyColumnText2}>
-                  {formatDate(item.expiredMembership)}
+                  {formatDate(item.membership.expirationDate)}
                 </span>
               </div>
               <div className={styles.tableBodyColumn160}>
                 <span className={styles.tableBodyColumnText2}>
-                  {formatDate(item.latestAttended)}
+                  {formatDateLatest(item.attendance.lastAttended)}
                 </span>
               </div>
               <div className={styles.tableBodyColumn160}>
                 <span
                   className={styles.tableBodyColumnBadge1}
                   style={{
-                    backgroundColor: getStatusColor(item.level),
+                    backgroundColor: getStatusColor(item.membership.type),
                   }}
                 >
-                  {item.type}
+                  {item.membership.type}
                 </span>
               </div>
               <div className={styles.tableBodyColumn160}>
                 <span
                   className={styles.tableBodyColumnBadge1}
                   style={{
-                    backgroundColor: getStatusColor(item.level),
+                    backgroundColor: getStatusColor(item.membership.level),
                   }}
                 >
-                  {item.level}
+                  {item.membership.level}
                 </span>
               </div>
             </div>
@@ -298,9 +320,9 @@ export default function UserTable() {
             marginRight: 8,
             cursor: "pointer",
           }}
-          onClick={() => {
-            const newRes: IUserListProps[] = mockUsers;
-            setFindUserList(newRes);
+          onClick={async () => {
+            await req();
+
             setPageInfo({
               ...pageInfo,
               currentPage: 1,
@@ -335,12 +357,11 @@ export default function UserTable() {
                     index === pageInfo.currentPage ? "#E3E3E3" : "transparent",
                   cursor: "pointer",
                 }}
-                onClick={() => {
+                onClick={async () => {
                   // 현재 페이지 + 필터기반 페이지 요청 후 set하기
 
-                  const newRes: IUserListProps[] = mockUsers;
+                  await req();
                   setPageInfo({ ...pageInfo, currentPage: index });
-                  setFindUserList(newRes);
                 }}
               >
                 <span
@@ -354,7 +375,7 @@ export default function UserTable() {
         </div>
         <div
           onClick={() => {
-            const newRes: IUserListProps[] = mockUsers;
+            const newRes: IResUserProps[] = users;
             setFindUserList(newRes);
             setPageInfo({
               ...pageInfo,

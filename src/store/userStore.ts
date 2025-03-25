@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import type { IPageInfoProps, IUserListProps, IUserProps } from "../types";
-import { type IUserListFilterProps } from "../types/users";
+import type { IPageInfoProps, IUserProps } from "../types";
+import { IResUserProps, type IUserListFilterProps } from "../types/users";
 
 export const specialOrders = [
   "감량율 평균미달",
@@ -15,16 +15,20 @@ interface UserStore {
   loggedUserInfo: IUserProps;
   specialOrder: number;
   filters: IUserListFilterProps;
-  findUserList: IUserListProps[];
+  findUserList: IResUserProps[];
   pageInfo: IPageInfoProps;
+  selectedUserId: number | string;
+  setSelectedUserId: (id: number | string) => void;
   setLoggedUserInfo: (info: Partial<IUserProps>) => void;
   setFilters: (filter: Partial<IUserListFilterProps>) => void;
   setSpecialOredr: (index: number) => void;
-  setFindUserList: (list: IUserListProps[]) => void;
+  setFindUserList: (list: IResUserProps[]) => void;
   setPageInfo: (info: IPageInfoProps) => void;
 }
 
 export const useUserStore = create<UserStore>((set) => ({
+  selectedUserId: "-1",
+  setSelectedUserId: (id: number | string) => set({ selectedUserId: id }),
   loggedUserInfo: {
     name: "김메라",
     contact: {

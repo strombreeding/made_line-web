@@ -2,9 +2,10 @@ import { IResUserProps } from "./src/types/users";
 
 export const users: IResUserProps[] = [
   {
+    id: "1",
     name: "김 메라",
     contact: {
-      phone: "010-0000-0000",
+      phone: "010-1234-5678",
       email: "madeline@gmail.com",
     },
     birthdate: "1980-08-08",
@@ -15,34 +16,37 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "VIP",
       registeredAt: "2020-12-25",
       lastReRegisteredAt: "2025-02-25",
-      expirationDate: "2025-03-25",
+      expirationDate: "2025-03-31",
     },
     stats: {
       height: 170,
       currentWeight: 75,
       goalWeight: 60,
       exerciseGoal: "",
-      averageExerciseTime: "",
-      sleepQuality: "",
-      particulars: "",
+      averageExerciseTime: "6시간",
+      sleepQuality: "좋음",
+      particulars: "심장 박동기 착용, OO 자세할 때 주의 요망",
       menstrualCycle: {
-        averageCycleWeeks: 0,
-        currentFlowStandard: "",
-        premenstrualSymptoms: "",
-        activityRestrictionDuringPeriod: false,
+        averageCycleWeeks: 1,
+        currentFlowStandard: "2025-03-25",
+        premenstrualSymptoms: "두통, 관절 통증, 조금 무기력",
+        activityRestrictionDuringPeriod: true,
       },
     },
     job: "무직백수",
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
   },
   {
+    id: "2",
     name: "박 민수",
     contact: {
       phone: "010-1234-5678",
@@ -56,11 +60,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "신규",
       registeredAt: "2023-05-10",
       lastReRegisteredAt: "2024-05-10",
-      expirationDate: "2025-05-10",
+      expirationDate: "2025-05-31",
     },
     stats: {
       height: 178,
@@ -81,6 +86,7 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
   },
   {
@@ -97,11 +103,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "체험회원",
       level: "신규",
       registeredAt: "2024-06-15",
       lastReRegisteredAt: "2024-06-15",
-      expirationDate: "2024-07-15",
+      expirationDate: "2024-07-31",
     },
     stats: {
       height: 163,
@@ -122,7 +129,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "3",
   },
   {
     name: "최 준호",
@@ -138,11 +147,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "종료",
       level: "신규",
       registeredAt: "2022-01-15",
       lastReRegisteredAt: "2023-01-15",
-      expirationDate: "2024-01-15",
+      expirationDate: "2024-01-31",
     },
     stats: {
       height: 175,
@@ -163,7 +173,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "4",
   },
   {
     name: "정 수연",
@@ -179,11 +191,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "신규",
       registeredAt: "2021-08-05",
       lastReRegisteredAt: "2024-08-05",
-      expirationDate: "2025-08-05",
+      expirationDate: "2025-08-31",
     },
     stats: {
       height: 168,
@@ -204,7 +217,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "5",
   },
   {
     name: "강 동욱",
@@ -220,11 +235,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "신규",
       registeredAt: "2023-11-20",
       lastReRegisteredAt: "2024-11-20",
-      expirationDate: "2025-11-20",
+      expirationDate: "2025-11-31",
     },
     stats: {
       height: 182,
@@ -245,7 +261,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "6",
   },
   {
     name: "윤 미라",
@@ -261,11 +279,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "체험회원",
       level: "신규",
       registeredAt: "2024-06-01",
       lastReRegisteredAt: "2024-06-01",
-      expirationDate: "2024-07-01",
+      expirationDate: "2024-07-31",
     },
     stats: {
       height: 165,
@@ -286,7 +305,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "7",
   },
   {
     name: "송 현우",
@@ -302,11 +323,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "신규",
       registeredAt: "2022-09-15",
       lastReRegisteredAt: "2024-09-15",
-      expirationDate: "2025-09-15",
+      expirationDate: "2025-09-31",
     },
     stats: {
       height: 179,
@@ -327,7 +349,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "8",
   },
   {
     name: "임 수진",
@@ -343,11 +367,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "종료",
       level: "신규",
       registeredAt: "2022-05-10",
       lastReRegisteredAt: "2023-05-10",
-      expirationDate: "2024-05-10",
+      expirationDate: "2024-05-31",
     },
     stats: {
       height: 162,
@@ -368,7 +393,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "9",
   },
   {
     name: "한 지훈",
@@ -384,11 +411,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "신규",
       registeredAt: "2020-03-15",
       lastReRegisteredAt: "2024-03-15",
-      expirationDate: "2025-03-15",
+      expirationDate: "2025-03-31",
     },
     stats: {
       height: 176,
@@ -409,7 +437,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "10",
   },
   {
     name: "오 은지",
@@ -425,11 +455,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "신규",
       registeredAt: "2024-05-20",
       lastReRegisteredAt: "2024-05-20",
-      expirationDate: "2025-05-20",
+      expirationDate: "2025-05-31",
     },
     stats: {
       height: 167,
@@ -450,7 +481,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "11",
   },
   {
     name: "신 태영",
@@ -466,11 +499,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "신규",
       registeredAt: "2023-02-10",
       lastReRegisteredAt: "2024-02-10",
-      expirationDate: "2025-02-10",
+      expirationDate: "2025-02-31",
     },
     stats: {
       height: 177,
@@ -491,7 +525,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "12",
   },
   {
     name: "조 유진",
@@ -507,11 +543,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "체험회원",
       level: "신규",
       registeredAt: "2024-06-10",
       lastReRegisteredAt: "2024-06-10",
-      expirationDate: "2024-07-10",
+      expirationDate: "2024-07-31",
     },
     stats: {
       height: 164,
@@ -532,7 +569,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "13",
   },
   {
     name: "권 성민",
@@ -548,11 +587,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "종료",
       level: "신규",
       registeredAt: "2021-10-05",
       lastReRegisteredAt: "2023-10-05",
-      expirationDate: "2024-04-05",
+      expirationDate: "2024-04-31",
     },
     stats: {
       height: 180,
@@ -573,7 +613,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "14",
   },
   {
     name: "황 지은",
@@ -589,11 +631,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "재등록",
       registeredAt: "2022-11-15",
       lastReRegisteredAt: "2023-11-15",
-      expirationDate: "2024-11-15",
+      expirationDate: "2024-11-31",
     },
     stats: {
       height: 166,
@@ -614,7 +657,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "15",
   },
   {
     name: "안 현석",
@@ -630,11 +675,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "재등록",
       registeredAt: "2021-04-20",
       lastReRegisteredAt: "2024-04-20",
-      expirationDate: "2025-04-20",
+      expirationDate: "2025-04-31",
     },
     stats: {
       height: 181,
@@ -655,7 +701,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "31",
   },
   {
     name: "이 하은",
@@ -671,11 +719,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "재등록",
       registeredAt: "2024-04-05",
       lastReRegisteredAt: "2024-04-05",
-      expirationDate: "2025-04-05",
+      expirationDate: "2025-04-31",
     },
     stats: {
       height: 169,
@@ -696,7 +745,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "32",
   },
   {
     name: "김 도현",
@@ -712,11 +763,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "재등록",
       registeredAt: "2023-08-10",
       lastReRegisteredAt: "2024-08-10",
-      expirationDate: "2025-08-10",
+      expirationDate: "2025-08-31",
     },
     stats: {
       height: 178,
@@ -737,7 +789,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "33",
   },
   {
     name: "박 소연",
@@ -753,11 +807,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "체험회원",
       level: "재등록",
       registeredAt: "2024-06-20",
       lastReRegisteredAt: "2024-06-20",
-      expirationDate: "2024-07-20",
+      expirationDate: "2024-07-31",
     },
     stats: {
       height: 165,
@@ -778,7 +833,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "34",
   },
   {
     name: "최 재민",
@@ -794,11 +851,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "종료",
       level: "재등록",
       registeredAt: "2022-02-25",
       lastReRegisteredAt: "2023-02-25",
-      expirationDate: "2024-02-25",
+      expirationDate: "2024-02-31",
     },
     stats: {
       height: 176,
@@ -819,7 +877,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "35",
   },
   {
     name: "정 예진",
@@ -835,11 +895,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "재등록",
       registeredAt: "2023-03-10",
       lastReRegisteredAt: "2024-03-10",
-      expirationDate: "2025-03-10",
+      expirationDate: "2025-03-31",
     },
     stats: {
       height: 163,
@@ -860,7 +921,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "36",
   },
   {
     name: "김 준영",
@@ -876,11 +939,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "재등록",
       registeredAt: "2022-01-15",
       lastReRegisteredAt: "2024-01-15",
-      expirationDate: "2025-01-15",
+      expirationDate: "2025-01-31",
     },
     stats: {
       height: 179,
@@ -901,7 +965,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "37",
   },
   {
     name: "이 민지",
@@ -917,11 +983,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "체험회원",
       level: "재등록",
       registeredAt: "2024-06-25",
       lastReRegisteredAt: "2024-06-25",
-      expirationDate: "2024-07-25",
+      expirationDate: "2024-07-31",
     },
     stats: {
       height: 166,
@@ -942,7 +1009,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "38",
   },
   {
     name: "박 현우",
@@ -958,11 +1027,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "종료",
       level: "재등록",
       registeredAt: "2021-12-10",
       lastReRegisteredAt: "2022-12-10",
-      expirationDate: "2023-12-10",
+      expirationDate: "2023-12-31",
     },
     stats: {
       height: 177,
@@ -983,7 +1053,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "39",
   },
   {
     name: "최 지원",
@@ -999,11 +1071,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "재등록",
       registeredAt: "2024-02-15",
       lastReRegisteredAt: "2024-02-15",
-      expirationDate: "2025-02-15",
+      expirationDate: "2025-02-31",
     },
     stats: {
       height: 168,
@@ -1024,7 +1097,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "40",
   },
   {
     name: "강 성훈",
@@ -1040,11 +1115,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "재등록",
       registeredAt: "2023-09-20",
       lastReRegisteredAt: "2024-09-20",
-      expirationDate: "2025-09-20",
+      expirationDate: "2025-09-31",
     },
     stats: {
       height: 175,
@@ -1065,7 +1141,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "41",
   },
   {
     name: "윤 소희",
@@ -1081,11 +1159,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "재등록",
       registeredAt: "2020-08-15",
       lastReRegisteredAt: "2024-08-15",
-      expirationDate: "2025-08-15",
+      expirationDate: "2025-08-31",
     },
     stats: {
       height: 164,
@@ -1106,7 +1185,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "42",
   },
   {
     name: "임 준서",
@@ -1122,11 +1203,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "체험회원",
       level: "VIP",
       registeredAt: "2024-06-05",
       lastReRegisteredAt: "2024-06-05",
-      expirationDate: "2024-07-05",
+      expirationDate: "2024-07-31",
     },
     stats: {
       height: 181,
@@ -1147,7 +1229,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "43",
   },
   {
     name: "한 유나",
@@ -1163,11 +1247,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "VIP",
       registeredAt: "2023-04-10",
       lastReRegisteredAt: "2024-04-10",
-      expirationDate: "2025-04-10",
+      expirationDate: "2025-04-31",
     },
     stats: {
       height: 167,
@@ -1188,7 +1273,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "26",
   },
   {
     name: "송 민재",
@@ -1204,11 +1291,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "종료",
       level: "VIP",
       registeredAt: "2022-07-15",
       lastReRegisteredAt: "2023-07-15",
-      expirationDate: "2024-07-15",
+      expirationDate: "2024-07-31",
     },
     stats: {
       height: 180,
@@ -1229,7 +1317,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "25",
   },
   {
     name: "조 은서",
@@ -1245,11 +1335,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "VIP",
       registeredAt: "2024-01-20",
       lastReRegisteredAt: "2024-01-20",
-      expirationDate: "2025-01-20",
+      expirationDate: "2025-01-31",
     },
     stats: {
       height: 165,
@@ -1270,7 +1361,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "24",
   },
   {
     name: "권 태현",
@@ -1286,11 +1379,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "VIP",
       registeredAt: "2021-05-25",
       lastReRegisteredAt: "2024-05-25",
-      expirationDate: "2025-05-25",
+      expirationDate: "2025-05-31",
     },
     stats: {
       height: 176,
@@ -1311,7 +1405,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "23",
   },
   {
     name: "황 서연",
@@ -1327,11 +1423,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "체험회원",
       level: "VIP",
       registeredAt: "2024-06-30",
       lastReRegisteredAt: "2024-06-30",
-      expirationDate: "2024-07-30",
+      expirationDate: "2024-07-31",
     },
     stats: {
       height: 169,
@@ -1352,7 +1449,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "23",
   },
   {
     name: "안 준혁",
@@ -1368,11 +1467,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "VIP",
       registeredAt: "2023-10-15",
       lastReRegisteredAt: "2024-10-15",
-      expirationDate: "2025-10-15",
+      expirationDate: "2025-10-31",
     },
     stats: {
       height: 182,
@@ -1393,7 +1493,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "22",
   },
   {
     name: "오 지민",
@@ -1409,11 +1511,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "VIP",
       registeredAt: "2024-03-05",
       lastReRegisteredAt: "2024-03-05",
-      expirationDate: "2025-03-05",
+      expirationDate: "2025-03-31",
     },
     stats: {
       height: 166,
@@ -1434,7 +1537,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "21",
   },
   {
     name: "신 동현",
@@ -1450,11 +1555,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "종료",
       level: "VIP",
       registeredAt: "2021-11-10",
       lastReRegisteredAt: "2022-11-10",
-      expirationDate: "2023-11-10",
+      expirationDate: "2023-11-31",
     },
     stats: {
       height: 174,
@@ -1475,7 +1581,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "20",
   },
   {
     name: "이 수빈",
@@ -1491,11 +1599,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "VIP",
       registeredAt: "2023-06-20",
       lastReRegisteredAt: "2024-06-20",
-      expirationDate: "2025-06-20",
+      expirationDate: "2025-06-31",
     },
     stats: {
       height: 162,
@@ -1516,7 +1625,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "19",
   },
   {
     name: "김 재원",
@@ -1532,11 +1643,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "VIP",
       registeredAt: "2022-04-05",
       lastReRegisteredAt: "2024-04-05",
-      expirationDate: "2025-04-05",
+      expirationDate: "2025-04-31",
     },
     stats: {
       height: 178,
@@ -1557,7 +1669,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "18",
   },
   {
     name: "박 하린",
@@ -1573,11 +1687,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "체험회원",
       level: "VIP",
       registeredAt: "2024-06-15",
       lastReRegisteredAt: "2024-06-15",
-      expirationDate: "2024-07-15",
+      expirationDate: "2024-07-31",
     },
     stats: {
       height: 164,
@@ -1598,7 +1713,9 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "17",
   },
   {
     name: "최 민석",
@@ -1614,11 +1731,12 @@ export const users: IResUserProps[] = [
       role: "admin",
     },
     membership: {
+      memberships: ["포톤테라피 2회", "바이브핏 6회"],
       type: "등록회원",
       level: "VIP",
       registeredAt: "2023-07-10",
       lastReRegisteredAt: "2024-07-10",
-      expirationDate: "2025-07-10",
+      expirationDate: "2025-07-31",
     },
     stats: {
       height: 175,
@@ -1639,6 +1757,8 @@ export const users: IResUserProps[] = [
     attendance: {
       monthlyCount: 0,
       totalCount: 0,
+      lastAttended: "2025-01-21",
     },
+    id: "16",
   },
 ];

@@ -270,8 +270,8 @@ export default function Membership() {
               fontSize: 16,
               fontWeight: 300,
               color: "#A2A1A8",
-              minWidth: 100,
-              maxWidth: 100,
+              minWidth: 130,
+              maxWidth: 130,
             }}
           >
             프로그램
@@ -281,8 +281,8 @@ export default function Membership() {
               fontSize: 16,
               fontWeight: 300,
               color: "#A2A1A8",
-              minWidth: 242,
-              maxWidth: 242,
+              minWidth: 260,
+              maxWidth: 260,
             }}
           >
             잔여 회원권
@@ -294,7 +294,7 @@ export default function Membership() {
               color: "#A2A1A8",
               minWidth: 105,
               maxWidth: 105,
-              marginLeft: 10,
+              marginLeft: 15,
             }}
           >
             이번 달 출석
@@ -394,8 +394,8 @@ export default function Membership() {
                 fontSize: 16,
                 fontWeight: 300,
                 color: "#16151C",
-                minWidth: 100,
-                maxWidth: 100,
+                minWidth: 130,
+                maxWidth: 130,
               }}
             >
               {item.program === "VIBE_FIT"
@@ -409,8 +409,8 @@ export default function Membership() {
                 fontSize: 16,
                 fontWeight: 300,
                 color: "#16151C",
-                minWidth: 242,
-                maxWidth: 242,
+                minWidth: 260,
+                maxWidth: 260,
               }}
             >
               포톤테라피 {item.remainingMemberships.PORTON_THERAPY}회, 바이브핏{" "}
@@ -424,7 +424,7 @@ export default function Membership() {
                 color: "#16151C",
                 minWidth: 105,
                 maxWidth: 105,
-                marginLeft: 10,
+                marginLeft: 15,
               }}
             >
               {item.monthlyAttendedCnt}
@@ -442,8 +442,8 @@ export default function Membership() {
             </span>
             <div
               style={{
-                minWidth: 75,
-                maxWidth: 75,
+                minWidth: 85,
+                maxWidth: 85,
                 padding: "3px 9px",
                 borderRadius: 4,
                 backgroundColor:

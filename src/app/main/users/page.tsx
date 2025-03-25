@@ -5,7 +5,7 @@ import DonutChart from "../test/donut";
 import EmptyArea from "../../../components/EmptyArea";
 import Items from "./Items";
 import styles from "@/styles/userDashboard.module.css";
-import UserTable from "../../../components/UserTable";
+import UserTable from "../../../components/users/UserTable";
 import StickChart from "./StickChart";
 import { IUserDashboardData } from "../../../types/users";
 import { useEffect, useState } from "react";

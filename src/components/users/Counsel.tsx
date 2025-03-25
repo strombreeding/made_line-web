@@ -161,8 +161,8 @@ export default function Counsel() {
             >
               <span
                 style={{
-                  minWidth: 75,
-                  maxWidth: 75,
+                  minWidth: 85,
+                  maxWidth: 85,
                   padding: "3px 9px",
                   borderRadius: 4,
                   backgroundColor:

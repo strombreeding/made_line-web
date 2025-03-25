@@ -1,53 +1,68 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { IResUserProps } from "../../types/users";
 import ProfileItem from "./ProfileItem";
 import Image from "next/image";
-import { useGlobalStore } from "../../store/globalStore";
 
-const options = [
-  "남양주 다산점",
-  "양주 옥정점",
-  "의정부 가능점",
-  "파주 운정점",
-];
-
-export default function ProfileTab({
+export default function PhysicalInfo({
   profileProps,
-  editable,
-  setEditable,
-  profileImageFile,
   setProfileEditDone,
 }: {
   profileProps: IResUserProps;
-  editable: boolean;
-  setEditable: Dispatch<SetStateAction<boolean>>;
-  profileImageFile: File | null;
   setProfileEditDone: Dispatch<SetStateAction<boolean>>;
 }) {
-  const { setSelectedTab } = useGlobalStore((state) => state);
-  const [editName, setEditName] = useState(profileProps.name);
-  const [editLocation, setEditLocation] = useState(profileProps.location);
-  const [editContactPhone, setEditContactPhone] = useState(
-    profileProps.contact.phone
+  const [particulars, setParticulars] = useState(
+    profileProps.stats.particulars
   );
-  const [editContactEmail, setEditContactEmail] = useState(
-    profileProps.contact.email
+
+  const [height, setHeight] = useState(profileProps.stats.height.toString());
+  const [currentWeight, setCurrentWeight] = useState(
+    profileProps.stats.currentWeight.toString()
   );
-  const [editJob, setEditJob] = useState(profileProps.job);
+  const [goalWeight, setGoalWeight] = useState(
+    profileProps.stats.goalWeight.toString()
+  );
+
+  const [averageExerciseTime] = useState(
+    profileProps.stats.averageExerciseTime
+  );
+  const [gender] = useState(profileProps.gender);
+
+  // 평균 생리주기
+  const [averageCycleWeeks] = useState(
+    profileProps.stats.menstrualCycle.averageCycleWeeks.toString()
+  );
+
+  // 현재 생리날짜 기준
+  const [currentFlowStandard] = useState(
+    profileProps.stats.menstrualCycle.currentFlowStandard
+  );
+
+  //   생리전증상
+  const [premenstrualSymptoms] = useState(
+    profileProps.stats.menstrualCycle.premenstrualSymptoms
+  );
+  //    신체활동 제한여부
+  const [activityRestrictionDuringPeriod] = useState(
+    profileProps.stats.menstrualCycle.activityRestrictionDuringPeriod
+  );
+
+  const [editable, setEditable] = useState(false);
 
   const reqEditUser = async () => {
-    await fetch("/api/users/profile", {
+    await fetch("/api/users/physical", {
       method: "PUT",
       body: JSON.stringify({
         id: profileProps.id,
-        name: editName,
-        location: editLocation,
-        contact: { phone: editContactPhone, email: editContactEmail },
-        job: editJob,
+        particulars,
+        height,
+        currentWeight,
+        goalWeight,
       }),
     });
     setProfileEditDone(true);
   };
+
+  useEffect(() => {}, []);
 
   return (
     <div
@@ -61,28 +76,9 @@ export default function ProfileTab({
       <div style={{ display: "flex", flexDirection: "row", gap: 10 }}>
         <ProfileItem
           editable={editable}
-          title="이름"
-          value={editName}
-          setValue={setEditName}
-        />
-        <ProfileItem
-          editable={editable}
-          title="소속지점"
-          value={editLocation}
-          subListValue={options}
-          setValue={setEditLocation}
-        />
-        <ProfileItem
-          editable={editable}
-          title="연락처"
-          value={editContactPhone}
-          setValue={setEditContactPhone}
-        />
-        <ProfileItem
-          editable={editable}
-          title="이메일"
-          value={editContactEmail}
-          setValue={setEditContactEmail}
+          title="지병 및 특이사항"
+          value={particulars}
+          setValue={setParticulars}
         />
       </div>
       <div style={{ display: "flex", flexDirection: "row", gap: 10 }}>
@@ -93,40 +89,52 @@ export default function ProfileTab({
           }세)`}
         />
         <ProfileItem title="성별" value={profileProps.gender} />
-        <ProfileItem title="아이디" value={profileProps.account.id} />
       </div>
       <div style={{ display: "flex", flexDirection: "row", gap: 10 }}>
-        {/* <ProfileItem editable={editable} title="아이디" value={"해당 사용자 아이디"} /> */}
-        {/* <ProfileItem
-          title="비밀번호"
-          value={"고객의 요청이 아니라면 수정금지"}
-        /> */}
         <ProfileItem
           editable={editable}
-          title="직업"
-          value={editJob}
-          setValue={setEditJob}
+          title="신장"
+          value={height}
+          setValue={setHeight}
         />
-        <ProfileItem title="회원구분" value={profileProps.membership.type} />
-        <ProfileItem title="회원등급" value={profileProps.membership.level} />
+        <ProfileItem
+          editable={editable}
+          title="목표체중"
+          value={goalWeight}
+          setValue={setGoalWeight}
+        />
+        <ProfileItem
+          editable={editable}
+          title="현재체중"
+          value={currentWeight}
+          setValue={setCurrentWeight}
+        />
       </div>
       <div style={{ display: "flex", flexDirection: "row", gap: 10 }}>
+        <ProfileItem title="평균 수면 시간" value={averageExerciseTime} />
         <ProfileItem
-          title="최초 등록 일자"
-          value={profileProps.membership.registeredAt}
-        />
-        <ProfileItem
-          title="최근 재등록 일자"
-          value={profileProps.membership.lastReRegisteredAt}
-        />
-        <ProfileItem
-          title="현재 회원권 만료일"
-          value={formatExpiryDate(
-            profileProps.membership.lastReRegisteredAt,
-            profileProps.membership.expirationDate
-          )}
+          title="수면의 질"
+          value={profileProps.stats.sleepQuality}
         />
       </div>
+      {gender === "여성" && (
+        <>
+          <div style={{ display: "flex", flexDirection: "row", gap: 10 }}>
+            <ProfileItem title="평균 생리 주기" value={averageCycleWeeks} />
+            <ProfileItem
+              title="현재 생리 날짜 기준"
+              value={currentFlowStandard}
+            />
+          </div>
+          <div style={{ display: "flex", flexDirection: "row", gap: 10 }}>
+            <ProfileItem title="생리 전 증상" value={premenstrualSymptoms} />
+            <ProfileItem
+              title="생리 전 증상 여부"
+              value={activityRestrictionDuringPeriod ? "있음" : "없음"}
+            />
+          </div>
+        </>
+      )}
       {/* 버튼 */}
       <div
         style={{
@@ -162,31 +170,6 @@ export default function ProfileTab({
           <div style={{ display: "flex", flexDirection: "row", gap: 16 }}>
             <div
               style={{
-                backgroundColor: "white",
-                display: "flex",
-                flexDirection: "row",
-                borderRadius: 10,
-                alignItems: "center",
-                gap: 6.5,
-                padding: 12,
-                cursor: "pointer",
-                border: "1px solid var(--Icon-Danger-Default, #900B09)",
-              }}
-              onClick={async () => {
-                await fetch("/api/users/profile", {
-                  method: "DELETE",
-                  body: JSON.stringify({ id: profileProps.id }),
-                });
-                setSelectedTab("전체회원");
-              }}
-            >
-              <Image src={"/images/trash.svg"} alt="" width={21} height={21} />
-              <span style={{ fontWeight: 700, fontSize: 16, color: "#1E1E1E" }}>
-                삭제
-              </span>
-            </div>
-            <div
-              style={{
                 backgroundColor: "#900B09",
                 display: "flex",
                 flexDirection: "row",
@@ -196,9 +179,9 @@ export default function ProfileTab({
                 padding: 12,
                 cursor: "pointer",
               }}
-              onClick={async () => {
-                await reqEditUser();
+              onClick={() => {
                 setEditable(false);
+                reqEditUser();
               }}
             >
               <Image src={"/images/save.svg"} alt="" width={21} height={21} />

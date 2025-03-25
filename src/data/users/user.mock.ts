@@ -102,3 +102,48 @@ export const mockUsers: IUserListProps[] = [
     level: "VIP",
   },
 ];
+
+const zz = [
+  {
+    id: "1",
+    name: "김 메라",
+    contact: {
+      phone: "010-1234-5678",
+      email: "madeline@gmail.com",
+    },
+    birthdate: "1980-08-08",
+    gender: "여성",
+    location: "남양주 다산점",
+    account: {
+      id: "madeline@gmail.com",
+      role: "admin",
+    },
+    membership: {
+      type: "등록회원",
+      level: "VIP",
+      registeredAt: "2020-12-25",
+      lastReRegisteredAt: "2025-02-25",
+      expirationDate: "2025-03-25",
+    },
+    stats: {
+      height: 170,
+      currentWeight: 75,
+      goalWeight: 60,
+      exerciseGoal: "",
+      averageExerciseTime: "6시간",
+      sleepQuality: "좋음",
+      particulars: "심장 박동기 착용, OO 자세할 때 주의 요망",
+      menstrualCycle: {
+        averageCycleWeeks: 1,
+        currentFlowStandard: "2025-03-25",
+        premenstrualSymptoms: "두통, 관절 통증, 조금 무기력",
+        activityRestrictionDuringPeriod: true,
+      },
+    },
+    job: "무직백수",
+    attendance: {
+      monthlyCount: 0,
+      totalCount: 0,
+    },
+  },
+];

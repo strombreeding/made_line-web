@@ -65,8 +65,8 @@ export default function HealthRecord() {
               fontSize: 16,
               fontWeight: 300,
               color: "#A2A1A8",
-              minWidth: 100,
-              maxWidth: 100,
+              minWidth: 130,
+              maxWidth: 130,
             }}
           >
             프로그램
@@ -87,8 +87,8 @@ export default function HealthRecord() {
               fontSize: 16,
               fontWeight: 300,
               color: "#A2A1A8",
-              minWidth: 100,
-              maxWidth: 100,
+              minWidth: 110,
+              maxWidth: 110,
             }}
           >
             태그
@@ -155,8 +155,8 @@ export default function HealthRecord() {
                 fontSize: 16,
                 fontWeight: 300,
                 color: "#16151C",
-                minWidth: 100,
-                maxWidth: 100,
+                minWidth: 130,
+                maxWidth: 130,
               }}
             >
               {item.program === "PORTON_THERAPY"
@@ -179,14 +179,14 @@ export default function HealthRecord() {
 
             <div
               style={{
-                minWidth: 100,
-                maxWidth: 100,
+                minWidth: 110,
+                maxWidth: 110,
               }}
             >
               <span
                 style={{
-                  minWidth: 75,
-                  maxWidth: 75,
+                  minWidth: 85,
+                  maxWidth: 85,
                   padding: "3px 9px",
                   borderRadius: 4,
                   backgroundColor:

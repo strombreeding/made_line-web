@@ -49,7 +49,10 @@ export default function ProfileItem({
           >
             <select
               style={{ width: "100%", border: "none", padding: 0 }}
-              onChange={(e) => setValue(e.currentTarget.value)}
+              onChange={(e) => {
+                setValue(e.target.value);
+              }}
+              value={value}
             >
               {forMapList.map((item, i) => {
                 return (

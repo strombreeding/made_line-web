@@ -79,10 +79,12 @@ export interface IEditProfileProps {
   attendance?: {
     monthlyCount?: number;
     totalCount?: number;
+    lastAttended: string;
   };
 }
 
 export interface IResUserProps {
+  id: string;
   name: string;
   contact: {
     phone: string;
@@ -96,6 +98,7 @@ export interface IResUserProps {
     role: string;
   };
   membership: {
+    memberships: string[];
     type: string | "등록회원" | "종료회원" | "체험회원";
     level: string | "신규" | "재등록" | "VIP";
     registeredAt: string;
@@ -121,5 +124,6 @@ export interface IResUserProps {
   attendance: {
     monthlyCount: number;
     totalCount: number;
+    lastAttended: string;
   };
 }

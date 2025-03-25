@@ -1,15 +1,20 @@
-import { ChangeEvent, useEffect, useState } from "react";
+"use client";
+
+import { ChangeEvent, use, useEffect, useState } from "react";
 import InfoItem from "../../../components/users/InfoItem";
 import Image from "next/image";
-import EmptyArea from "../../../components/EmptyArea";
 import ProfileTab from "../../../components/users/ProfileTab";
 import { IResUserProps } from "../../../types/users";
-import { users } from "../../../../mockUsers";
 import Membership from "../../../components/users/Membership";
 import HealthRecord from "../../../components/users/HealthRecord";
 import Counsel from "../../../components/users/Counsel";
 import Payment from "../../../components/users/Payment";
 import ActiveLog from "../../../components/users/ActiveLog";
+import PhysicalInfo from "../../../components/users/PhysicalInfo";
+import { useUserStore } from "../../../store/userStore";
+
+import path from "path";
+import fs from "fs";
 
 const tabList = [
   "프로필",
@@ -26,10 +31,11 @@ const tabList = [
 ];
 
 export default function UserInfo() {
+  const { selectedUserId } = useUserStore((state) => state);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedTab, setSelectedTab] = useState<string>("");
   const [profileEditable, setProfileEditable] = useState(false);
-
+  const [profileEditDone, setProfileEditDone] = useState(false);
   const [profileProps, setProfileProps] = useState<IResUserProps>(
     {} as IResUserProps
   );
@@ -43,15 +49,26 @@ export default function UserInfo() {
   };
 
   const req = async () => {
-    setReady(true);
-    setProfileProps(users[0]);
+    const res = await fetch("/api/users/profile");
+    const data = await res.json();
+    const user = data.find(
+      (item: IResUserProps) => item.id === selectedUserId.toString()
+    );
+    if (user) {
+      setReady(true);
+      setProfileProps(user);
+    }
   };
 
   useEffect(() => {
+    if (profileEditDone) {
+      req();
+      setProfileEditDone(false);
+    }
+  }, [profileEditDone]);
+
+  useEffect(() => {
     req();
-    return () => {
-      console.log("언마운트");
-    };
   }, []);
 
   if (!ready) return null;
@@ -325,51 +342,28 @@ export default function UserInfo() {
           })}
         </div>
       </div>
-      <EmptyArea height={24} />
       {/* 프로필 */}
-      <ProfileTab
-        profileProps={profileProps}
-        selectedTab={selectedTab}
-        editable={profileEditable}
-        setEditable={setProfileEditable}
-        profileImageFile={selectedFile}
-      />
-      {/* 탭별 컴포넌트 */}
+      {selectedTab === "프로필" && (
+        <ProfileTab
+          profileProps={profileProps}
+          editable={profileEditable}
+          setEditable={setProfileEditable}
+          profileImageFile={selectedFile}
+          setProfileEditDone={setProfileEditDone}
+        />
+      )}
+      {/* 신체정보 */}
+      {selectedTab === "신체정보" && (
+        <PhysicalInfo
+          profileProps={profileProps}
+          setProfileEditDone={setProfileEditDone}
+        />
+      )}
       {selectedTab === "회원권" && <Membership />}
       {selectedTab === "운동기록" && <HealthRecord />}
       {selectedTab === "상담" && <Counsel />}
       {selectedTab === "결제" && <Payment />}
       {selectedTab === "앱 활동" && <ActiveLog />}
-
-      <div
-        style={{
-          display: "flex",
-          width: "100%",
-          flexDirection: "column",
-          alignItems: "flex-end",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: "#900B09",
-            display: "flex",
-            flexDirection: "row",
-            borderRadius: 10,
-            alignItems: "center",
-            gap: 6.5,
-            padding: 12,
-            cursor: "pointer",
-          }}
-          onClick={() => {
-            alert("회원수정");
-          }}
-        >
-          <Image src={"/images/edit.svg"} alt="" width={21} height={21} />
-          <span style={{ fontWeight: 700, fontSize: 16, color: "white" }}>
-            수정
-          </span>
-        </div>
-      </div>
     </div>
   );
 }
