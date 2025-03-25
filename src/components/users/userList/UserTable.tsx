@@ -256,7 +256,6 @@ export default function UserTable() {
                 style={{
                   display: "flex",
                   flexDirection: "row",
-                  backgroundColor: "red",
                 }}
               >
                 <div className={styles.tableBodyColumn140}>
