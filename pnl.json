@@ -1,0 +1,57 @@
+[
+  {
+    "id": "1",
+    "payDate": "2025-01-01",
+    "type": "회원권",
+    "itemName": "포톤테라피 2회",
+    "totalPrice": 100000,
+    "payType": "카드",
+    "userName": "홍길동",
+    "location": "양주 옥정점",
+    "refundState": "환불완료"
+  },
+  {
+    "id": "2",
+    "payDate": "2025-01-02",
+    "type": "회원권",
+    "itemName": "포톤테라피 3회",
+    "totalPrice": 100000,
+    "payType": "카드",
+    "userName": "홍길동",
+    "location": "양주 옥정점",
+    "refundState": "환불거절"
+  },
+  {
+    "id": "3",
+    "payDate": "2025-01-03",
+    "type": "회원권",
+    "itemName": "포톤테라피 4회",
+    "totalPrice": 100000,
+    "payType": "카드",
+    "userName": "홍길동",
+    "location": "양주 옥정점",
+    "refundState": "-"
+  },
+  {
+    "id": "4",
+    "payDate": "2025-01-04",
+    "type": "회원권",
+    "itemName": "포톤테라피 5회",
+    "totalPrice": 100000,
+    "payType": "카드",
+    "userName": "홍길동",
+    "location": "양주 옥정점",
+    "refundState": "환불완료"
+  },
+  {
+    "id": "5",
+    "payDate": "2025-01-05",
+    "type": "회원권",
+    "itemName": "포톤테라피 6회",
+    "totalPrice": 100000,
+    "payType": "카드",
+    "userName": "홍길동",
+    "location": "양주 옥정점",
+    "refundState": "환불거절"
+  }
+]

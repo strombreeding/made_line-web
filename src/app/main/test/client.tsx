@@ -47,9 +47,11 @@ const CombinedGraph = () => {
       style={{
         backgroundColor: "white",
         display: "flex",
+        flex: 1,
+        alignItems: "center",
         flexDirection: "column",
         width: 500,
-        height: 400,
+        height: 447,
         padding: "24px 30px 40px 30px",
         boxShadow: "0px 0px 4px 0px #00000040",
         borderRadius: 10,
@@ -120,6 +122,7 @@ const CombinedGraph = () => {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-around",
+          width: "100%",
         }}
       >
         <div

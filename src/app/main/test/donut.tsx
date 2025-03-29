@@ -50,10 +50,16 @@ function DonutChart({
   title,
   itemList,
   isDonut = true,
+  subtitle,
+  itemName,
+  subTitleSize = 34,
 }: {
   title: string;
   itemList: { name: string; value: number; color: string }[];
   isDonut?: boolean;
+  subtitle: string | number;
+  itemName: string;
+  subTitleSize?: number;
 }) {
   const refs = useRef<SVGElement | null>(null);
 
@@ -64,8 +70,6 @@ function DonutChart({
   }));
   const colors = itemList.map((item) => item.color);
 
-  const people = itemList.reduce((acc, item) => acc + item.value, 0);
-
   useEffect(() => {
     if (refs.current) {
       console.log(refs.current.clientHeight, "힝구");
@@ -75,33 +79,36 @@ function DonutChart({
   return (
     <div className={styles.itemFrame}>
       <span className={styles.title}>{title}</span>
-      <span className={styles.content}>
-        {people < 1000 ? people : `${(people / 1000).toFixed(1)}k`}명
+      <span className={styles.content} style={{ fontSize: subTitleSize }}>
+        {subtitle}
       </span>
-      <PieChart
-        style={{ marginTop: -10, marginBottom: -15 }}
-        width={300}
-        height={280}
-      >
-        <Pie
-          animationDuration={300}
-          data={data}
-          cx="50%"
-          cy="50%"
-          innerRadius={isDonut ? 0 : 60} // 중간 빈공간
-          // innerRadius={70}
-          outerRadius={100}
-          dataKey="value"
-          // paddingAngle={0}
-          labelLine={false}
-          label={RenderCustomizedLabel}
+
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <PieChart
+          style={{ marginTop: -10, marginBottom: -15 }}
+          width={300}
+          height={280}
         >
-          {data.map((entry, index) => (
-            <Cell ref={refs} key={`cell-${index}`} fill={colors[index]} />
-          ))}
-        </Pie>
-        {/* <Legend /> */}
-      </PieChart>
+          <Pie
+            animationDuration={300}
+            data={data}
+            cx="50%"
+            cy="50%"
+            innerRadius={isDonut ? 0 : 60} // 중간 빈공간
+            // innerRadius={70}
+            outerRadius={100}
+            dataKey="value"
+            // paddingAngle={0}
+            labelLine={false}
+            label={RenderCustomizedLabel}
+          >
+            {data.map((entry, index) => (
+              <Cell ref={refs} key={`cell-${index}`} fill={colors[index]} />
+            ))}
+          </Pie>
+          {/* <Legend /> */}
+        </PieChart>
+      </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         {itemList.map((item, i) => {
@@ -115,7 +122,8 @@ function DonutChart({
                 <span className={styles.itemName}>{item.name}</span>
               </div>
               <span className={styles.itemValue}>
-                {item.value.toLocaleString()}명
+                {item.value.toLocaleString()}
+                {itemName}
               </span>
             </div>
           );

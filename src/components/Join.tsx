@@ -8,6 +8,7 @@ import Link from "next/link";
 import useLoginHook from "../hooks/useLogin";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useUserStore } from "../store/userStore";
+import Image from "next/image";
 
 function JoinContent() {
   const searchParams = useSearchParams();
@@ -111,19 +112,28 @@ function JoinContent() {
 
         <EmptyArea height={20} />
 
-        <select
-          data-has-value={location !== "default"}
-          onChange={(e) => {
-            setLocation(e.currentTarget.value);
-          }}
-        >
-          <option value="default">지점 선택</option>
-          <option value="남양주 다산점">남양주 다산점</option>
-          <option value="양주 옥정점">양주 옥정점</option>
-          <option value="의정부 가능점">의정부 가능점</option>
-          <option value="파주 운정점">파주 운정점</option>
-          <option value="전체 지점 총괄">전체 지점 총괄</option>
-        </select>
+        <div style={{ position: "relative" }}>
+          <select
+            data-has-value={location !== "default"}
+            onChange={(e) => {
+              setLocation(e.currentTarget.value);
+            }}
+          >
+            <option value="default">지점 선택</option>
+            <option value="남양주 다산점">남양주 다산점</option>
+            <option value="양주 옥정점">양주 옥정점</option>
+            <option value="의정부 가능점">의정부 가능점</option>
+            <option value="파주 운정점">파주 운정점</option>
+            <option value="전체 지점 총괄">전체 지점 총괄</option>
+          </select>
+          <Image
+            src={"/images/chevron-down.svg"}
+            alt="chevron-down"
+            width={24}
+            height={24}
+            style={{ position: "absolute", right: 16, top: 16 }}
+          />
+        </div>
 
         <EmptyArea height={20} />
 

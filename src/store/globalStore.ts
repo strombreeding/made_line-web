@@ -1,11 +1,13 @@
 import { create } from "zustand";
+import { SidebarItemType } from "../types";
 
 type TitleType = "회원관리" | "손익관리" | "예약관리" | "AI 알림톡";
 
 interface GlobalStore {
   modalVisible: string | null;
   setModalVisible: (visible: string | null) => void;
-
+  checked: SidebarItemType;
+  setChecked: (checked: SidebarItemType) => void;
   title: TitleType;
   currentTabs: string[];
   selectedTab: string;
@@ -29,7 +31,8 @@ const tabs: { name: TitleType; tabs: string[] }[] = [
 export const useGlobalStore = create<GlobalStore>((set) => ({
   modalVisible: null,
   setModalVisible: (visible: string | null) => set({ modalVisible: visible }),
-
+  checked: "users",
+  setChecked: (checked: SidebarItemType) => set({ checked }),
   title: "회원관리",
   setTitle: (title) => {
     const changeTitle: TitleType =

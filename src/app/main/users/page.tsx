@@ -15,11 +15,26 @@ import UserInfo from "../../../components/users/userInfo/UserInfo";
 
 export default function Users() {
   const { selectedTab } = useGlobalStore((state) => state);
-  const [userDashboard, setUserDashboard] = useState<IUserDashboardData>(
-    {} as IUserDashboardData
-  );
+  const [userDashboard, setUserDashboard] = useState<IUserDashboardData>({
+    totalMemberCharts: [],
+    totalUsedMemberCharts: [],
+    firstItems: [],
+    secondItems: [],
+    leaveRateCharts: [],
+    locationRateCharts: [],
+  } as IUserDashboardData);
 
   const [ready, setReady] = useState(false);
+
+  const totalMembers = userDashboard.totalMemberCharts.reduce(
+    (acc, item) => acc + item.value,
+    0
+  );
+
+  const totalUsedMembers = userDashboard.totalUsedMemberCharts.reduce(
+    (acc, item) => acc + item.value,
+    0
+  );
 
   useEffect(() => {
     return () => {
@@ -39,10 +54,23 @@ export default function Users() {
                 <DonutChart
                   title="총 회원"
                   itemList={userDashboard.totalMemberCharts}
+                  subtitle={
+                    totalMembers < 1000
+                      ? totalMembers
+                      : `${(totalMembers / 1000).toFixed(1)}k`
+                  }
+                  itemName={"명"}
+                  isDonut
                 />
                 <DonutChart
                   title="총 이용회원"
                   itemList={userDashboard.totalUsedMemberCharts}
+                  subtitle={
+                    totalUsedMembers < 1000
+                      ? totalUsedMembers
+                      : `${(totalUsedMembers / 1000).toFixed(1)}k`
+                  }
+                  itemName={"명"}
                   isDonut={false}
                 />
                 <StickChart
@@ -55,10 +83,21 @@ export default function Users() {
               {/*  */}
               <EmptyArea height={14} />
 
-              <div style={{ display: "flex", flexDirection: "row", gap: 12 }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: 12,
+                }}
+              >
                 {/* 6개 */}
                 <div
-                  style={{ display: "flex", flexDirection: "column", gap: 27 }}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 27,
+                    flex: 1,
+                  }}
                 >
                   <div className={styles.contentWrapper}>
                     {userDashboard.firstItems.map((item) => (

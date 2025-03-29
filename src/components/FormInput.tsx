@@ -35,6 +35,7 @@ export default function FormInput({
         value={value}
         onChange={changeValue}
       />
+
       <label
         className={`${isDateInput ? style.dateLabel : style.label}`}
         htmlFor="email"

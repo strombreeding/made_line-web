@@ -4,13 +4,10 @@ import Image from "next/image";
 import EmptyArea from "./EmptyArea";
 import SidebarItem from "./SidebarItem";
 import style from "../styles/SideBar.module.css";
-import { useState, useEffect } from "react";
-import { SidebarItemType } from "../types";
+import { useEffect } from "react";
 import { useUserStore } from "../store/userStore";
 import { useRouter } from "next/navigation";
 export default function SideBar() {
-  const [checked, setChecked] = useState<SidebarItemType>("users");
-
   const route = useRouter();
   const { loggedUserInfo } = useUserStore((state) => state);
 
@@ -50,30 +47,10 @@ export default function SideBar() {
 
       {/* 사이드 바 메뉴 목록 */}
       <div className={style.sideBarMenuList}>
-        <SidebarItem
-          checked={checked}
-          setChecked={setChecked}
-          text={"회원관리"}
-          imgName={"users"}
-        />
-        <SidebarItem
-          checked={checked}
-          setChecked={setChecked}
-          text={"예약관리"}
-          imgName={"reservation"}
-        />
-        <SidebarItem
-          checked={checked}
-          setChecked={setChecked}
-          text={"손익관리"}
-          imgName={"pnl"}
-        />
-        <SidebarItem
-          checked={checked}
-          setChecked={setChecked}
-          text={"AI 알림톡"}
-          imgName={"bell"}
-        />
+        <SidebarItem text={"회원관리"} imgName={"users"} />
+        <SidebarItem text={"예약관리"} imgName={"reservation"} />
+        <SidebarItem text={"손익관리"} imgName={"pnl"} />
+        <SidebarItem text={"AI 알림톡"} imgName={"bell"} />
       </div>
     </div>
   );

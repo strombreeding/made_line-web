@@ -87,20 +87,6 @@ export default function Header() {
                   </div>
                 );
               })}
-              <div
-                style={{
-                  padding: "13px 16px",
-                  borderTop: "1px solid var(--Border-Default-Default, #D9D9D9)",
-                }}
-                onClick={() => alert("지점추가 함수")}
-              >
-                <span
-                  className={style.locationSelectListText}
-                  style={{ fontWeight: 700 }}
-                >
-                  + 지점추가
-                </span>
-              </div>
             </div>
           )}
         </div>
@@ -154,7 +140,7 @@ export default function Header() {
 
         <div
           style={{
-            display: "flex",
+            display: title === "회원관리" ? "flex" : "none",
             flexDirection: "row",
             alignItems: "center",
             borderBottom: "1px solid #C1C7CD",
