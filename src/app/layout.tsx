@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -7,9 +7,15 @@ export const metadata: Metadata = {
   description: "MadeLine 매니지먼트 툴",
 };
 
-const inter = Noto_Sans({
-  subsets: ["latin"],
+const pretendard = localFont({
+  src: "../../public/fonts/PretendardVariable.woff2", // public 경로 기준으로 작성해야 함!
+  display: "swap",
+  variable: "--font-pretendard",
 });
+
+// const inter = Noto_Sans({
+//   subsets: ["latin"],
+// });
 
 export default function RootLayout({
   children,
@@ -17,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.className}>
+    <html lang="en" className={pretendard.variable}>
       <body>{children}</body>
     </html>
   );
