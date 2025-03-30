@@ -20,7 +20,7 @@ function LoginContent() {
 
   const { emailValidation, pwValidation } = useLoginHook();
 
-  const reqUserLogin = async () => {
+  const req = async () => {
     try {
       emailValidation(email);
       pwValidation(pw);
@@ -103,7 +103,7 @@ function LoginContent() {
 
         <EmptyArea height={20} />
 
-        <button onClick={reqUserLogin} id="commonBtn">
+        <button onClick={req} id="commonBtn">
           로그인
         </button>
       </form>

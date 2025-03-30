@@ -15,7 +15,7 @@ export default function AIcoach() {
   const [aiCoach, setAiCoach] = useState("");
   const [input, setInput] = useState("");
 
-  const reqAiCoach = async () => {
+  const req = async () => {
     const res = await fetch("/api/ai/coach", {
       method: "POST",
       body: JSON.stringify({ typeOfCoach, input }),
@@ -91,7 +91,7 @@ export default function AIcoach() {
               borderRadius: 10,
               cursor: "pointer",
             }}
-            onClick={reqAiCoach}
+            onClick={req}
           >
             <span style={{ fontSize: 24, fontWeight: 700, color: "#FFFFFF" }}>
               AI 운동조언 생성하기

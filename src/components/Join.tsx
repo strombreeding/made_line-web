@@ -44,7 +44,7 @@ function JoinContent() {
     }
   };
 
-  const reqUserLogin = async () => {
+  const req = async () => {
     try {
       validationCheck();
 
@@ -147,7 +147,7 @@ function JoinContent() {
 
         <EmptyArea height={20} />
 
-        <button onClick={reqUserLogin} id="commonBtn">
+        <button onClick={req} id="commonBtn">
           회원가입
         </button>
       </form>
