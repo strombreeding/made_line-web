@@ -9,7 +9,7 @@ import {
   getPreviousDate,
   getPreviousMonth,
 } from "../../../app/main/users/utils";
-import { IPnlTableData } from "../../../types/pnl";
+import { IPurchaseTableData } from "../../../types/pnl";
 import Image from "next/image";
 import EmptyArea from "../../EmptyArea";
 
@@ -62,7 +62,7 @@ export default function PurchaseFilter({
   setDashboard,
   setReady,
 }: {
-  setDashboard: (list: IPnlTableData[]) => void;
+  setDashboard: (list: IPurchaseTableData[]) => void;
   setReady: Dispatch<SetStateAction<boolean>>;
 }) {
   const emptyList = ["1일", "1주", "1달"];
