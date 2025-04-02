@@ -13,6 +13,51 @@ import { IPnlTableData } from "../../../types/pnl";
 import Image from "next/image";
 import EmptyArea from "../../EmptyArea";
 
+const dateFormat = (date: string) => {
+  return date.replaceAll("-", ".");
+};
+
+const changeDisplayDate = (
+  e: React.ChangeEvent<HTMLInputElement>,
+  setState: Dispatch<SetStateAction<string>>,
+  setDisplayState: Dispatch<SetStateAction<string>>,
+  setCard: Dispatch<SetStateAction<number>>
+) => {
+  let value = e.target.value;
+
+  // 1. 숫자와 단일 마침표만 허용하고 연속된 마침표 제거
+  value = value.replace(/\.{2,}/g, "."); // 연속된 마침표를 하나로
+  value = value.replace(/[^\d.]/g, "");
+
+  // 최대 2개의 마침표만 허용
+  const dots = value.match(/\./g)?.length || 0;
+  if (dots > 2) {
+    value = value.slice(0, value.lastIndexOf("."));
+  }
+
+  // 4. YYYY.MM.DD 형식 체크 및 제한
+  if (value.length > 10) {
+    value = value.slice(0, 10);
+  }
+
+  // 자동으로 . 추가
+  if (value.length === 4 && !value.includes(".")) {
+    value = value + ".";
+  } else if (value.length === 7 && value.split(".").length === 2) {
+    value = value + ".";
+  }
+
+  // 5. 두 가지 형식으로 저장
+  setDisplayState(value);
+
+  // YYYY.MM.DD 형식이 완성된 경우에만 setStartDate 호출
+  if (value.length === 10 && value.split(".").length === 3) {
+    const dateFormatted = value.replace(/\./g, "-");
+    setState(dateFormatted);
+    setCard(-1);
+  }
+};
+
 export default function PnlTableFilter({
   setDashboard,
   setReady,
@@ -25,6 +70,13 @@ export default function PnlTableFilter({
   const [selectCard, setSelectCard] = useState(1);
   const [startDate, setStartDate] = useState(getPreviousDate(new Date(), 7));
   const [endDate, setEndDate] = useState(formatDate(new Date()));
+  const [startDisplayDate, setStartDisplayDate] = useState(
+    dateFormat(getPreviousDate(new Date(), 7))
+  );
+  const [endDisplayDate, setEndDisplayDate] = useState(
+    dateFormat(formatDate(new Date()))
+  );
+
   const [search, setSearch] = useState("");
 
   const clickCardAction = (i: number) => () => {
@@ -33,14 +85,20 @@ export default function PnlTableFilter({
     if (i === 0) {
       setStartDate(getPreviousDate(newDate, 1));
       setEndDate(formatDate(newDate));
+      setStartDisplayDate(dateFormat(getPreviousDate(newDate, 1)));
+      setEndDisplayDate(dateFormat(formatDate(newDate)));
     }
     if (i === 1) {
       setStartDate(getPreviousDate(newDate, 7));
       setEndDate(formatDate(newDate));
+      setStartDisplayDate(dateFormat(getPreviousDate(newDate, 7)));
+      setEndDisplayDate(dateFormat(formatDate(newDate)));
     }
     if (i === 2) {
       setStartDate(getPreviousMonth(newDate));
       setEndDate(formatDate(newDate));
+      setStartDisplayDate(dateFormat(getPreviousMonth(newDate)));
+      setEndDisplayDate(dateFormat(formatDate(newDate)));
     }
   };
 
@@ -100,10 +158,21 @@ export default function PnlTableFilter({
           );
         })}
       </div>
-      <div
-        className={styles.filterCalendarCard}
-        style={{ backgroundColor: "white" }}
-      >
+      <div className={styles.filterCalendarCard}>
+        <input
+          type="text"
+          placeholder="YYYY.MM.DD"
+          value={startDisplayDate}
+          className={styles.filterCalendarCardInput}
+          onChange={(e) =>
+            changeDisplayDate(
+              e,
+              setStartDate,
+              setStartDisplayDate,
+              setSelectCard
+            )
+          }
+        />
         <input
           style={{
             border: "none",
@@ -115,13 +184,20 @@ export default function PnlTableFilter({
             const value = e.currentTarget.value;
             setSelectCard(-1);
             setStartDate(value);
+            setStartDisplayDate(dateFormat(value));
           }}
         />
       </div>
-      <div
-        className={styles.filterCalendarCard}
-        style={{ backgroundColor: "white" }}
-      >
+      <div className={styles.filterCalendarCard}>
+        <input
+          type="text"
+          placeholder="YYYY.MM.DD"
+          value={endDisplayDate}
+          className={styles.filterCalendarCardInput}
+          onChange={(e) =>
+            changeDisplayDate(e, setEndDate, setEndDisplayDate, setSelectCard)
+          }
+        />
         <input
           style={{
             outline: "none",
@@ -133,6 +209,7 @@ export default function PnlTableFilter({
             const value = e.currentTarget.value;
             setSelectCard(-1);
             setEndDate(value);
+            setEndDisplayDate(dateFormat(value));
           }}
         />
       </div>

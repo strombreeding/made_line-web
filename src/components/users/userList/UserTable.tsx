@@ -165,7 +165,7 @@ export default function UserTable() {
             <span>지점</span>
             <Image src="/images/arrow-down.svg" alt="" width={16} height={16} />
           </div>
-          <div className={styles.tableHeaderColumn160}>
+          <div className={styles.tableHeaderColumn200}>
             <span>잔여회원권</span>
             <Image src="/images/arrow-down.svg" alt="" width={16} height={16} />
           </div>
@@ -175,6 +175,10 @@ export default function UserTable() {
           </div>
           <div className={styles.tableHeaderColumn160}>
             <span>최근 출석일</span>
+            <Image src="/images/arrow-down.svg" alt="" width={16} height={16} />
+          </div>
+          <div className={styles.tableHeaderColumn160}>
+            <span>감량율</span>
             <Image src="/images/arrow-down.svg" alt="" width={16} height={16} />
           </div>
           <div className={styles.tableHeaderColumn160}>
@@ -289,8 +293,10 @@ export default function UserTable() {
                   {item.location}
                 </span>
               </div>
-              <div className={styles.tableBodyColumn160}>
-                <span>{renderMemberships(item.membership.memberships)}</span>
+              <div className={styles.tableBodyColumn200}>
+                <span className={styles.tableBodyColumnText2}>
+                  {renderMemberships(item.membership.memberships)}
+                </span>
               </div>
               <div className={styles.tableBodyColumn160}>
                 <span className={styles.tableBodyColumnText2}>
@@ -300,6 +306,16 @@ export default function UserTable() {
               <div className={styles.tableBodyColumn160}>
                 <span className={styles.tableBodyColumnText2}>
                   {formatDateLatest(item.attendance.lastAttended)}
+                </span>
+              </div>
+              <div className={styles.tableBodyColumn160}>
+                <span className={styles.tableBodyColumnText2}>
+                  {Math.ceil(
+                    ((item.stats.currentWeight - item.stats.goalWeight) /
+                      item.stats.currentWeight) *
+                      100
+                  )}
+                  %
                 </span>
               </div>
               <div className={styles.tableBodyColumn160}>
@@ -494,7 +510,7 @@ export default function UserTable() {
               textDecorationColor: "transparent",
             }}
           >
-            알림톡 발송ㅋ
+            알림톡 발송
           </span>
         </Link>
       </div>

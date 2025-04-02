@@ -29,9 +29,16 @@ export default function Header() {
       // page도 받아와야할듯 하다.
       const res = await fetch("/api/users/profile");
       const data = await res.json();
-      const userData = data.filter(
-        (user: IResUserProps) => user.name === search
+      const userDataByName = data.filter((user: IResUserProps) =>
+        user.name.includes(search)
       );
+      const userDataByPhone = data.filter((user: IResUserProps) =>
+        user.contact.phone
+          .replaceAll("-", "")
+          .includes(search.replaceAll("-", ""))
+      );
+
+      const userData = [...userDataByName, ...userDataByPhone];
       setFindUserList(userData);
     }
   };
@@ -153,7 +160,7 @@ export default function Header() {
         >
           <div
             style={{ display: "flex", alignItems: "center" }}
-            onClick={() => alert(search)}
+            onClick={() => searchAction()}
           >
             <Image src="/images/search.svg" alt="" width={24} height={24} />
           </div>

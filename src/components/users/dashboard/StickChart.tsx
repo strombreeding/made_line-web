@@ -52,37 +52,50 @@ export default function StickChart({
     <div className={styles.graphWrapper}>
       <span className={styles.stickChartTitle}>{title}</span>
       <div
-        onClick={() => {
-          setOpen(!open);
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          justifyContent: "space-between",
         }}
-        className={styles.stickChartDropdown}
       >
-        <span className={styles.stickChartDropdownText}>
-          {data[selectIndex].compareName}
-        </span>
-        <Image src="/images/chevron-down.svg" alt="" width={24} height={24} />
-        {open && (
-          <div className={styles.stickChartDropdownOpen}>
-            {data.map((item, i) => {
-              return (
-                <div
-                  className={styles.stickChartDropdownOpenItem}
-                  onClick={() => {
-                    setSelectIndex(i);
-                    setOpen(false);
-                  }}
-                  key={item.compareName}
-                >
-                  <span
-                    style={{ fontSize: 24, fontWeight: 700, color: "#21272A" }}
+        <div
+          onClick={() => {
+            setOpen(!open);
+          }}
+          className={styles.stickChartDropdown}
+        >
+          <span className={styles.stickChartDropdownText}>
+            {data[selectIndex].compareName}
+          </span>
+          <Image src="/images/chevron-down.svg" alt="" width={24} height={24} />
+          {open && (
+            <div className={styles.stickChartDropdownOpen}>
+              {data.map((item, i) => {
+                return (
+                  <div
+                    className={styles.stickChartDropdownOpenItem}
+                    onClick={() => {
+                      setSelectIndex(i);
+                      setOpen(false);
+                    }}
+                    key={item.compareName}
                   >
-                    {item.compareName}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        )}
+                    <span
+                      style={{
+                        fontSize: 24,
+                        fontWeight: 700,
+                        color: "#21272A",
+                      }}
+                    >
+                      {item.compareName}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>
       <div className={styles.stickChartWrapper}>
         {useList.map((item, i) => {

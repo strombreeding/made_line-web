@@ -8,6 +8,7 @@ export default function HealthRecord() {
     currentPage: 1,
     totalPage: new Array(1).fill(0).map((_, i) => i + 1), // 나중에 지우자.
   });
+  const [editable, setEditable] = useState(false);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
@@ -309,6 +310,64 @@ export default function HealthRecord() {
             height={24}
           />
         </div>
+      </div>
+
+      {/* 버튼 */}
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          flexDirection: "column",
+          alignItems: "flex-end",
+        }}
+      >
+        {!editable && (
+          <div
+            style={{
+              backgroundColor: "#900B09",
+              display: "flex",
+              flexDirection: "row",
+              borderRadius: 10,
+              alignItems: "center",
+              gap: 6.5,
+              padding: 12,
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              setEditable(true);
+              alert("운동기록-수정 기능을 구현하세요");
+            }}
+          >
+            <Image src={"/images/edit.svg"} alt="" width={21} height={21} />
+            <span style={{ fontWeight: 700, fontSize: 16, color: "white" }}>
+              수정
+            </span>
+          </div>
+        )}
+        {editable && (
+          <div style={{ display: "flex", flexDirection: "row", gap: 16 }}>
+            <div
+              style={{
+                backgroundColor: "#900B09",
+                display: "flex",
+                flexDirection: "row",
+                borderRadius: 10,
+                alignItems: "center",
+                gap: 6.5,
+                padding: 12,
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                setEditable(false);
+              }}
+            >
+              <Image src={"/images/save.svg"} alt="" width={21} height={21} />
+              <span style={{ fontWeight: 700, fontSize: 16, color: "white" }}>
+                저장
+              </span>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

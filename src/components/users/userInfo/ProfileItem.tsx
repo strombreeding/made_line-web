@@ -7,10 +7,12 @@ export default function ProfileItem({
   editable = false,
   subListValue = null,
   setValue = () => {},
+  type = null,
 }: {
   title: string;
   value: string;
   editable?: boolean;
+  type?: "date" | null;
   subListValue?: null | Array<string | number>;
   setValue?: Dispatch<SetStateAction<string>>;
 }) {
@@ -79,19 +81,39 @@ export default function ProfileItem({
             />
           </div>
         ) : (
-          <input
-            readOnly={!editable}
-            onChange={(e) => setValue(e.currentTarget.value)}
-            style={{
-              width: "100%",
-              fontSize: 16,
-              fontWeight: 400,
-              color: "#697077",
-              border: "none",
-              outline: "none",
-            }}
-            value={value}
-          />
+          <div style={{ position: "relative" }}>
+            {type === "date" && (
+              <input
+                readOnly={!editable}
+                type={"text"}
+                onChange={(e) => setValue(e.currentTarget.value)}
+                style={{
+                  position: "absolute",
+                  width: "70%",
+                  fontSize: 16,
+                  fontWeight: 400,
+                  color: "#697077",
+                  border: "none",
+                  outline: "none",
+                }}
+                value={value}
+              />
+            )}
+            <input
+              readOnly={!editable}
+              type={type === "date" ? "date" : "text"}
+              onChange={(e) => setValue(e.currentTarget.value)}
+              style={{
+                width: "100%",
+                fontSize: 16,
+                fontWeight: 400,
+                color: "#697077",
+                border: "none",
+                outline: "none",
+              }}
+              value={value}
+            />
+          </div>
         )}
       </div>
     </div>

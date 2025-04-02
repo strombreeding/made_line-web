@@ -8,6 +8,7 @@ export default function Counsel() {
     currentPage: 1,
     totalPage: new Array(1).fill(0).map((_, i) => i + 1), // 나중에 지우자.
   });
+  const [editable, setEditable] = useState(false);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
@@ -294,6 +295,97 @@ export default function Counsel() {
             height={24}
           />
         </div>
+      </div>
+
+      {/* 버튼 */}
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        {!editable && (
+          <>
+            <div
+              style={{
+                backgroundColor: "#900B09",
+                display: "flex",
+                flexDirection: "row",
+                borderRadius: 10,
+                alignItems: "center",
+                gap: 5,
+                padding: 12,
+                paddingRight: 16,
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                alert("상담-추가 기능을 구현하세요");
+              }}
+            >
+              <Image src={"/images/add.png"} alt="" width={21} height={21} />
+              <span style={{ fontWeight: 700, fontSize: 16, color: "white" }}>
+                추가
+              </span>
+            </div>
+            <div
+              style={{
+                backgroundColor: "#900B09",
+                display: "flex",
+                flexDirection: "row",
+                borderRadius: 10,
+                alignItems: "center",
+                gap: 6.5,
+                padding: 12,
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                setEditable(true);
+              }}
+            >
+              <Image src={"/images/edit.svg"} alt="" width={21} height={21} />
+              <span style={{ fontWeight: 700, fontSize: 16, color: "white" }}>
+                수정
+              </span>
+            </div>
+          </>
+        )}
+        {editable && (
+          <>
+            <div></div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                gap: 16,
+              }}
+            >
+              <div
+                style={{
+                  backgroundColor: "#900B09",
+                  display: "flex",
+                  flexDirection: "row",
+                  borderRadius: 10,
+                  alignItems: "center",
+                  gap: 6.5,
+                  padding: 12,
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  setEditable(false);
+                  alert("상담-저장 기능을 구현하세요");
+                }}
+              >
+                <Image src={"/images/save.svg"} alt="" width={21} height={21} />
+                <span style={{ fontWeight: 700, fontSize: 16, color: "white" }}>
+                  저장
+                </span>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

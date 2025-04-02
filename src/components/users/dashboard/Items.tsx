@@ -24,6 +24,7 @@ export default function Items({
           <div
             className={styles.findBtn}
             onClick={() => {
+              // 감량율 평균미달 , 등의 필터를 씌움
               const findIdx = specialOrders.findIndex((item) => item === title);
               console.log(specialOrders, title, specialOrders.indexOf(title));
               setSpecialOrder(findIdx);

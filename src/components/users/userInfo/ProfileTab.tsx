@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { IResUserProps } from "../../../types/users";
 import ProfileItem from "./ProfileItem";
 import Image from "next/image";
@@ -34,6 +34,8 @@ export default function ProfileTab({
     profileProps.contact.email
   );
   const [editJob, setEditJob] = useState(profileProps.job);
+  const [editGender, setEditGender] = useState(profileProps.gender);
+  const [editBirthdate, setEditBirthdate] = useState(profileProps.birthdate);
 
   const reqEditUser = async () => {
     await fetch("/api/users/profile", {
@@ -44,11 +46,39 @@ export default function ProfileTab({
         location: editLocation,
         contact: { phone: editContactPhone, email: editContactEmail },
         job: editJob,
+        gender: editGender,
+        birthdate: editBirthdate,
         // profileImageFile,
       }),
     });
     setProfileEditDone(true);
   };
+
+  useEffect(() => {
+    // 숫자만 남기고 나머지 문자 제거
+    const numbers = editContactPhone.replace(/[^0-9]/g, "");
+
+    // 숫자를 000-0000-0000 형식으로 변환
+    if (numbers.length <= 11) {
+      let formattedNumber = "";
+      if (numbers.length > 3) {
+        formattedNumber += numbers.substring(0, 3) + "-";
+        if (numbers.length > 7) {
+          formattedNumber +=
+            numbers.substring(3, 7) + "-" + numbers.substring(7);
+        } else {
+          formattedNumber += numbers.substring(3);
+        }
+      } else {
+        formattedNumber = numbers;
+      }
+
+      // 포맷된 번호가 현재 값과 다른 경우에만 업데이트
+      if (formattedNumber !== editContactPhone) {
+        setEditContactPhone(formattedNumber);
+      }
+    }
+  }, [editContactPhone]);
 
   return (
     <div
@@ -89,11 +119,20 @@ export default function ProfileTab({
       <div style={{ display: "flex", flexDirection: "row", gap: 10 }}>
         <ProfileItem
           title="생년월일"
-          value={`${parseDateAndCalculateAge(profileProps.birthdate).str} (만${
-            parseDateAndCalculateAge(profileProps.birthdate).age
+          value={`${parseDateAndCalculateAge(editBirthdate).str} (만${
+            parseDateAndCalculateAge(editBirthdate).age
           }세)`}
+          editable={editable}
+          setValue={setEditBirthdate}
+          type="date"
         />
-        <ProfileItem title="성별" value={profileProps.gender} />
+        <ProfileItem
+          title="성별"
+          value={editGender}
+          editable={editable}
+          setValue={setEditGender}
+          subListValue={["남성", "여성"]}
+        />
         <ProfileItem title="아이디" value={profileProps.account.id} />
       </div>
       <div style={{ display: "flex", flexDirection: "row", gap: 10 }}>
@@ -114,11 +153,14 @@ export default function ProfileTab({
       <div style={{ display: "flex", flexDirection: "row", gap: 10 }}>
         <ProfileItem
           title="최초 등록 일자"
-          value={profileProps.membership.registeredAt}
+          value={profileProps.membership.registeredAt.replaceAll("-", ".")}
         />
         <ProfileItem
           title="최근 재등록 일자"
-          value={profileProps.membership.lastReRegisteredAt}
+          value={profileProps.membership.lastReRegisteredAt.replaceAll(
+            "-",
+            "."
+          )}
         />
         <ProfileItem
           title="현재 회원권 만료일"

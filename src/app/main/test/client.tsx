@@ -47,7 +47,7 @@ const CombinedGraph = () => {
       style={{
         backgroundColor: "white",
         display: "flex",
-        flex: 1,
+        flex: 2,
         alignItems: "center",
         flexDirection: "column",
         width: 500,
@@ -57,8 +57,16 @@ const CombinedGraph = () => {
         borderRadius: 10,
       }}
     >
-      <span>지난 1년</span>
-      <span style={{ fontSize: 24, fontWeight: 700 }}>전체 매출 현황</span>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignSelf: "flex-start",
+        }}
+      >
+        <span>지난 1년</span>
+        <span style={{ fontSize: 24, fontWeight: 700 }}>전체 매출 현황</span>
+      </div>
       <ComposedChart
         width={430}
         height={280}
@@ -122,7 +130,8 @@ const CombinedGraph = () => {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-around",
-          width: "100%",
+          width: 430,
+          paddingTop: 30,
         }}
       >
         <div

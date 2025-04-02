@@ -43,8 +43,10 @@ export default function AIcoach() {
           />
           <EmptyArea height={18} />
           <span style={{ fontWeight: 400, fontSize: 14, color: "#21272A" }}>
-            AI 코칭 유형 선택
+            새로운 정보 입력
           </span>
+          <EmptyArea height={8} />
+
           <textarea
             style={{
               width: "100%",

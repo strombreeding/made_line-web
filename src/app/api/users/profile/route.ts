@@ -18,6 +18,8 @@ export async function PUT(req: NextRequest) {
     location,
     contact,
     job,
+    gender,
+    birthdate,
     // profileImageFile
   } = await req.json();
   const filePath = path.join(process.cwd(), "user.json"); // 루트 디렉토리의 user.json 경로
@@ -33,6 +35,8 @@ export async function PUT(req: NextRequest) {
     userData[userIndex].contact.phone = contact.phone;
     userData[userIndex].contact.email = contact.email;
     userData[userIndex].job = job;
+    userData[userIndex].gender = gender;
+    userData[userIndex].birthdate = birthdate;
     // userData[userIndex].profileImageFile = profileImageFile;
   }
   const jsonSave = JSON.stringify(userData);

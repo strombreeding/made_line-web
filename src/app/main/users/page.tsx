@@ -56,8 +56,8 @@ export default function Users() {
                   itemList={userDashboard.totalMemberCharts}
                   subtitle={
                     totalMembers < 1000
-                      ? totalMembers
-                      : `${(totalMembers / 1000).toFixed(1)}k`
+                      ? totalMembers + "명"
+                      : `${(totalMembers / 1000).toFixed(1)}k 명`
                   }
                   itemName={"명"}
                   isDonut
@@ -67,8 +67,8 @@ export default function Users() {
                   itemList={userDashboard.totalUsedMemberCharts}
                   subtitle={
                     totalUsedMembers < 1000
-                      ? totalUsedMembers
-                      : `${(totalUsedMembers / 1000).toFixed(1)}k`
+                      ? totalUsedMembers + "명"
+                      : `${(totalUsedMembers / 1000).toFixed(1)}k 명`
                   }
                   itemName={"명"}
                   isDonut={false}

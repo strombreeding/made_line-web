@@ -148,7 +148,6 @@ export default function UserInfo() {
               position: "relative",
               width: "100%",
               height: "100%",
-              backgroundColor: "red",
             }}
           >
             <Image
@@ -197,8 +196,8 @@ export default function UserInfo() {
                 </span>
               </div>
               <span style={{ fontSize: 16, fontWeight: 500, color: "#1E1E1E" }}>
-                {profileProps.membership.level}|{profileProps.membership.type}|
-                {profileProps.location}
+                {profileProps.membership.level} | {profileProps.membership.type}{" "}
+                | {profileProps.location}
               </span>
             </div>
           </div>
