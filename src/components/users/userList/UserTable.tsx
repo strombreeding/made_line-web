@@ -286,6 +286,7 @@ export default function UserTable() {
                     height={32}
                   />
                 </div>
+                {/* <EmptyArea width={100} /> */}
                 <span className={styles.tableBodyColumnText1}>{item.name}</span>
               </div>
               <div className={styles.tableBodyColumn140}>

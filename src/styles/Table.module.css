@@ -28,7 +28,7 @@
 }
 
 .tableHeaderColumn140 {
-  gap: 8;
+  gap: 8px;
   align-items: center;
   flex-direction: row;
   display: flex;
@@ -38,7 +38,7 @@
 }
 
 .tableHeaderColumn160 {
-  gap: 8;
+  gap: 8px;
   align-items: center;
   flex-direction: row;
   display: flex;
@@ -48,7 +48,7 @@
 }
 
 .tableHeaderColumn200 {
-  gap: 8;
+  gap: 8px;
   align-items: center;
   flex-direction: row;
   display: flex;
@@ -93,7 +93,7 @@
 }
 
 .tableBodyColumn140 {
-  gap: 8;
+  gap: 8px;
   align-items: center;
   flex-direction: row;
   display: flex;
@@ -104,7 +104,7 @@
 }
 
 .tableBodyColumn160 {
-  gap: 8;
+  gap: 8px;
   align-items: center;
   flex-direction: row;
   display: flex;
@@ -116,7 +116,7 @@
   justify-content: flex-start;
 }
 .tableBodyColumn200 {
-  gap: 8;
+  gap: 8px;
   align-items: center;
   flex-direction: row;
   display: flex;
