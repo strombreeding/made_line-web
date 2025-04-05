@@ -3,7 +3,6 @@ import ModalContainer from "../BackgroundBlur";
 import ProfileItem from "../users/userInfo/ProfileItem";
 import { useEffect, useState } from "react";
 import { useGlobalStore } from "../../store/globalStore";
-import { parseDateAndCalculateAge } from "../users/userInfo/ProfileTab";
 
 const options = [
   "남양주 다산점",
@@ -22,7 +21,7 @@ export default function NewAccount() {
   const { setModalVisible } = useGlobalStore((state) => state);
 
   const reqCreateUser = async () => {
-    const res = await fetch("/api/users/profile", {
+    await fetch("/api/users/profile", {
       method: "POST",
       body: JSON.stringify({
         name: editName,

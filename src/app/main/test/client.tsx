@@ -35,7 +35,6 @@ const CombinedGraph = () => {
   const maxValue = Math.max(
     ...itemList.map((item) => Math.max(item.매출, item.영업이익))
   );
-  const screenWidth = window.innerWidth;
   // 데이터 변환 (선수금 비율을 기반으로 꺾은선 그래프 높이를 계산)
   const processedData = itemList.map((item) => ({
     ...item,

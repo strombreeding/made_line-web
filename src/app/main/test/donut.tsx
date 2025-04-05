@@ -76,8 +76,6 @@ function DonutChart({
     }
   }, []);
 
-  const screenWidth = window.innerWidth;
-
   return (
     <div className={styles.itemFrame}>
       <span className={styles.title}>{title}</span>
