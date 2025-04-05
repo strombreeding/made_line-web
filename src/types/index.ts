@@ -60,7 +60,7 @@ export interface IReqUserListProps {
 }
 
 export interface IUserListProps {
-  id: number;
+  id: number | string;
   name: string;
   location: string;
   memberships: string[];

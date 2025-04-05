@@ -182,7 +182,7 @@
 }
 .filterCard {
   display: flex;
-  width: 55px;
+  /* width: 55px; */
   /* max-width: 55px; */
   border-radius: 10px;
   padding: 9px 15px;
@@ -210,4 +210,12 @@
   font-size: 16px;
   font-weight: 400;
   color: #697077;
+}
+
+.filterCardText {
+  font-size: 16px;
+  font-weight: 400;
+  color: #697077;
+  min-width: 27px;
+  text-align: center;
 }

@@ -84,7 +84,8 @@ export default function ProfileItem({
           <div style={{ position: "relative" }}>
             {type === "date" && (
               <input
-                readOnly={!editable}
+                readOnly
+                // readOnly={!editable}
                 type={"text"}
                 onChange={(e) => setValue(e.currentTarget.value)}
                 style={{

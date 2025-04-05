@@ -81,7 +81,7 @@ export default function AlarmTalk() {
                 maxWidth: 191,
               }}
             >
-              {item.date}
+              {item.date.replaceAll("-", ".")}
             </span>
 
             <span

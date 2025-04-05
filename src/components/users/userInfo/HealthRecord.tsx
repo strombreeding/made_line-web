@@ -149,7 +149,7 @@ export default function HealthRecord() {
                 maxWidth: 132,
               }}
             >
-              {item.date}
+              {item.date.replaceAll("-", ".")}
             </span>
             <span
               style={{

@@ -144,16 +144,7 @@ export default function PurchaseFilter({
                     : "",
               }}
             >
-              <span
-                style={{
-                  fontSize: 16,
-                  fontWeight: 400,
-                  color: "#697077",
-                  minWidth: 27,
-                }}
-              >
-                {item}
-              </span>
+              <span className={styles.filterCardText}>{item}</span>
             </div>
           );
         })}

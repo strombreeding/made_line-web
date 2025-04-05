@@ -139,7 +139,7 @@ export default function Counsel() {
                 maxWidth: 132,
               }}
             >
-              {item.date}
+              {item.date.replaceAll("-", ".")}
             </span>
 
             <span

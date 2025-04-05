@@ -36,6 +36,12 @@ export default function ProfileTab({
   const [editJob, setEditJob] = useState(profileProps.job);
   const [editGender, setEditGender] = useState(profileProps.gender);
   const [editBirthdate, setEditBirthdate] = useState(profileProps.birthdate);
+  const [editMemberType, setEditMemberType] = useState(
+    profileProps.membership.type
+  );
+  const [editFirstRegisteredAt, setEditFirstRegisteredAt] = useState(
+    profileProps.membership.registeredAt
+  );
 
   const reqEditUser = async () => {
     await fetch("/api/users/profile", {
@@ -48,6 +54,10 @@ export default function ProfileTab({
         job: editJob,
         gender: editGender,
         birthdate: editBirthdate,
+        membership: {
+          type: editMemberType,
+          registeredAt: editFirstRegisteredAt,
+        },
         // profileImageFile,
       }),
     });
@@ -147,13 +157,22 @@ export default function ProfileTab({
           value={editJob}
           setValue={setEditJob}
         />
-        <ProfileItem title="회원구분" value={profileProps.membership.type} />
+        <ProfileItem
+          title="회원구분"
+          value={editMemberType}
+          editable={editable}
+          setValue={setEditMemberType}
+          subListValue={["등록회원", "종료회원", "체험회원"]}
+        />
         <ProfileItem title="회원등급" value={profileProps.membership.level} />
       </div>
       <div style={{ display: "flex", flexDirection: "row", gap: 10 }}>
         <ProfileItem
           title="최초 등록 일자"
-          value={profileProps.membership.registeredAt.replaceAll("-", ".")}
+          value={editFirstRegisteredAt.replaceAll("-", ".")}
+          editable={editable}
+          setValue={setEditFirstRegisteredAt}
+          type="date"
         />
         <ProfileItem
           title="최근 재등록 일자"
@@ -256,7 +275,7 @@ export default function ProfileTab({
   );
 }
 
-function parseDateAndCalculateAge(inputDate: string) {
+export function parseDateAndCalculateAge(inputDate: string) {
   // 현재 날짜 가져오기
   const today = new Date();
 

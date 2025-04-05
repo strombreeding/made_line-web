@@ -146,17 +146,7 @@ export default function PnlTableFilter({
                     : "1px solid var(--Border-Default-Default, #FFFFFF)",
               }}
             >
-              <span
-                style={{
-                  textAlign: "center",
-                  fontSize: 16,
-                  fontWeight: 400,
-                  color: "#697077",
-                  minWidth: 27,
-                }}
-              >
-                {item}
-              </span>
+              <span className={styles.filterCardText}>{item}</span>
             </div>
           );
         })}

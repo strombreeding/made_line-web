@@ -366,7 +366,7 @@ export default function Membership() {
                 maxWidth: 132,
               }}
             >
-              {item.date}
+              {item.date.replaceAll("-", ".")}
             </span>
             <span
               style={{

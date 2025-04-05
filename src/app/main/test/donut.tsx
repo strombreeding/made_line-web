@@ -76,6 +76,8 @@ function DonutChart({
     }
   }, []);
 
+  const screenWidth = window.innerWidth;
+
   return (
     <div className={styles.itemFrame}>
       <span className={styles.title}>{title}</span>
@@ -83,11 +85,13 @@ function DonutChart({
         {subtitle}
       </span>
 
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
         <PieChart
           style={{ marginTop: -10, marginBottom: -15 }}
-          width={300}
+          width={300 * 0.8}
           height={280}
+          // width={300 * 0.8}
+          // height={280 * 0.8}
         >
           <Pie
             animationDuration={300}

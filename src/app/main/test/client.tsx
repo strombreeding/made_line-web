@@ -35,7 +35,7 @@ const CombinedGraph = () => {
   const maxValue = Math.max(
     ...itemList.map((item) => Math.max(item.매출, item.영업이익))
   );
-
+  const screenWidth = window.innerWidth;
   // 데이터 변환 (선수금 비율을 기반으로 꺾은선 그래프 높이를 계산)
   const processedData = itemList.map((item) => ({
     ...item,
@@ -50,9 +50,10 @@ const CombinedGraph = () => {
         flex: 2,
         alignItems: "center",
         flexDirection: "column",
-        width: 500,
         height: 447,
-        padding: "24px 30px 40px 30px",
+        // width: 500,
+        // height: 447,
+        padding: "22px 30px 40px 30px",
         boxShadow: "0px 0px 4px 0px #00000040",
         borderRadius: 10,
       }}
@@ -62,14 +63,19 @@ const CombinedGraph = () => {
           display: "flex",
           flexDirection: "column",
           alignSelf: "flex-start",
+          gap: 6,
         }}
       >
-        <span>지난 1년</span>
+        <span style={{ fontSize: 16, fontWeight: 400, color: "#697077" }}>
+          지난 1년
+        </span>
         <span style={{ fontSize: 24, fontWeight: 700 }}>전체 매출 현황</span>
       </div>
       <ComposedChart
-        width={430}
+        // width={screenWidth * 0.3}
         height={280}
+        width={430}
+        // height={280}
         data={processedData}
         margin={{
           top: 50,

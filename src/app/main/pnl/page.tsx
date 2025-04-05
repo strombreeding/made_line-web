@@ -39,7 +39,6 @@ export default function PnL() {
           <PnlFilter setReady={setReady} setDashboard={setPnlDashboard} />
           {ready && (
             <>
-              {/* <CombinedGraph /> */}
               <div style={{ display: "flex", flexDirection: "row", gap: 15 }}>
                 <CombinedGraph />
                 <DonutChart

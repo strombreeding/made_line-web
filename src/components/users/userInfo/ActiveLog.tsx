@@ -82,7 +82,7 @@ export default function ActiveLog() {
                 maxWidth: 191,
               }}
             >
-              {item.date}
+              {item.date.replaceAll("-", ".")}
             </span>
 
             <span

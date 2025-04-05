@@ -1,8 +1,9 @@
 import Image from "next/image";
 import ModalContainer from "../BackgroundBlur";
 import ProfileItem from "../users/userInfo/ProfileItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGlobalStore } from "../../store/globalStore";
+import { parseDateAndCalculateAge } from "../users/userInfo/ProfileTab";
 
 const options = [
   "남양주 다산점",
@@ -19,6 +20,51 @@ export default function NewAccount() {
   const [editBirth, setEditBirth] = useState("");
 
   const { setModalVisible } = useGlobalStore((state) => state);
+
+  const reqCreateUser = async () => {
+    const res = await fetch("/api/users/profile", {
+      method: "POST",
+      body: JSON.stringify({
+        name: editName,
+        contact: { phone: editPhone, email: editEmail },
+        birthdate: editBirth.replaceAll(".", "-"),
+        location: editLocation,
+      }),
+    });
+  };
+
+  useEffect(() => {
+    // 전화번호 입력값에서 숫자만 추출
+    const digits = editPhone.replace(/\D/g, "");
+
+    // 숫자가 있을 경우에만 포맷팅 진행
+    if (digits.length > 0) {
+      // 000-0000-0000 형식으로 변환
+      let formattedNumber = "";
+
+      if (digits.length <= 3) {
+        formattedNumber = digits;
+      } else if (digits.length <= 7) {
+        formattedNumber = digits.slice(0, 3) + "-" + digits.slice(3);
+      } else {
+        formattedNumber =
+          digits.slice(0, 3) +
+          "-" +
+          digits.slice(3, 7) +
+          "-" +
+          digits.slice(7, 11);
+      }
+
+      // 입력 값이 이미 포맷팅된 값과 다를 경우에만 업데이트
+      if (formattedNumber !== editPhone) {
+        setEditPhone(formattedNumber);
+      }
+    }
+  }, [editPhone]);
+
+  useEffect(() => {
+    setEditBirth(editBirth.replaceAll("-", "."));
+  }, [editBirth]);
 
   return (
     <ModalContainer modalName="newUser">
@@ -62,10 +108,11 @@ export default function NewAccount() {
           setValue={setEditPhone}
         />
         <ProfileItem
-          editable
           title="생년월일"
           value={editBirth}
+          editable
           setValue={setEditBirth}
+          type="date"
         />
         <ProfileItem
           editable
@@ -88,7 +135,7 @@ export default function NewAccount() {
             cursor: "pointer",
           }}
           onClick={() => {
-            alert("이곳에 신규 등록 로직");
+            reqCreateUser();
             setModalVisible("");
           }}
         >

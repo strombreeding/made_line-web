@@ -212,7 +212,7 @@ export default function Payment() {
                 maxWidth: 132,
               }}
             >
-              {item.date}
+              {item.date.replaceAll("-", ".")}
             </span>
             <span
               style={{

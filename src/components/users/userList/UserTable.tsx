@@ -282,8 +282,8 @@ export default function UserTable() {
                   <Image
                     src={"/images/skeleton-user.svg"}
                     alt=""
-                    width={32}
-                    height={32}
+                    width={24}
+                    height={24}
                   />
                 </div>
                 {/* <EmptyArea width={100} /> */}
