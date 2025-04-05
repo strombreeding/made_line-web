@@ -69,11 +69,10 @@ export default function NewAccount() {
     <ModalContainer modalName="newUser">
       <div
         style={{
-          position: "absolute",
+          position: "relative",
           backgroundColor: "white",
           padding: 30,
           borderRadius: 10,
-          minWidth: 400,
           display: "flex",
           flexDirection: "column",
           gap: 24,
