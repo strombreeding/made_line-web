@@ -45,9 +45,9 @@ export default function PnlTableFilter({
     const newDate = new Date();
     setSelectCard(i);
     if (i === 0) {
-      setStartDate(getPreviousDate(newDate, 1));
+      setStartDate(formatDate(newDate));
       setEndDate(formatDate(newDate));
-      setStartDisplayDate(dateFormat(getPreviousDate(newDate, 1)));
+      setStartDisplayDate(dateFormat(formatDate(newDate)));
       setEndDisplayDate(dateFormat(formatDate(newDate)));
     }
     if (i === 1) {
